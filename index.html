@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Software Engineer</title>
+    <meta name="description" content="Portfolio of a software engineer showcasing projects, skills, and blog posts.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">Port<span style="color: var(--primary-color)">folio.</span></a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <br><span class="highlight">Majd Almotaem</span></h1>
+                <p>A passionate Softwareentwickler building liquid glassy interfaces and modern web applications. Welcome to my creative space.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">Explore My Work</a>
+                    <a href="assets/resume.pdf" class="btn btn-outline" download>Download Resume</a>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img src="assets/images/hero_profile_1777468149570.png" alt="Profile Picture">
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <div id="projects-container" class="projects-grid">
+                <!-- Projects injected by JS -->
+            </div>
+            <div class="view-all-container">
+                <a href="#" class="btn btn-outline">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Tech Stack & Skills</h2>
+            <div id="skills-container">
+                <!-- Skills injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div id="certificates-container" class="certificates-list">
+                <!-- Certificates injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="container">
+            <h2>Latest Insights</h2>
+            <div id="blogs-container" class="blog-grid">
+                <!-- Blogs injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-container glass-card">
+                <div class="contact-info">
+                    <h3>Let's work together</h3>
+                    <p>I'm currently available for freelance work and full-time opportunities. If you have a project that you want to get started, think you need my help with something or just fancy saying hey, then get in touch.</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/majdAlmotaem" target="_blank" class="social-link"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://linkedin.com/in/majdAlmotaem" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="mailto:majdalmotaem1998@gmail.com" class="social-link"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent!');">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.</p>
+        </div>
+    </footer>
+
+    <!-- Main JS (Module) -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
