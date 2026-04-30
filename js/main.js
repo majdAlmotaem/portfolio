@@ -1,7 +1,14 @@
 import { portfolioData } from './data.js';
 
+const getHue = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash) % 360;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-    
     // 1. Sticky Navbar
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -16,12 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectsContainer = document.getElementById('projects-container');
     if (projectsContainer) {
         let projectsHTML = '';
-        portfolioData.projects.forEach(project => {
-            const statusClass = project.status === 'completed' ? 'status-completed' : 
-                                project.status === 'in-progress' ? 'status-in-progress' : 'status-canceled';
-            
-            const techTags = project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
-            
+        const limit = projectsContainer.getAttribute('data-page') === 'all-projects' ? portfolioData.projects.length : 3;
+        const projectsToRender = portfolioData.projects.slice(0, limit);
+
+        projectsToRender.forEach(project => {
+            const statusClass = project.status === 'completed' ? 'status-completed' :
+                project.status === 'in-progress' ? 'status-in-progress' : 'status-canceled';
+
+            const techTags = project.techStack.map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech.name)};"><i class="${tech.iconClass}"></i> ${tech.name}</span>`).join('');
+
             projectsHTML += `
                 <div class="glass-card project-card">
                     <img src="${project.image}" alt="${project.title}" class="project-img">
@@ -30,10 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h3 class="project-title">${project.title}</h3>
                             <span class="project-status ${statusClass}">${project.status.replace('-', ' ')}</span>
                         </div>
+                        <p class="project-description" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; flex-grow: 1;">${project.description}</p>
                         <div class="project-tech">
                             ${techTags}
                         </div>
-                        <a href="#" class="project-link view-project-btn" data-id="${project.id}">View Project <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="project-details.html?id=${project.id}" class="project-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             `;
@@ -44,19 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Render Skills
     const skillsContainer = document.getElementById('skills-container');
     if (skillsContainer) {
-        let skillsHTML = '';
+        let skillsHTML = '<div class="skills-table">';
         portfolioData.skills.forEach(categoryGroup => {
             skillsHTML += `
-                <div class="skill-category" style="margin-bottom: 3rem;">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--accent-color); font-size: 1.5rem;">${categoryGroup.category}</h3>
-                    <div class="skills-grid">
+                <div class="skill-row">
+                    <div class="skill-category-title">
+                        <i class="fa-solid fa-layer-group" style="color: var(--accent-color);"></i> ${categoryGroup.category}
+                    </div>
+                    <div class="skill-badges">
             `;
             categoryGroup.items.forEach(skill => {
                 skillsHTML += `
-                    <div class="glass-card skill-card">
-                        <i class="${skill.iconClass}"></i>
-                        <span class="skill-name">${skill.name}</span>
-                    </div>
+                        <span class="tech-badge" style="--badge-hue: ${getHue(skill.name)};">
+                            <i class="${skill.iconClass}"></i> ${skill.name}
+                        </span>
                 `;
             });
             skillsHTML += `
@@ -64,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         });
+        skillsHTML += '</div>';
         skillsContainer.innerHTML = skillsHTML;
     }
 
@@ -91,71 +104,164 @@ document.addEventListener('DOMContentLoaded', () => {
     const blogsContainer = document.getElementById('blogs-container');
     if (blogsContainer) {
         let blogsHTML = '';
-        portfolioData.blogs.forEach(blog => {
+        const limit = blogsContainer.getAttribute('data-page') === 'all-blogs' ? portfolioData.blogs.length : 3;
+        const blogsToRender = portfolioData.blogs.slice(0, limit);
+
+        blogsToRender.forEach(blog => {
             blogsHTML += `
-                <div class="glass-card blog-card">
-                    <span class="blog-date">${blog.date}</span>
-                    <h3 class="blog-title">${blog.title}</h3>
-                    <p class="blog-excerpt">${blog.excerpt}</p>
-                    <a href="${blog.link}" class="read-more">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="glass-card blog-card" style="display: flex; flex-direction: column;">
+                    <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <span class="blog-date" style="color: var(--accent-color); font-weight: 600; font-size: 0.9rem;">${blog.date}</span>
+                    <h3 class="blog-title" style="margin: 0.5rem 0;">${blog.title}</h3>
+                    <p class="blog-excerpt" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.4; flex-grow: 1;">${blog.excerpt}</p>
+                    <a href="blog-details.html?id=${blog.id}" class="read-more" style="margin-top: auto; color: var(--accent-color); font-weight: 600;">Read Article <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             `;
         });
         blogsContainer.innerHTML = blogsHTML;
     }
 
-    // 6. Modal Logic
-    const modal = document.getElementById('project-modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeModalBtn = document.querySelector('.close-modal');
+    // 6. Project Details Page Logic
+    const projectDetailsContainer = document.getElementById('project-details-container');
+    if (projectDetailsContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = parseInt(urlParams.get('id'));
+        const project = portfolioData.projects.find(p => p.id === projectId);
 
-    if (modal && modalBody) {
-        // Open Modal
-        document.querySelectorAll('.view-project-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const projectId = parseInt(btn.getAttribute('data-id'));
-                const project = portfolioData.projects.find(p => p.id === projectId);
-                
-                if (project) {
-                    const statusClass = project.status === 'completed' ? 'status-completed' : 
-                                    project.status === 'in-progress' ? 'status-in-progress' : 'status-canceled';
-                    const techTags = project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+        if (project) {
+            const statusClass = project.status === 'completed' ? 'status-completed' :
+                project.status === 'in-progress' ? 'status-in-progress' : 'status-canceled';
+            const techTags = project.techStack.map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech.name)}; font-size: 0.9rem; padding: 0.4rem 1rem;"><i class="${tech.iconClass}" style="margin-right: 0.5rem;"></i> ${tech.name}</span>`).join('');
+            const newTechTags = (project.newTechLearned || []).map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech)};">${tech}</span>`).join('');
+
+            // Image gallery
+            let imagesHTML = '';
+            if (project.images && project.images.length > 0) {
+                imagesHTML = `<div class="project-gallery" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 2rem;">`;
+                project.images.forEach(img => {
+                    imagesHTML += `<img src="${img}" alt="${project.title}" style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">`;
+                });
+                imagesHTML += `</div>`;
+            } else {
+                imagesHTML = `<img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">`;
+            }
+
+            projectDetailsContainer.innerHTML = `
+                <div class="glass-card" style="padding: 3rem; margin-top: 2rem;">
+                    ${imagesHTML}
                     
-                    modalBody.innerHTML = `
-                        <div class="modal-body-content">
-                            <h2 style="text-align: left; margin-bottom: 0;">${project.title}</h2>
-                            <img src="${project.image}" alt="${project.title}" class="modal-img">
-                            <div class="project-header" style="margin-bottom: 0;">
-                                <span class="project-status ${statusClass}">${project.status.replace('-', ' ')}</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <h1 style="font-size: 2.5rem; margin-bottom: 0;">${project.title}</h1>
+                        <span class="project-status ${statusClass}" style="font-size: 1rem;">${project.status.replace('-', ' ')}</span>
+                    </div>
+
+                    <div class="project-tech" style="margin-bottom: 2rem; gap: 1rem;">
+                        ${techTags}
+                    </div>
+                    
+                    <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
+                        <h4><i class="fa-solid fa-circle-question"></i> The Problem</h4>
+                        <p class="modal-desc">${project.problem || project.description || 'No description available.'}</p>
+                    </div>
+                    <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
+                        <h4><i class="fa-solid fa-lightbulb"></i> The Solution</h4>
+                        <p class="modal-desc">${project.solution || 'See GitHub for details.'}</p>
+                    </div>
+                    <div class="modal-desc-section" style="margin-bottom: 2rem;">
+                        <h4><i class="fa-solid fa-graduation-cap"></i> Lessons Learned</h4>
+                        <p class="modal-desc">${project.lessonsLearned || 'See GitHub for details.'}</p>
+                        ${newTechTags ? `
+                            <div style="margin-top: 1rem;">
+                                <h5 style="margin-bottom: 0.5rem; color: var(--text-color);">New Tech Learned:</h5>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    ${newTechTags}
+                                </div>
                             </div>
-                            <div class="project-tech">
-                                ${techTags}
-                            </div>
-                            <p class="modal-desc">${project.description || 'No description available.'}</p>
-                            <div class="modal-actions">
-                                ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Repo</a>` : ''}
-                                <a href="${project.link}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                        ` : ''}
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Repo</a>` : ''}
+                        <a href="${project.link}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                        <a href="projects.html" class="btn btn-outline" style="margin-left: auto;">Back to Projects</a>
+                    </div>
+                </div>
+            `;
+        } else {
+            projectDetailsContainer.innerHTML = `
+                <div class="glass-card" style="padding: 3rem; text-align: center;">
+                    <h2>Project not found.</h2>
+                    <a href="projects.html" class="btn btn-primary" style="margin-top: 1rem;">Back to Projects</a>
+                </div>
+            `;
+        }
+    }
+
+    // 7. Blog Details Page Logic
+    const blogDetailsContainer = document.getElementById('blog-details-container');
+    if (blogDetailsContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = parseInt(urlParams.get('id'));
+        const blog = portfolioData.blogs.find(b => b.id === blogId);
+
+        if (blog) {
+            const tagsHTML = (blog.tags || []).map(tag => `<span class="tech-badge" style="--badge-hue: ${getHue(tag)}; font-size: 0.9rem; padding: 0.4rem 1rem;">#${tag}</span>`).join('');
+
+            blogDetailsContainer.innerHTML = `
+                <div class="glass-card" style="padding: 3rem; margin-top: 2rem;">
+                    <img src="${blog.image}" alt="${blog.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="color: var(--accent-color); font-weight: 600; display: block; margin-bottom: 0.5rem;">${blog.date}</span>
+                        <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--text-color);">${blog.title}</h1>
+                    </div>
+
+                    <div class="blog-content" style="color: var(--text-muted); line-height: 1.8; font-size: 1.1rem; margin-bottom: 2rem;">
+                        ${blog.content}
+                    </div>
+                    
+                    ${tagsHTML ? `
+                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <h5 style="margin-bottom: 1rem; color: var(--text-color);">Topics:</h5>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                ${tagsHTML}
                             </div>
                         </div>
-                    `;
-                    modal.classList.add('show');
-                }
-            });
-        });
+                    ` : ''}
 
-        // Close Modal
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => {
-                modal.classList.remove('show');
-            });
+                    <div style="margin-top: 2rem; display: flex;">
+                        <a href="blogs.html" class="btn btn-outline" style="margin-left: auto;">Back to Blogs</a>
+                    </div>
+                </div>
+            `;
+        } else {
+            blogDetailsContainer.innerHTML = `
+                <div class="glass-card" style="padding: 3rem; text-align: center;">
+                    <h2>Blog post not found.</h2>
+                    <a href="blogs.html" class="btn btn-primary" style="margin-top: 1rem;">Back to Blogs</a>
+                </div>
+            `;
         }
-
-        // Close on outside click
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
     }
+
+    // 8. Scroll to Top Button
+    const scrollTopBtn = document.createElement('div');
+    scrollTopBtn.classList.add('scroll-top-btn');
+    scrollTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+    document.body.appendChild(scrollTopBtn);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
