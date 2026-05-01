@@ -210,37 +210,26 @@ nav.scrolled {
 
 .hero-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-areas: 
+    "heading image"
+    "details image";
+  gap: 0 4rem;
   align-items: center;
 }
 
-.hero-text h1 {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  line-height: 1.1;
+.hero-heading {
+  grid-area: heading;
+  align-self: end;
 }
 
-.hero-text .highlight {
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-text p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-  max-width: 500px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
+.hero-details {
+  grid-area: details;
+  align-self: start;
 }
 
 .hero-image-container {
+  grid-area: image;
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
@@ -252,6 +241,26 @@ nav.scrolled {
   animation: morph 8s ease-in-out infinite;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
+}
+
+.hero-heading h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.hero-heading .highlight {
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-details p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 500px;
 }
 
 @keyframes morph {
@@ -645,10 +654,23 @@ footer {
 @media (max-width: 900px) {
   .hero-content {
     grid-template-columns: 1fr;
+    grid-template-areas: 
+      "heading"
+      "image"
+      "details";
     text-align: center;
+    gap: 2rem;
   }
 
-  .hero-text p {
+  .hero-heading {
+    align-self: center;
+  }
+
+  .hero-details {
+    align-self: center;
+  }
+
+  .hero-details p {
     margin: 0 auto 2rem;
   }
 
@@ -700,7 +722,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .hero-text h1 {
+  .hero-heading h1 {
     font-size: 3rem;
   }
 
