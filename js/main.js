@@ -310,4 +310,22 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = `mailto:majdalmotaem1998@gmail.com?subject=${subject}&body=${body}`;
         });
     }
+
+    // 10. Mobile Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+    }
 });
