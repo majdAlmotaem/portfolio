@@ -22,10 +22,10 @@
             <a href="#" class="logo">Port<span style="color: var(--primary-color)">folio.</span></a>
             <div class="nav-links">
                 <a href="#home">Home</a>
-                <a href="projects.html">Projects</a>
+                <a href="#projects">Projects</a>
                 <a href="#skills">Skills</a>
                 <a href="#certificates">Certificates</a>
-                <a href="blogs.html">Blog</a>
+                <a href="#blog">Blog</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -40,6 +40,15 @@
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">Explore My Work</a>
                     <a href="assets/MajdAlmotaem_Lebenslauf.pdf" class="btn btn-outline" download>Download Resume</a>
+                </div>
+                <br>
+                <div class="social-links">
+                    <a href="https://github.com/majdAlmotaem" target="_blank" class="social-link"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/majd-almotaem-5105b4266/" target="_blank"
+                        class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="mailto:majdalmotaem1998@gmail.com" class="social-link"><i
+                            class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
             <div class="hero-image-container">
@@ -56,7 +65,7 @@
                 <!-- Projects injected by JS -->
             </div>
             <div class="view-all-container">
-                <a href="projects.html" class="btn btn-outline">View All Projects</a>
+                <button id="toggle-projects" class="btn btn-outline">Show More</button>
             </div>
         </div>
     </section>
@@ -89,7 +98,7 @@
                 <!-- Blogs injected by JS -->
             </div>
             <div class="view-all-container" style="margin-top: 2rem;">
-                <a href="blogs.html" class="btn btn-outline">View All Blogs</a>
+                <button id="toggle-blogs" class="btn btn-outline">Show More</button>
             </div>
         </div>
     </section>
@@ -108,21 +117,21 @@
                     <div class="social-links">
                         <a href="https://github.com/majdAlmotaem" target="_blank" class="social-link"><i
                                 class="fa-brands fa-github"></i></a>
-                        <a href="https://linkedin.com/in/majdAlmotaem" target="_blank" class="social-link"><i
-                                class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/majd-almotaem-5105b4266/" target="_blank"
+                            class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
                         <a href="mailto:majdalmotaem1998@gmail.com" class="social-link"><i
                                 class="fa-solid fa-envelope"></i></a>
                     </div>
                 </div>
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent!');">
+                <form class="contact-form" id="contact-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                        <input type="text" id="contact-name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" id="contact-email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Message" required></textarea>
+                        <textarea id="contact-message" placeholder="Your Message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>

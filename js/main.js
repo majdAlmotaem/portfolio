@@ -9,22 +9,33 @@ const getHue = (str) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Sticky Navbar
+    // 1. Sticky Navbar (hide on scroll down, show on scroll up)
     const nav = document.getElementById('navbar');
+    let lastScrollY = 0;
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > 50) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            nav.style.transform = 'translateY(-100%)';
+        } else {
+            nav.style.transform = 'translateY(0)';
+        }
+        lastScrollY = currentScrollY;
     });
 
-    // 2. Render Projects
+    // 2. Render Projects (with Show More / Show Less)
     const projectsContainer = document.getElementById('projects-container');
-    if (projectsContainer) {
-        let projectsHTML = '';
-        const limit = projectsContainer.getAttribute('data-page') === 'all-projects' ? portfolioData.projects.length : 3;
+    let projectsExpanded = false;
+
+    function renderProjects() {
+        if (!projectsContainer) return;
+        const limit = projectsExpanded ? portfolioData.projects.length : 3;
         const projectsToRender = portfolioData.projects.slice(0, limit);
+        let projectsHTML = '';
 
         projectsToRender.forEach(project => {
             const statusClass = project.status === 'completed' ? 'status-completed' :
@@ -33,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const techTags = project.techStack.map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech.name)};"><i class="${tech.iconClass}"></i> ${tech.name}</span>`).join('');
 
             projectsHTML += `
-                <div class="glass-card project-card">
+                <a href="project-details.html?id=${project.id}" class="glass-card project-card" style="text-decoration: none; color: inherit; display: block;">
                     <img src="${project.image}" alt="${project.title}" class="project-img">
                     <div class="project-info">
                         <div class="project-header">
@@ -44,12 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="project-tech">
                             ${techTags}
                         </div>
-                        <a href="project-details.html?id=${project.id}" class="project-link">View Project <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
-                </div>
+                </a>
             `;
         });
         projectsContainer.innerHTML = projectsHTML;
+    }
+    renderProjects();
+
+    const toggleProjectsBtn = document.getElementById('toggle-projects');
+    if (toggleProjectsBtn) {
+        toggleProjectsBtn.addEventListener('click', () => {
+            projectsExpanded = !projectsExpanded;
+            renderProjects();
+            toggleProjectsBtn.textContent = projectsExpanded ? 'Show Less' : 'Show More';
+        });
     }
 
     // 3. Render Skills
@@ -100,25 +120,37 @@ document.addEventListener('DOMContentLoaded', () => {
         certsContainer.innerHTML = certsHTML;
     }
 
-    // 5. Render Blogs
+    // 5. Render Blogs (with Show More / Show Less)
     const blogsContainer = document.getElementById('blogs-container');
-    if (blogsContainer) {
-        let blogsHTML = '';
-        const limit = blogsContainer.getAttribute('data-page') === 'all-blogs' ? portfolioData.blogs.length : 3;
+    let blogsExpanded = false;
+
+    function renderBlogs() {
+        if (!blogsContainer) return;
+        const limit = blogsExpanded ? portfolioData.blogs.length : 3;
         const blogsToRender = portfolioData.blogs.slice(0, limit);
+        let blogsHTML = '';
 
         blogsToRender.forEach(blog => {
             blogsHTML += `
-                <div class="glass-card blog-card" style="display: flex; flex-direction: column;">
+                <a href="blog-details.html?id=${blog.id}" class="glass-card blog-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
                     <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;">
                     <span class="blog-date" style="color: var(--accent-color); font-weight: 600; font-size: 0.9rem;">${blog.date}</span>
                     <h3 class="blog-title" style="margin: 0.5rem 0;">${blog.title}</h3>
                     <p class="blog-excerpt" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.4; flex-grow: 1;">${blog.excerpt}</p>
-                    <a href="blog-details.html?id=${blog.id}" class="read-more" style="margin-top: auto; color: var(--accent-color); font-weight: 600;">Read Article <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
+                </a>
             `;
         });
         blogsContainer.innerHTML = blogsHTML;
+    }
+    renderBlogs();
+
+    const toggleBlogsBtn = document.getElementById('toggle-blogs');
+    if (toggleBlogsBtn) {
+        toggleBlogsBtn.addEventListener('click', () => {
+            blogsExpanded = !blogsExpanded;
+            renderBlogs();
+            toggleBlogsBtn.textContent = blogsExpanded ? 'Show Less' : 'Show More';
+        });
     }
 
     // 6. Project Details Page Logic
@@ -183,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Repo</a>` : ''}
                         <a href="${project.link}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
-                        <a href="projects.html" class="btn btn-outline" style="margin-left: auto;">Back to Projects</a>
+                        <a href="index.html#projects" class="btn btn-outline" style="margin-left: auto;">Back to Projects</a>
                     </div>
                 </div>
             `;
@@ -191,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             projectDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; text-align: center;">
                     <h2>Project not found.</h2>
-                    <a href="projects.html" class="btn btn-primary" style="margin-top: 1rem;">Back to Projects</a>
+                    <a href="index.html#projects" class="btn btn-primary" style="margin-top: 1rem;">Back to Projects</a>
                 </div>
             `;
         }
@@ -230,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ` : ''}
 
                     <div style="margin-top: 2rem; display: flex;">
-                        <a href="blogs.html" class="btn btn-outline" style="margin-left: auto;">Back to Blogs</a>
+                        <a href="index.html#blog" class="btn btn-outline" style="margin-left: auto;">Back to Blogs</a>
                     </div>
                 </div>
             `;
@@ -238,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             blogDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; text-align: center;">
                     <h2>Blog post not found.</h2>
-                    <a href="blogs.html" class="btn btn-primary" style="margin-top: 1rem;">Back to Blogs</a>
+                    <a href="index.html#blog" class="btn btn-primary" style="margin-top: 1rem;">Back to Blogs</a>
                 </div>
             `;
         }
@@ -264,4 +296,18 @@ document.addEventListener('DOMContentLoaded', () => {
             behavior: 'smooth'
         });
     });
+
+    // 9. Contact Form (mailto)
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+            window.location.href = `mailto:majdalmotaem1998@gmail.com?subject=${subject}&body=${body}`;
+        });
+    }
 });
