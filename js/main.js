@@ -59,6 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </a>
             `;
         });
+
+        // Add 'More coming soon' card if expanded
+        if (projectsExpanded) {
+            projectsHTML += `
+                <div class="glass-card project-card coming-soon-card" style="display: flex; align-items: center; justify-content: center; text-align: center; border-style: dashed; opacity: 0.7; height: 100%;">
+                    <div class="project-info" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-rocket" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite;"></i>
+                        <h3 class="project-title">More Coming Soon...</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">Stay tuned for more exciting projects and experiments!</p>
+                    </div>
+                </div>
+            `;
+        }
+
         projectsContainer.innerHTML = projectsHTML;
     }
     renderProjects();
@@ -97,6 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
         skillsHTML += '</div>';
+        skillsHTML += `
+            <div class="skills-footer" style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-style: italic; opacity: 0.8;">
+                <p><i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I'm always ready to learn more and more....</p>
+            </div>
+        `;
         skillsContainer.innerHTML = skillsHTML;
     }
 
@@ -328,4 +347,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // 11. Stats Counter Animation
+    const animateCounter = (id, target) => {
+        const counter = document.getElementById(id);
+        if (!counter) return;
+        
+        let count = 0;
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // ~60fps
+        
+        const updateCount = () => {
+            count += increment;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        updateCount();
+    };
+
+    // Run counters
+    animateCounter('project-counter', portfolioData.projects.length);
+    animateCounter('visitor-counter', 1284); 
+    animateCounter('coffee-counter', 420); 
 });
