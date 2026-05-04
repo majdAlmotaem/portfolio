@@ -373,4 +373,45 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCounter('project-counter', portfolioData.projects.length);
     animateCounter('visitor-counter', 12);
     animateCounter('coffee-counter', 420);
+
+    // 12. Typewriter Effect
+    const typewriterElement = document.getElementById('typewriter');
+    if (typewriterElement) {
+        const phrases = [
+            'Software Developer',
+            'Full Stack Engineer',
+            'Problem Solver',
+            'Creative Coder'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        const type = () => {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriterElement.innerText = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                typewriterElement.innerText = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        };
+        type();
+    }
 });

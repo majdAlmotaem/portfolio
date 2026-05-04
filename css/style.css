@@ -256,6 +256,34 @@ nav.scrolled {
   -webkit-text-fill-color: transparent;
 }
 
+.job-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.typewriter-cursor {
+  color: var(--primary-color);
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .job-title {
+    font-size: 1.5rem;
+    justify-content: center;
+  }
+}
+
 .hero-details p {
   font-size: 1.2rem;
   color: var(--text-muted);
