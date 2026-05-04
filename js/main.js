@@ -352,11 +352,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateCounter = (id, target) => {
         const counter = document.getElementById(id);
         if (!counter) return;
-        
+
         let count = 0;
         const duration = 2000; // 2 seconds
         const increment = target / (duration / 16); // ~60fps
-        
+
         const updateCount = () => {
             count += increment;
             if (count < target) {
@@ -371,6 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Run counters
     animateCounter('project-counter', portfolioData.projects.length);
-    animateCounter('visitor-counter', 1284); 
-    animateCounter('coffee-counter', 420); 
+    animateCounter('visitor-counter', 12);
+    animateCounter('coffee-counter', 420);
 });
