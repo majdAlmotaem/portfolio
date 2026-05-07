@@ -372,14 +372,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run counters
     animateCounter('project-counter', portfolioData.projects.length);
     animateCounter('visitor-counter', 12);
-    animateCounter('coffee-counter', 420);
+    animateCounter('coffee-counter', 50);
 
     // 12. Typewriter Effect
     const typewriterElement = document.getElementById('typewriter');
     if (typewriterElement) {
         const phrases = [
             'Software Developer',
-            'Full Stack Engineer',
+            'Full Stack Developer',
             'Problem Solver',
             'Creative Coder'
         ];
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const type = () => {
             const currentPhrase = phrases[phraseIndex];
-            
+
             if (isDeleting) {
                 typewriterElement.innerText = currentPhrase.substring(0, charIndex - 1);
                 charIndex--;
