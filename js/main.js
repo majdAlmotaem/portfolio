@@ -9,7 +9,7 @@ const getHue = (str) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Sticky Navbar (hide on scroll down, show on scroll up)
+    // Sticky Navigation: Handles navbar visibility and scrolling effects
     const nav = document.getElementById('navbar');
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = currentScrollY;
     });
 
-    // 2. Render Projects (with Show More / Show Less)
+    // Project Gallery: Renders projects with expand/collapse functionality
     const projectsContainer = document.getElementById('projects-container');
     let projectsExpanded = false;
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        // Add 'More coming soon' card if expanded
+        // Placeholder for future project expansion
         if (projectsExpanded) {
             projectsHTML += `
                 <div class="glass-card project-card coming-soon-card" style="display: flex; align-items: center; justify-content: center; text-align: center; border-style: dashed; opacity: 0.7; height: 100%;">
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Render Skills
+    // Skills Visualization: Dynamic rendering of technical expertise categories
     const skillsContainer = document.getElementById('skills-container');
     if (skillsContainer) {
         let skillsHTML = '<div class="skills-table">';
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         skillsContainer.innerHTML = skillsHTML;
     }
 
-    // 4. Render Certificates
+    // Certifications Display: Lists professional and academic achievements
     const certsContainer = document.getElementById('certificates-container');
     if (certsContainer) {
         let certsHTML = '';
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         certsContainer.innerHTML = certsHTML;
     }
 
-    // 5. Render Blogs (with Show More / Show Less)
+    // Blog Integration: Manages the display and expansion of insight posts
     const blogsContainer = document.getElementById('blogs-container');
     let blogsExpanded = false;
 
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Project Details Page Logic
+    // Detailed View Logic: Handles specific project and blog page rendering via URL parameters
     const projectDetailsContainer = document.getElementById('project-details-container');
     if (projectDetailsContainer) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 7. Blog Details Page Logic
+    // Blog Content Loading: Fetches and displays detailed blog post content
     const blogDetailsContainer = document.getElementById('blog-details-container');
     if (blogDetailsContainer) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 8. Scroll to Top Button
+    // UX Enhancement: Scroll-to-top functionality for better navigation
     const scrollTopBtn = document.createElement('div');
     scrollTopBtn.classList.add('scroll-top-btn');
     scrollTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 9. Contact Form (mailto)
+    // Communication: Contact form submission handling via mailto protocol
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 10. Mobile Hamburger Menu
+    // Mobile Interaction: Hamburger menu toggle for responsive navigation
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
     if (hamburger && navLinks) {
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 11. Stats Counter Animation
+    // Visual Polish: Animated counters for performance and social metrics
     const animateCounter = (id, target) => {
         const counter = document.getElementById(id);
         if (!counter) return;
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCounter('visitor-counter', 12);
     animateCounter('coffee-counter', 50);
 
-    // 12. Typewriter Effect
+    // Branding: Dynamic typewriter effect for hero section titles
     const typewriterElement = document.getElementById('typewriter');
     if (typewriterElement) {
         const phrases = [

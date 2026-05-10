@@ -30,7 +30,7 @@ body {
   position: relative;
 }
 
-/* Background Liquid Orbs */
+/* Interactive Background Elements (Liquid Orbs) */
 body::before,
 body::after {
   content: '';
@@ -82,7 +82,7 @@ a {
   padding: 0 2rem;
 }
 
-/* Typography */
+/* Core Typography & Heading Styles */
 h1,
 h2,
 h3,
@@ -100,7 +100,7 @@ h2 {
   -webkit-text-fill-color: transparent;
 }
 
-/* Navbar */
+/* Header & Primary Navigation */
 nav {
   position: fixed;
   top: 0;
@@ -145,7 +145,7 @@ nav.scrolled {
   color: var(--accent-color);
 }
 
-/* Glassy utility classes */
+/* UI Component Library: Glassmorphism Patterns */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--card-blur));
@@ -161,7 +161,7 @@ nav.scrolled {
   background: var(--glass-hover);
 }
 
-/* Buttons */
+/* Interactive Button Components */
 .btn {
   display: inline-block;
   padding: 0.8rem 1.8rem;
@@ -200,7 +200,7 @@ nav.scrolled {
   border-color: var(--text-color);
 }
 
-/* Hero Section */
+/* Hero Component: Introduction Layout */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -371,12 +371,12 @@ nav.scrolled {
   filter: grayscale(20%);
 }
 
-/* Sections General */
+/* Structural Layout: General Section Patterns */
 section {
   padding: 6rem 0;
 }
 
-/* Projects Section */
+/* Portfolio Showcase: Project Grid & Cards */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -506,7 +506,7 @@ section {
   text-align: center;
 }
 
-/* Skills Section */
+/* Technical Expertise: Skills Matrix Styles */
 .skills-table {
   display: flex;
   flex-direction: column;
@@ -557,7 +557,7 @@ section {
   }
 }
 
-/* Certificates Section */
+/* Academic Recognition: Certifications List */
 .certificates-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -593,7 +593,7 @@ section {
   font-size: 0.9rem;
 }
 
-/* Blog Section */
+/* Knowledge Sharing: Blog Post Grid */
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -629,7 +629,7 @@ section {
   font-size: 0.9rem;
 }
 
-/* Contact Section */
+/* Lead Generation: Contact Form & Social Connect */
 .contact-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -731,7 +731,7 @@ footer {
   gap: 1rem;
 }
 
-/* Responsive */
+/* Adaptive Layouts: Global Responsive Overrides */
 @media (max-width: 900px) {
   .hero-content {
     grid-template-columns: 1fr;
@@ -769,7 +769,7 @@ footer {
   }
 }
 
-/* Hamburger Button */
+/* Mobile Interface: Hamburger Navigation Toggle */
 .hamburger {
   display: none;
   flex-direction: column;
