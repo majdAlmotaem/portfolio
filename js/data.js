@@ -41,23 +41,23 @@ export const portfolioData = {
         },
         {
             id: 3,
-            title: "Crypto Live Data & Dashboard",
-            image: "assets/images/stock_API.png",
-            images: ["assets/images/stock_API.png"],
-            description: "A script that fetches live crypto prices, logs them to CSV, and serves as a data source for Power BI.",
+            title: "AI News Digest Automation",
+            image: "assets/images/n8n.mp4",
+            images: ["assets/images/n8n.mp4"],
+            description: "A smart automation workflow built with n8n that delivers a daily AI-summarized tech news digest to your inbox and to-do list.",
             techStack: [
-                { name: "Python", iconClass: "fa-brands fa-python" },
-                { name: "Pandas", iconClass: "fa-solid fa-table" },
-                { name: "Power BI", iconClass: "fa-solid fa-chart-line" },
-                { name: "API", iconClass: "fa-solid fa-cloud-arrow-down" }
+                { name: "n8n", iconClass: "fa-solid fa-robot" },
+                { name: "AI", iconClass: "fa-solid fa-brain" },
+                { name: "Automation", iconClass: "fa-solid fa-gears" },
+                { name: "Productivity", iconClass: "fa-solid fa-bolt" }
             ],
             status: "completed",
-            link: "https://github.com/majdAlmotaem/Stock_API",
-            githubLink: "https://github.com/majdAlmotaem/Stock_API",
-            problem: "Needed an automated way to track and visualize real-time cryptocurrency market trends.",
-            solution: "Wrote a Python script to fetch live prices via CoinGecko API, log them to CSV, and feed them into a live Power BI dashboard.",
-            lessonsLearned: "Mastered fetching real-time data from APIs, data manipulation with pandas, and live data visualization in Power BI.",
-            newTechLearned: ["CoinGecko API", "Pandas", "Power BI Desktop"]
+            link: "#",
+            githubLink: "#",
+            problem: "Staying updated with AI and tech news is time-consuming. I needed a way to consolidate and summarize the most important information daily.",
+            solution: "Developed a smart automation with n8n! Now, I get a daily digest of the latest AI and tech news straight to my inbox, summarized by AI. Plus, it adds a quick reminder to my to-do list so I don't miss anything.",
+            lessonsLearned: "It was awesome to see how easily n8n handles fetching, processing, and delivering information. It's a truly powerful tool for automating tasks and improving productivity. Highly recommend exploring n8n if you're into smart workflows!",
+            newTechLearned: ["n8n", "AI-Driven Automation", "Productivity Workflows"]
 
         },
         {
@@ -155,6 +155,26 @@ export const portfolioData = {
             solution: "Integrated OpenAI's Whisper (and later Faster-Whisper) to transcribe live audio into executable system commands.",
             lessonsLearned: "Learned the hard truth about real-time speech recognition: existing models are optimized for batch processing, not zero-latency streaming.",
             newTechLearned: ["Real-time Speech Recognition", "AI Models", "Faster-Whisper"]
+        },
+        {
+            id: 9,
+            title: "Crypto Live Data & Dashboard",
+            image: "assets/images/stock_API.png",
+            images: ["assets/images/stock_API.png"],
+            description: "A script that fetches live crypto prices, logs them to CSV, and serves as a data source for Power BI.",
+            techStack: [
+                { name: "Python", iconClass: "fa-brands fa-python" },
+                { name: "Pandas", iconClass: "fa-solid fa-table" },
+                { name: "Power BI", iconClass: "fa-solid fa-chart-line" },
+                { name: "API", iconClass: "fa-solid fa-cloud-arrow-down" }
+            ],
+            status: "completed",
+            link: "https://github.com/majdAlmotaem/Stock_API",
+            githubLink: "https://github.com/majdAlmotaem/Stock_API",
+            problem: "Needed an automated way to track and visualize real-time cryptocurrency market trends.",
+            solution: "Wrote a Python script to fetch live prices via CoinGecko API, log them to CSV, and feed them into a live Power BI dashboard.",
+            lessonsLearned: "Mastered fetching real-time data from APIs, data manipulation with pandas, and live data visualization in Power BI.",
+            newTechLearned: ["CoinGecko API", "Pandas", "Power BI Desktop"]
         }
     ],
     skills: [

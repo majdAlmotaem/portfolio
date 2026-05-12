@@ -43,9 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const techTags = project.techStack.map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech.name)};"><i class="${tech.iconClass}"></i> ${tech.name}</span>`).join('');
 
+            const isVideo = project.image.toLowerCase().endsWith('.mp4') || project.image.toLowerCase().endsWith('.webm');
+            const mediaHTML = isVideo 
+                ? `<video src="${project.image}" class="project-img" autoplay muted loop playsinline></video>`
+                : `<img src="${project.image}" alt="${project.title}" class="project-img">`;
+
             projectsHTML += `
                 <a href="project-details.html?id=${project.id}" class="glass-card project-card" style="text-decoration: none; color: inherit; display: block;">
-                    <img src="${project.image}" alt="${project.title}" class="project-img">
+                    ${mediaHTML}
                     <div class="project-info">
                         <div class="project-header">
                             <h3 class="project-title">${project.title}</h3>
@@ -190,11 +195,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (project.images && project.images.length > 0) {
                 imagesHTML = `<div class="project-gallery" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 2rem;">`;
                 project.images.forEach(img => {
-                    imagesHTML += `<img src="${img}" alt="${project.title}" style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">`;
+                    const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.webm');
+                    if (isVid) {
+                        imagesHTML += `<video src="${img}" autoplay muted loop playsinline style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);"></video>`;
+                    } else {
+                        imagesHTML += `<img src="${img}" alt="${project.title}" style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">`;
+                    }
                 });
                 imagesHTML += `</div>`;
             } else {
-                imagesHTML = `<img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">`;
+                const isVid = project.image.toLowerCase().endsWith('.mp4') || project.image.toLowerCase().endsWith('.webm');
+                if (isVid) {
+                    imagesHTML = `<video src="${project.image}" autoplay muted loop playsinline style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;"></video>`;
+                } else {
+                    imagesHTML = `<img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">`;
+                }
             }
 
             projectDetailsContainer.innerHTML = `
