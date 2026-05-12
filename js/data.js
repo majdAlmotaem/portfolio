@@ -2,23 +2,23 @@ export const portfolioData = {
     projects: [
         {
             id: 1,
-            title: "Password Manager",
-            image: "assets/images/password-manager-demo.gif",
-            images: ["assets/images/password-manager-demo.gif"],
-            description: "A modern, secure, and user-friendly password manager built with Python and Tkinter.",
+            title: "clickShare",
+            image: "assets/images/landingpage.png",
+            images: ["assets/images/landingpage.png", "assets/images/postEditor.png", "assets/images/userDashboard.png"],
+            description: "A modern web application to create, manage, and share posts across multiple social media platforms.",
             techStack: [
-                { name: "Python", iconClass: "fa-brands fa-python" },
-                { name: "Tkinter", iconClass: "fa-solid fa-window-maximize" },
-                { name: "SQLite", iconClass: "fa-solid fa-database" },
-                { name: "Security", iconClass: "fa-solid fa-shield-halved" }
+                { name: "Node.js", iconClass: "fa-brands fa-node-js" },
+                { name: "Express", iconClass: "fa-brands fa-node-js" },
+                { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
+                { name: "Passport.js", iconClass: "fa-solid fa-passport" }
             ],
-            status: "completed",
-            link: "https://github.com/majdAlmotaem/PasswordManager",
-            githubLink: "https://github.com/majdAlmotaem/PasswordManager",
-            problem: "Managing multiple passwords securely without relying on third-party cloud services.",
-            solution: "Built a local, fully encrypted desktop application with a modern UI to securely store and manage passwords using PBKDF2 hashing.",
-            lessonsLearned: "Gained deep insights into security protocols, data hashing, and building desktop UIs with Python.",
-            newTechLearned: ["Security", "Hashing", "Data Encryption"]
+            status: "in-progress",
+            link: "https://github.com/majdAlmotaem/clickShare",
+            githubLink: "https://github.com/majdAlmotaem/clickShare",
+            problem: "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
+            solution: "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
+            lessonsLearned: "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
+            newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS Library"]
         },
         {
             id: 2,
@@ -119,23 +119,23 @@ export const portfolioData = {
         },
         {
             id: 7,
-            title: "clickShare",
-            image: "assets/images/project_ecommerce_1777468167512.png",
-            images: ["assets/images/project_ecommerce_1777468167512.png"],
-            description: "A modern web application to create, manage, and share posts across multiple social media platforms.",
+            title: "Password Manager",
+            image: "assets/images/password-manager-demo.gif",
+            images: ["assets/images/password-manager-demo.gif"],
+            description: "A modern, secure, and user-friendly password manager built with Python and Tkinter.",
             techStack: [
-                { name: "Node.js", iconClass: "fa-brands fa-node-js" },
-                { name: "Express", iconClass: "fa-brands fa-node-js" },
-                { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
-                { name: "Passport.js", iconClass: "fa-solid fa-passport" }
+                { name: "Python", iconClass: "fa-brands fa-python" },
+                { name: "Tkinter", iconClass: "fa-solid fa-window-maximize" },
+                { name: "SQLite", iconClass: "fa-solid fa-database" },
+                { name: "Security", iconClass: "fa-solid fa-shield-halved" }
             ],
-            status: "in-progress",
-            link: "https://github.com/majdAlmotaem/clickShare",
-            githubLink: "https://github.com/majdAlmotaem/clickShare",
-            problem: "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
-            solution: "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
-            lessonsLearned: "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
-            newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS Library"]
+            status: "completed",
+            link: "https://github.com/majdAlmotaem/PasswordManager",
+            githubLink: "https://github.com/majdAlmotaem/PasswordManager",
+            problem: "Managing multiple passwords securely without relying on third-party cloud services.",
+            solution: "Built a local, fully encrypted desktop application with a modern UI to securely store and manage passwords using PBKDF2 hashing.",
+            lessonsLearned: "Gained deep insights into security protocols, data hashing, and building desktop UIs with Python.",
+            newTechLearned: ["Security", "Hashing", "Data Encryption"]
         },
         {
             id: 8,
