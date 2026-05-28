@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         hero_btn_explore: { en: "Explore My Work", de: "Meine Arbeit ansehen" },
         hero_btn_resume: { en: "Download Resume", de: "Lebenslauf herunterladen" },
+        cv_modal_title: { en: "Select Resume Language", de: "Lebenslauf-Sprache wählen" },
+        cv_modal_subtitle: { en: "Choose your preferred language version to download:", de: "Wähle deine bevorzugte Sprachversion zum Herunterladen:" },
+        cv_btn_english: { en: "English (CV)", de: "Englisch (CV)" },
+        cv_btn_german: { en: "German (Lebenslauf)", de: "Deutsch (Lebenslauf)" },
         stats_projects: { en: "Projects Completed", de: "Abgeschlossene Projekte" },
         stats_visitors: { en: "Site Visitors", de: "Seitenbesucher" },
         stats_coffee: { en: "Cups of Coffee", de: "Tassen Kaffee" },
@@ -606,6 +610,48 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSwitcherUI();
     }
 
+    // 3.5 CV Modal Interactive Logic
+    function setupCVModal() {
+        const cvModal = document.getElementById('cv-modal');
+        const downloadCvBtn = document.getElementById('download-cv-btn');
+        const cvModalCloseBtn = document.getElementById('cv-modal-close-btn');
+        const cvDownloadLinks = document.querySelectorAll('.cv-btn');
+
+        if (downloadCvBtn && cvModal) {
+            downloadCvBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                cvModal.classList.add('active');
+                document.body.classList.add('modal-open');
+            });
+        }
+
+        const closeCvModal = () => {
+            if (cvModal) {
+                cvModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+        };
+
+        if (cvModalCloseBtn) {
+            cvModalCloseBtn.addEventListener('click', closeCvModal);
+        }
+
+        if (cvModal) {
+            cvModal.addEventListener('click', (e) => {
+                if (e.target === cvModal) {
+                    closeCvModal();
+                }
+            });
+        }
+
+        // Close modal when a download link is clicked (with a slight delay so download initiates smoothly)
+        cvDownloadLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(closeCvModal, 400);
+            });
+        });
+    }
+
     // 4. Initial Bootstrap Execution
     translateStaticUI();
     renderProjects();
@@ -616,6 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBlogDetails();
     startTypewriter();
     setupLanguageSwitcher();
+    setupCVModal();
 
     // Run counters once initially
     animateCounter('project-counter', portfolioData[currentLang].projects.length);

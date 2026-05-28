@@ -950,3 +950,168 @@ footer {
     margin-right: 0.75rem;
   }
 }
+
+/* ==========================================
+   Premium Glassmorphic CV Modal Popup
+   ========================================== */
+body.modal-open {
+  overflow: hidden;
+}
+
+.cv-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cv-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cv-modal-card {
+  position: relative;
+  width: 90%;
+  max-width: 440px;
+  padding: 3rem 2rem;
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  overflow: hidden;
+}
+
+.cv-modal-overlay.active .cv-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Glass card hover override to prevent simple translation on modal container */
+.cv-modal-card.glass-card:hover {
+  transform: scale(1) translateY(0);
+  background: rgba(15, 15, 15, 0.8);
+}
+
+/* Modal Close Button */
+.cv-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-color);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  z-index: 10;
+}
+
+.cv-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: rotate(90deg);
+}
+
+/* Decorative PDF Icon */
+.cv-modal-icon {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  animation: modal-icon-float 3s ease-in-out infinite;
+}
+
+@keyframes modal-icon-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.cv-modal-card h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(to right, var(--text-color), var(--text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cv-modal-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2.25rem;
+  line-height: 1.5;
+}
+
+/* Option Buttons Wrapper */
+.cv-modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Button override inside modal for elegant stacking */
+.cv-btn.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  animation: none; /* remove morphing animation */
+}
+
+.cv-btn.btn i {
+  font-size: 1.1rem;
+}
+
+.cv-btn.btn-primary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.cv-btn.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.cv-btn.btn-outline {
+  border: 1px solid var(--glass-border);
+  color: var(--text-color);
+}
+
+.cv-btn.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}

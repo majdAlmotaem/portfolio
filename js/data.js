@@ -194,6 +194,8 @@ export const portfolioData = {
                     { name: "Vue.js", iconClass: "fa-brands fa-vuejs" },
                     { name: "React", iconClass: "fa-brands fa-react" },
                     { name: "WordPress", iconClass: "fa-brands fa-wordpress" },
+                    { name: "MVC", iconClass: "fa-solid fa-layer-group" },
+                    { name: "Design Pattern", iconClass: "fa-solid fa-diagram-project" },
                     { name: "REST APIs", iconClass: "fa-solid fa-network-wired" }
                 ]
             },
@@ -209,6 +211,7 @@ export const portfolioData = {
                 category: "AI & Automation",
                 items: [
                     { name: "Prompt Engineering", iconClass: "fa-solid fa-brain" },
+                    { name: "Claude", iconClass: "fa-solid fa-comment-dots" },
                     { name: "n8n", iconClass: "fa-solid fa-robot" }
                 ]
             },
@@ -541,6 +544,8 @@ export const portfolioData = {
                     { name: "Vue.js", iconClass: "fa-brands fa-vuejs" },
                     { name: "React", iconClass: "fa-brands fa-react" },
                     { name: "WordPress", iconClass: "fa-brands fa-wordpress" },
+                    { name: "MVC", iconClass: "fa-solid fa-layer-group" },
+                    { name: "Design Pattern", iconClass: "fa-solid fa-diagram-project" },
                     { name: "REST APIs", iconClass: "fa-solid fa-network-wired" }
                 ]
             },
@@ -556,6 +561,7 @@ export const portfolioData = {
                 category: "KI & Automatisierung",
                 items: [
                     { name: "Prompt Engineering", iconClass: "fa-solid fa-brain" },
+                    { name: "Claude", iconClass: "fa-solid fa-comment-dots" },
                     { name: "n8n", iconClass: "fa-solid fa-robot" }
                 ]
             },

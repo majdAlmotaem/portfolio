@@ -74,7 +74,7 @@
                 <p data-i18n="hero_motto">Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary" data-i18n="hero_btn_explore">Explore My Work</a>
-                    <a href="assets/Majd_Almotaem_Lebenslauf.pdf" class="btn btn-outline" download data-i18n="hero_btn_resume">Download Resume</a>
+                    <a href="#" id="download-cv-btn" class="btn btn-outline" data-i18n="hero_btn_resume">Download Resume</a>
                 </div>
                 <br>
                 <div class="social-links">
@@ -199,6 +199,28 @@
             <p data-i18n="footer_text">&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.</p>
         </div>
     </footer>
+
+    <!-- CV Language Selection Modal -->
+    <div id="cv-modal" class="cv-modal-overlay">
+        <div class="cv-modal-card glass-card">
+            <button id="cv-modal-close-btn" class="cv-modal-close" aria-label="Close Modal">&times;</button>
+            <div class="cv-modal-icon">
+                <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <h3 id="cv-modal-title" data-i18n="cv_modal_title">Select Resume Language</h3>
+            <p id="cv-modal-subtitle" data-i18n="cv_modal_subtitle">Choose your preferred language version to download:</p>
+            <div class="cv-modal-options">
+                <a href="assets/Majd_Almotaem_CV.pdf" download class="cv-btn btn btn-primary">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <span data-i18n="cv_btn_english">English (CV)</span>
+                </a>
+                <a href="assets/Majd_Almotaem_Lebenslauf.pdf" download class="cv-btn btn btn-outline">
+                    <i class="fa-solid fa-earth-europe"></i>
+                    <span data-i18n="cv_btn_german">Deutsch (Lebenslauf)</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Main JS (Module) -->
     <script type="module" src="js/main.js"></script>
