@@ -9,32 +9,145 @@ const getHue = (str) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Language Configuration & State Management
+    let currentLang = localStorage.getItem('portfolio-lang') || 'en';
+
+    const translations = {
+        nav_home: { en: "Home", de: "Startseite" },
+        nav_projects: { en: "Projects", de: "Projekte" },
+        nav_skills: { en: "Skills", de: "Skills" },
+        nav_certs: { en: "Certificates", de: "Zertifikate" },
+        nav_blog: { en: "Blog", de: "Blog" },
+        nav_contact: { en: "Contact", de: "Kontakt" },
+        hero_greet: { 
+            en: 'Hi, I\'m <span class="highlight">Majd</span>', 
+            de: 'Hi, ich bin <span class="highlight">Majd</span>' 
+        },
+        hero_motto: { 
+            en: "Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.", 
+            de: "Code. Disziplin. Authentizität. Es ist nicht nur Arbeit, es ist ein Lebensstil." 
+        },
+        hero_btn_explore: { en: "Explore My Work", de: "Meine Arbeit ansehen" },
+        hero_btn_resume: { en: "Download Resume", de: "Lebenslauf herunterladen" },
+        stats_projects: { en: "Projects Completed", de: "Abgeschlossene Projekte" },
+        stats_visitors: { en: "Site Visitors", de: "Seitenbesucher" },
+        stats_coffee: { en: "Cups of Coffee", de: "Tassen Kaffee" },
+        projects_title: { en: "Featured Projects", de: "Ausgewählte Projekte" },
+        projects_btn_more: { en: "Show More", de: "Mehr anzeigen" },
+        projects_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
+        projects_coming_soon_title: { en: "More Coming Soon...", de: "Mehr in Kürze..." },
+        projects_coming_soon_desc: { 
+            en: "Stay tuned for more exciting projects and experiments!", 
+            de: "Bleib gespannt auf weitere spannende Projekte und Experimente!" 
+        },
+        skills_title: { en: "Tech Stack & Skills", de: "Tech Stack & Fähigkeiten" },
+        skills_footer: { 
+            en: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I\'m always ready to learn more and more....', 
+            de: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Ich bin immer bereit, noch mehr zu lernen....' 
+        },
+        certs_title: { en: "Certifications", de: "Zertifizierungen" },
+        blog_title: { en: "Latest Insights", de: "Neueste Einblicke" },
+        blog_btn_more: { en: "Show More", de: "Mehr anzeigen" },
+        blog_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
+        contact_title: { en: "Get In Touch", de: "Kontakt aufnehmen" },
+        contact_subtitle: { en: "Let's work together", de: "Lass uns zusammenarbeiten" },
+        contact_text: { 
+            en: "I'm currently available for freelance work and full-time opportunities. If you have a project that you want to get started, think you need my help with something or just fancy saying hey, then get in touch.", 
+            de: "Ich bin derzeit für freiberufliche Tätigkeiten und Vollzeitstellen verfügbar. Wenn du ein Projekt starten möchtest, Hilfe brauchst oder einfach nur Hallo sagen willst, melde dich gerne." 
+        },
+        contact_placeholder_name: { en: "Your Name", de: "Dein Name" },
+        contact_placeholder_email: { en: "Your Email", de: "Deine E-Mail" },
+        contact_placeholder_msg: { en: "Your Message", de: "Deine Nachricht" },
+        contact_btn_send: { en: "Send Message", de: "Nachricht senden" },
+        footer_text: { 
+            en: "&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.", 
+            de: "&copy; 2026 Majd Almotaem. Erstellt mit Vanilla JS & CSS." 
+        },
+        details_problem: { en: "The Problem", de: "Das Problem" },
+        details_solution: { en: "The Solution", de: "Die Lösung" },
+        details_lessons: { en: "Lessons Learned", de: "Gelernte Lektionen" },
+        details_new_tech: { en: "New Tech Learned:", de: "Neue Technologien:" },
+        details_btn_repo: { en: "View Repo", de: "Repository ansehen" },
+        details_btn_demo: { en: "Live Demo", de: "Live-Demo" },
+        details_btn_back_projects: { en: "Back to Projects", de: "Zurück zu Projekten" },
+        details_btn_back_blogs: { en: "Back to Blogs", de: "Zurück zum Blog" },
+        details_topics: { en: "Topics:", de: "Themen:" },
+        details_project_not_found: { en: "Project not found.", de: "Projekt nicht gefunden." },
+        details_blog_not_found: { en: "Blog post not found.", de: "Blogbeitrag nicht gefunden." }
+    };
+
+    const typewriterPhrases = {
+        en: [
+            'Software Developer',
+            'Full Stack Developer',
+            'Problem Solver',
+            'Creative Coder'
+        ],
+        de: [
+            'Softwareentwickler',
+            'Full-Stack-Entwickler',
+            'Problemlöser',
+            'Kreativer Coder'
+        ]
+    };
+
+    const getStatusTranslation = (status) => {
+        const statusMap = {
+            'completed': { en: 'Completed', de: 'Abgeschlossen' },
+            'in-progress': { en: 'In Progress', de: 'In Bearbeitung' },
+            'canceled': { en: 'Canceled', de: 'Abgebrochen' }
+        };
+        return (statusMap[status] && statusMap[status][currentLang]) || status.replace('-', ' ');
+    };
+
+    // 2. Static UI Translation Engine
+    function translateStaticUI() {
+        // Translate normal elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[key] && translations[key][currentLang]) {
+                el.innerHTML = translations[key][currentLang];
+            }
+        });
+
+        // Translate inputs and placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (translations[key] && translations[key][currentLang]) {
+                el.setAttribute('placeholder', translations[key][currentLang]);
+            }
+        });
+    }
+
     // Sticky Navigation: Handles navbar visibility and scrolling effects
     const nav = document.getElementById('navbar');
     let lastScrollY = 0;
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            nav.style.transform = 'translateY(-100%)';
-        } else {
-            nav.style.transform = 'translateY(0)';
-        }
-        lastScrollY = currentScrollY;
-    });
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScrollY = currentScrollY;
+        });
+    }
 
     // Project Gallery: Renders projects with expand/collapse functionality
     const projectsContainer = document.getElementById('projects-container');
+    const toggleProjectsBtn = document.getElementById('toggle-projects');
     let projectsExpanded = false;
 
     function renderProjects() {
         if (!projectsContainer) return;
-        const limit = projectsExpanded ? portfolioData.projects.length : 3;
-        const projectsToRender = portfolioData.projects.slice(0, limit);
+        const limit = projectsExpanded ? portfolioData[currentLang].projects.length : 3;
+        const projectsToRender = portfolioData[currentLang].projects.slice(0, limit);
         let projectsHTML = '';
 
         projectsToRender.forEach(project => {
@@ -54,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="project-info">
                         <div class="project-header">
                             <h3 class="project-title">${project.title}</h3>
-                            <span class="project-status ${statusClass}">${project.status.replace('-', ' ')}</span>
+                            <span class="project-status ${statusClass}">${getStatusTranslation(project.status)}</span>
                         </div>
                         <p class="project-description" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; flex-grow: 1;">${project.description}</p>
                         <div class="project-tech">
@@ -71,31 +184,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="glass-card project-card coming-soon-card" style="display: flex; align-items: center; justify-content: center; text-align: center; border-style: dashed; opacity: 0.7; height: 100%;">
                     <div class="project-info" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                         <i class="fa-solid fa-rocket" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite;"></i>
-                        <h3 class="project-title">More Coming Soon...</h3>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">Stay tuned for more exciting projects and experiments!</p>
+                        <h3 class="project-title">${translations.projects_coming_soon_title[currentLang]}</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">${translations.projects_coming_soon_desc[currentLang]}</p>
                     </div>
                 </div>
             `;
         }
 
         projectsContainer.innerHTML = projectsHTML;
-    }
-    renderProjects();
 
-    const toggleProjectsBtn = document.getElementById('toggle-projects');
+        if (toggleProjectsBtn) {
+            toggleProjectsBtn.textContent = projectsExpanded 
+                ? translations.projects_btn_less[currentLang] 
+                : translations.projects_btn_more[currentLang];
+        }
+    }
+
     if (toggleProjectsBtn) {
         toggleProjectsBtn.addEventListener('click', () => {
             projectsExpanded = !projectsExpanded;
             renderProjects();
-            toggleProjectsBtn.textContent = projectsExpanded ? 'Show Less' : 'Show More';
         });
     }
 
     // Skills Visualization: Dynamic rendering of technical expertise categories
     const skillsContainer = document.getElementById('skills-container');
-    if (skillsContainer) {
+    function renderSkills() {
+        if (!skillsContainer) return;
         let skillsHTML = '<div class="skills-table">';
-        portfolioData.skills.forEach(categoryGroup => {
+        portfolioData[currentLang].skills.forEach(categoryGroup => {
             skillsHTML += `
                 <div class="skill-row">
                     <div class="skill-category-title">
@@ -118,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         skillsHTML += '</div>';
         skillsHTML += `
             <div class="skills-footer" style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-style: italic; opacity: 0.8;">
-                <p><i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I'm always ready to learn more and more....</p>
+                <p>${translations.skills_footer[currentLang]}</p>
             </div>
         `;
         skillsContainer.innerHTML = skillsHTML;
@@ -126,9 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Certifications Display: Lists professional and academic achievements
     const certsContainer = document.getElementById('certificates-container');
-    if (certsContainer) {
+    function renderCertificates() {
+        if (!certsContainer) return;
         let certsHTML = '';
-        portfolioData.certificates.forEach(cert => {
+        portfolioData[currentLang].certificates.forEach(cert => {
             certsHTML += `
                 <div class="glass-card cert-card">
                     <div class="cert-icon">
@@ -146,12 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Blog Integration: Manages the display and expansion of insight posts
     const blogsContainer = document.getElementById('blogs-container');
+    const toggleBlogsBtn = document.getElementById('toggle-blogs');
     let blogsExpanded = false;
 
     function renderBlogs() {
         if (!blogsContainer) return;
-        const limit = blogsExpanded ? portfolioData.blogs.length : 3;
-        const blogsToRender = portfolioData.blogs.slice(0, limit);
+        const limit = blogsExpanded ? portfolioData[currentLang].blogs.length : 3;
+        const blogsToRender = portfolioData[currentLang].blogs.slice(0, limit);
         let blogsHTML = '';
 
         blogsToRender.forEach(blog => {
@@ -165,24 +284,28 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
         blogsContainer.innerHTML = blogsHTML;
-    }
-    renderBlogs();
 
-    const toggleBlogsBtn = document.getElementById('toggle-blogs');
+        if (toggleBlogsBtn) {
+            toggleBlogsBtn.textContent = blogsExpanded 
+                ? translations.blog_btn_less[currentLang] 
+                : translations.blog_btn_more[currentLang];
+        }
+    }
+
     if (toggleBlogsBtn) {
         toggleBlogsBtn.addEventListener('click', () => {
             blogsExpanded = !blogsExpanded;
             renderBlogs();
-            toggleBlogsBtn.textContent = blogsExpanded ? 'Show Less' : 'Show More';
         });
     }
 
     // Detailed View Logic: Handles specific project and blog page rendering via URL parameters
     const projectDetailsContainer = document.getElementById('project-details-container');
-    if (projectDetailsContainer) {
+    function renderProjectDetails() {
+        if (!projectDetailsContainer) return;
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = parseInt(urlParams.get('id'));
-        const project = portfolioData.projects.find(p => p.id === projectId);
+        const project = portfolioData[currentLang].projects.find(p => p.id === projectId);
 
         if (project) {
             const statusClass = project.status === 'completed' ? 'status-completed' :
@@ -218,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                         <h1 style="font-size: 2.5rem; margin-bottom: 0;">${project.title}</h1>
-                        <span class="project-status ${statusClass}" style="font-size: 1rem;">${project.status.replace('-', ' ')}</span>
+                        <span class="project-status ${statusClass}" style="font-size: 1rem;">${getStatusTranslation(project.status)}</span>
                     </div>
 
                     <div class="project-tech" style="margin-bottom: 2rem; gap: 1rem;">
@@ -226,19 +349,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     
                     <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
-                        <h4><i class="fa-solid fa-circle-question"></i> The Problem</h4>
-                        <p class="modal-desc">${project.problem || project.description || 'No description available.'}</p>
+                        <h4><i class="fa-solid fa-circle-question"></i> ${translations.details_problem[currentLang]}</h4>
+                        <p class="modal-desc">${project.problem || project.description || 'N/A'}</p>
                     </div>
                     <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
-                        <h4><i class="fa-solid fa-lightbulb"></i> The Solution</h4>
-                        <p class="modal-desc">${project.solution || 'See GitHub for details.'}</p>
+                        <h4><i class="fa-solid fa-lightbulb"></i> ${translations.details_solution[currentLang]}</h4>
+                        <p class="modal-desc">${project.solution || 'N/A'}</p>
                     </div>
                     <div class="modal-desc-section" style="margin-bottom: 2rem;">
-                        <h4><i class="fa-solid fa-graduation-cap"></i> Lessons Learned</h4>
-                        <p class="modal-desc">${project.lessonsLearned || 'See GitHub for details.'}</p>
+                        <h4><i class="fa-solid fa-graduation-cap"></i> ${translations.details_lessons[currentLang]}</h4>
+                        <p class="modal-desc">${project.lessonsLearned || 'N/A'}</p>
                         ${newTechTags ? `
                             <div style="margin-top: 1rem;">
-                                <h5 style="margin-bottom: 0.5rem; color: var(--text-color);">New Tech Learned:</h5>
+                                <h5 style="margin-bottom: 0.5rem; color: var(--text-color);">${translations.details_new_tech[currentLang]}</h5>
                                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                     ${newTechTags}
                                 </div>
@@ -247,17 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
 
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Repo</a>` : ''}
-                        <a href="${project.link}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
-                        <a href="index.html#projects" class="btn btn-outline" style="margin-left: auto;">Back to Projects</a>
+                        ${project.githubLink && project.githubLink !== '#' ? `<a href="${project.githubLink}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> ${translations.details_btn_repo[currentLang]}</a>` : ''}
+                        ${project.link && project.link !== '#' ? `<a href="${project.link}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${translations.details_btn_demo[currentLang]}</a>` : ''}
+                        <a href="index.html#projects" class="btn btn-outline" style="margin-left: auto;">${translations.details_btn_back_projects[currentLang]}</a>
                     </div>
                 </div>
             `;
         } else {
             projectDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; text-align: center;">
-                    <h2>Project not found.</h2>
-                    <a href="index.html#projects" class="btn btn-primary" style="margin-top: 1rem;">Back to Projects</a>
+                    <h2>${translations.details_project_not_found[currentLang]}</h2>
+                    <a href="index.html#projects" class="btn btn-primary" style="margin-top: 1rem;">${translations.details_btn_back_projects[currentLang]}</a>
                 </div>
             `;
         }
@@ -265,10 +388,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Blog Content Loading: Fetches and displays detailed blog post content
     const blogDetailsContainer = document.getElementById('blog-details-container');
-    if (blogDetailsContainer) {
+    function renderBlogDetails() {
+        if (!blogDetailsContainer) return;
         const urlParams = new URLSearchParams(window.location.search);
         const blogId = parseInt(urlParams.get('id'));
-        const blog = portfolioData.blogs.find(b => b.id === blogId);
+        const blog = portfolioData[currentLang].blogs.find(b => b.id === blogId);
 
         if (blog) {
             const tagsHTML = (blog.tags || []).map(tag => `<span class="tech-badge" style="--badge-hue: ${getHue(tag)}; font-size: 0.9rem; padding: 0.4rem 1rem;">#${tag}</span>`).join('');
@@ -288,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     ${tagsHTML ? `
                         <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                            <h5 style="margin-bottom: 1rem; color: var(--text-color);">Topics:</h5>
+                            <h5 style="margin-bottom: 1rem; color: var(--text-color);">${translations.details_topics[currentLang]}</h5>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                 ${tagsHTML}
                             </div>
@@ -296,15 +420,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     ` : ''}
 
                     <div style="margin-top: 2rem; display: flex;">
-                        <a href="index.html#blog" class="btn btn-outline" style="margin-left: auto;">Back to Blogs</a>
+                        <a href="index.html#blog" class="btn btn-outline" style="margin-left: auto;">${translations.details_btn_back_blogs[currentLang]}</a>
                     </div>
                 </div>
             `;
         } else {
             blogDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; text-align: center;">
-                    <h2>Blog post not found.</h2>
-                    <a href="index.html#blog" class="btn btn-primary" style="margin-top: 1rem;">Back to Blogs</a>
+                    <h2>${translations.details_blog_not_found[currentLang]}</h2>
+                    <a href="index.html#blog" class="btn btn-primary" style="margin-top: 1rem;">${translations.details_btn_back_blogs[currentLang]}</a>
                 </div>
             `;
         }
@@ -339,8 +463,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('contact-name').value;
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
-            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+            
+            const subjectText = currentLang === 'en' 
+                ? `Portfolio Contact from ${name}` 
+                : `Portfolio-Kontakt von ${name}`;
+            
+            const bodyText = currentLang === 'en'
+                ? `Name: ${name}\nEmail: ${email}\n\n${message}`
+                : `Name: ${name}\nE-Mail: ${email}\n\n${message}`;
+
+            const subject = encodeURIComponent(subjectText);
+            const body = encodeURIComponent(bodyText);
             window.location.href = `mailto:majdalmotaem1998@gmail.com?subject=${subject}&body=${body}`;
         });
     }
@@ -384,26 +517,25 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCount();
     };
 
-    // Run counters
-    animateCounter('project-counter', portfolioData.projects.length);
-    animateCounter('visitor-counter', 12);
-    animateCounter('coffee-counter', 50);
-
     // Branding: Dynamic typewriter effect for hero section titles
-    const typewriterElement = document.getElementById('typewriter');
-    if (typewriterElement) {
-        const phrases = [
-            'Software Developer',
-            'Full Stack Developer',
-            'Problem Solver',
-            'Creative Coder'
-        ];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 100;
+    let typewriterTimeout;
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+
+    function startTypewriter() {
+        const typewriterElement = document.getElementById('typewriter');
+        if (!typewriterElement) return;
+
+        clearTimeout(typewriterTimeout);
+        typewriterElement.innerText = '';
+        charIndex = 0;
+        isDeleting = false;
 
         const type = () => {
+            const phrases = typewriterPhrases[currentLang];
+            phraseIndex = phraseIndex % phrases.length;
             const currentPhrase = phrases[phraseIndex];
 
             if (isDeleting) {
@@ -425,8 +557,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 typeSpeed = 500;
             }
 
-            setTimeout(type, typeSpeed);
+            typewriterTimeout = setTimeout(type, typeSpeed);
         };
         type();
     }
+
+    // 3. Language Switcher Interactive Logic
+    function setupLanguageSwitcher() {
+        const switchers = document.querySelectorAll('.lang-switcher');
+        
+        const updateSwitcherUI = () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        };
+
+        switchers.forEach(switcher => {
+            switcher.addEventListener('click', (e) => {
+                const btn = e.target.closest('.lang-btn');
+                if (!btn) return;
+                
+                const lang = btn.getAttribute('data-lang');
+                if (lang === currentLang) return;
+                
+                currentLang = lang;
+                localStorage.setItem('portfolio-lang', currentLang);
+                
+                updateSwitcherUI();
+                translateStaticUI();
+                
+                // Re-render dynamic elements
+                renderProjects();
+                renderSkills();
+                renderCertificates();
+                renderBlogs();
+                renderProjectDetails();
+                renderBlogDetails();
+                
+                // Reset typewriter localized phrases
+                startTypewriter();
+            });
+        });
+
+        updateSwitcherUI();
+    }
+
+    // 4. Initial Bootstrap Execution
+    translateStaticUI();
+    renderProjects();
+    renderSkills();
+    renderCertificates();
+    renderBlogs();
+    renderProjectDetails();
+    renderBlogDetails();
+    startTypewriter();
+    setupLanguageSwitcher();
+
+    // Run counters once initially
+    animateCounter('project-counter', portfolioData[currentLang].projects.length);
+    animateCounter('visitor-counter', 12);
+    animateCounter('coffee-counter', 50);
 });

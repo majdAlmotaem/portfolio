@@ -37,12 +37,18 @@
         <div class="container nav-content">
             <a href="#" class="logo">Port<span style="color: var(--primary-color)">folio.</span></a>
             <div class="nav-links" id="nav-links">
-                <a href="#home">Home</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#certificates">Certificates</a>
-                <a href="#blog">Blog</a>
-                <a href="#contact">Contact</a>
+                <a href="#home" data-i18n="nav_home">Home</a>
+                <a href="#projects" data-i18n="nav_projects">Projects</a>
+                <a href="#skills" data-i18n="nav_skills">Skills</a>
+                <a href="#certificates" data-i18n="nav_certs">Certificates</a>
+                <a href="#blog" data-i18n="nav_blog">Blog</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <span class="lang-divider">/</span>
+                <button class="lang-btn" data-lang="de">DE</button>
             </div>
             <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
                 <span></span>
@@ -56,7 +62,7 @@
     <section id="home" class="hero">
         <div class="container hero-content">
             <div class="hero-heading">
-                <h1>Hi, I'm <span class="highlight">Majd</span></h1>
+                <h1 data-i18n="hero_greet">Hi, I'm <span class="highlight">Majd</span></h1>
                 <div class="job-title">
                     <span id="typewriter"></span><span class="typewriter-cursor">|</span>
                 </div>
@@ -65,10 +71,10 @@
                 <img src="assets/images/5447506338524108719_121.jpg" alt="Profile Picture">
             </div>
             <div class="hero-details">
-                <p>Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.</p>
+                <p data-i18n="hero_motto">Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">Explore My Work</a>
-                    <a href="assets/Majd_Almotaem_Lebenslauf.pdf" class="btn btn-outline" download>Download Resume</a>
+                    <a href="#projects" class="btn btn-primary" data-i18n="hero_btn_explore">Explore My Work</a>
+                    <a href="assets/Majd_Almotaem_Lebenslauf.pdf" class="btn btn-outline" download data-i18n="hero_btn_resume">Download Resume</a>
                 </div>
                 <br>
                 <div class="social-links">
@@ -89,17 +95,17 @@
             <div class="stats-bar">
                 <div class="stat-item">
                     <div class="stat-value"><span id="project-counter">0</span>+</div>
-                    <div class="stat-label">Projects Completed</div>
+                    <div class="stat-label" data-i18n="stats_projects">Projects Completed</div>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <div class="stat-value"><span id="visitor-counter">0</span></div>
-                    <div class="stat-label">Site Visitors</div>
+                    <div class="stat-label" data-i18n="stats_visitors">Site Visitors</div>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <div class="stat-value"><span id="coffee-counter">0</span></div>
-                    <div class="stat-label">Cups of Coffee</div>
+                    <div class="stat-label" data-i18n="stats_coffee">Cups of Coffee</div>
                 </div>
             </div>
         </div>
@@ -108,12 +114,12 @@
     <!-- Portfolio Projects Showcase -->
     <section id="projects">
         <div class="container">
-            <h2>Featured Projects</h2>
+            <h2 data-i18n="projects_title">Featured Projects</h2>
             <div id="projects-container" class="projects-grid">
                 <!-- Projects injected by JS -->
             </div>
             <div class="view-all-container">
-                <button id="toggle-projects" class="btn btn-outline">Show More</button>
+                <button id="toggle-projects" class="btn btn-outline" data-i18n="projects_btn_more">Show More</button>
             </div>
         </div>
     </section>
@@ -121,7 +127,7 @@
     <!-- Technical Expertise & Skills -->
     <section id="skills">
         <div class="container">
-            <h2>Tech Stack & Skills</h2>
+            <h2 data-i18n="skills_title">Tech Stack & Skills</h2>
             <div id="skills-container">
                 <!-- Skills injected by JS -->
             </div>
@@ -131,7 +137,7 @@
     <!-- Academic & Professional Certifications -->
     <section id="certificates">
         <div class="container">
-            <h2>Certifications</h2>
+            <h2 data-i18n="certs_title">Certifications</h2>
             <div id="certificates-container" class="certificates-list">
                 <!-- Certificates injected by JS -->
             </div>
@@ -141,12 +147,12 @@
     <!-- Blog & Insights Section -->
     <section id="blog">
         <div class="container">
-            <h2>Latest Insights</h2>
+            <h2 data-i18n="blog_title">Latest Insights</h2>
             <div id="blogs-container" class="blog-grid">
                 <!-- Blogs injected by JS -->
             </div>
             <div class="view-all-container" style="margin-top: 2rem;">
-                <button id="toggle-blogs" class="btn btn-outline">Show More</button>
+                <button id="toggle-blogs" class="btn btn-outline" data-i18n="blog_btn_more">Show More</button>
             </div>
         </div>
     </section>
@@ -154,11 +160,11 @@
     <!-- Contact & Lead Generation -->
     <section id="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
+            <h2 data-i18n="contact_title">Get In Touch</h2>
             <div class="contact-container glass-card">
                 <div class="contact-info">
-                    <h3>Let's work together</h3>
-                    <p>I'm currently available for freelance work and full-time opportunities. If you have a project
+                    <h3 data-i18n="contact_subtitle">Let's work together</h3>
+                    <p data-i18n="contact_text">I'm currently available for freelance work and full-time opportunities. If you have a project
                         that you want to get started, think you need my help with something or just fancy saying hey,
                         then get in touch.</p>
 
@@ -173,15 +179,15 @@
                 </div>
                 <form class="contact-form" id="contact-form">
                     <div class="form-group">
-                        <input type="text" id="contact-name" placeholder="Your Name" required>
+                        <input type="text" id="contact-name" data-i18n-placeholder="contact_placeholder_name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="contact-email" placeholder="Your Email" required>
+                        <input type="email" id="contact-email" data-i18n-placeholder="contact_placeholder_email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea id="contact-message" placeholder="Your Message" required></textarea>
+                        <textarea id="contact-message" data-i18n-placeholder="contact_placeholder_msg" placeholder="Your Message" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="contact_btn_send">Send Message</button>
                 </form>
             </div>
         </div>
@@ -190,7 +196,7 @@
     <!-- Site Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.</p>
+            <p data-i18n="footer_text">&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.</p>
         </div>
     </footer>
 
