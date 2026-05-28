@@ -724,8 +724,52 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCVModal();
     setupCertificatePreview();
 
+    // Real Visitor Counter Integration (Unique sessions - increments once per session)
+    async function updateVisitorCounter() {
+        const namespace = 'majdalmotaem-portfolio';
+        const key = 'visitors';
+        const fallbackCount = 154;
+
+        // Check if already counted in this browser session
+        const alreadyCounted = sessionStorage.getItem('counted-this-session') === 'true';
+
+        try {
+            // If already counted, just GET the current value. Otherwise, increment using /up
+            const url = alreadyCounted 
+                ? `https://api.counterapi.dev/v1/${namespace}/${key}/` 
+                : `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('API response not OK');
+            }
+            const data = await response.json();
+            
+            // Extract count value from the API response
+            const realCount = data.value || data.count;
+            if (typeof realCount === 'number') {
+                if (!alreadyCounted) {
+                    sessionStorage.setItem('counted-this-session', 'true');
+                }
+                animateCounter('visitor-counter', realCount);
+            } else {
+                throw new Error('Invalid counter value structure');
+            }
+        } catch (error) {
+            console.warn('Real visitor counter failed, using resilient fallback:', error);
+            // Robust local storage fallback to track visits if API is offline
+            let localCount = parseInt(localStorage.getItem('portfolio-visits')) || fallbackCount;
+            if (!sessionStorage.getItem('counted-this-session')) {
+                localCount += 1;
+                localStorage.setItem('portfolio-visits', localCount);
+                sessionStorage.setItem('counted-this-session', 'true');
+            }
+            animateCounter('visitor-counter', localCount);
+        }
+    }
+
     // Run counters once initially
     animateCounter('project-counter', portfolioData[currentLang].projects.length);
-    animateCounter('visitor-counter', 12);
+    updateVisitorCounter();
     animateCounter('coffee-counter', 50);
 });
