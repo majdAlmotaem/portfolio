@@ -30,6 +30,20 @@ body {
   position: relative;
 }
 
+/* ─── Neural Network Background Canvas ─── */
+#neural-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* always behind every page element */
+  pointer-events: none;
+  /* never intercepts clicks / hovers */
+  opacity: 0.65;
+}
+
 /* Interactive Background Elements (Liquid Orbs) */
 body::before,
 body::after {
@@ -148,9 +162,7 @@ nav.scrolled {
 
 /* UI Component Library: Glassmorphism Patterns */
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--card-blur));
-  -webkit-backdrop-filter: blur(var(--card-blur));
+  background: #0c0c0c; /* Solid dark background matching the stats-bar appearance to prevent transparency */
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
   padding: 2rem;
@@ -159,7 +171,7 @@ nav.scrolled {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  background: var(--glass-hover);
+  background: #141414; /* Solid slightly lighter dark gray background on hover to prevent transparency */
 }
 
 /* Interactive Button Components */
@@ -207,12 +219,30 @@ nav.scrolled {
   display: flex;
   align-items: center;
   padding-top: 80px;
+  position: relative;
+  isolation: isolate;
+  /* creates a new stacking context */
 }
+
+/* Dark radial vignette to keep hero content legible over the neural bg */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%,
+      rgba(5, 5, 5, 0.72) 0%,
+      rgba(5, 5, 5, 0.40) 55%,
+      transparent 100%);
+}
+
 
 .hero-content {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  grid-template-areas: 
+  grid-template-areas:
     "heading image"
     "details image";
   gap: 0 4rem;
@@ -274,8 +304,15 @@ nav.scrolled {
 }
 
 @keyframes blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
+
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -338,7 +375,7 @@ nav.scrolled {
     width: 100%;
     gap: 1.5rem;
   }
-  
+
   .stat-divider {
     width: 50%;
     height: 1px;
@@ -512,7 +549,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: #0c0c0c; /* Solid dark background matching all other cards to prevent transparency */
   border-radius: 1rem;
   padding: 2rem;
   border: 1px solid var(--glass-border);
@@ -574,7 +611,7 @@ section {
 .cert-icon {
   width: 50px;
   height: 50px;
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(255, 255, 255, 0.05); /* Neutral subtle background instead of lightly purple */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -736,7 +773,7 @@ footer {
 @media (max-width: 900px) {
   .hero-content {
     grid-template-columns: 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "heading"
       "image"
       "details";
@@ -1043,9 +1080,12 @@ body.modal-open {
 }
 
 @keyframes modal-icon-float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -1086,7 +1126,8 @@ body.modal-open {
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
-  animation: none; /* remove morphing animation */
+  animation: none;
+  /* remove morphing animation */
 }
 
 .cv-btn.btn i {
@@ -1228,7 +1269,7 @@ body.modal-open {
 
 .cert-card.clickable-cert:hover {
   transform: translateY(-5px);
-  background: var(--glass-hover);
+  background: #141414; /* Solid slightly lighter dark gray to prevent transparency on hover */
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }

@@ -32,6 +32,9 @@
 
 <body>
 
+    <!-- Neural Network Background Canvas -->
+    <canvas id="neural-canvas"></canvas>
+
     <!-- Main Site Navigation -->
     <nav id="navbar">
         <div class="container nav-content">
@@ -74,7 +77,8 @@
                 <p data-i18n="hero_motto">Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary" data-i18n="hero_btn_explore">Explore My Work</a>
-                    <a href="#" id="download-cv-btn" class="btn btn-outline" data-i18n="hero_btn_resume">Download Resume</a>
+                    <a href="#" id="download-cv-btn" class="btn btn-outline" data-i18n="hero_btn_resume">Download
+                        Resume</a>
                 </div>
                 <br>
                 <div class="social-links">
@@ -164,7 +168,8 @@
             <div class="contact-container glass-card">
                 <div class="contact-info">
                     <h3 data-i18n="contact_subtitle">Let's work together</h3>
-                    <p data-i18n="contact_text">I'm currently available for freelance work and full-time opportunities. If you have a project
+                    <p data-i18n="contact_text">I'm currently available for freelance work and full-time opportunities.
+                        If you have a project
                         that you want to get started, think you need my help with something or just fancy saying hey,
                         then get in touch.</p>
 
@@ -179,13 +184,16 @@
                 </div>
                 <form class="contact-form" id="contact-form">
                     <div class="form-group">
-                        <input type="text" id="contact-name" data-i18n-placeholder="contact_placeholder_name" placeholder="Your Name" required>
+                        <input type="text" id="contact-name" data-i18n-placeholder="contact_placeholder_name"
+                            placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="contact-email" data-i18n-placeholder="contact_placeholder_email" placeholder="Your Email" required>
+                        <input type="email" id="contact-email" data-i18n-placeholder="contact_placeholder_email"
+                            placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea id="contact-message" data-i18n-placeholder="contact_placeholder_msg" placeholder="Your Message" required></textarea>
+                        <textarea id="contact-message" data-i18n-placeholder="contact_placeholder_msg"
+                            placeholder="Your Message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" data-i18n="contact_btn_send">Send Message</button>
                 </form>
@@ -208,7 +216,8 @@
                 <i class="fa-solid fa-file-pdf"></i>
             </div>
             <h3 id="cv-modal-title" data-i18n="cv_modal_title">Select Resume Language</h3>
-            <p id="cv-modal-subtitle" data-i18n="cv_modal_subtitle">Choose your preferred language version to download:</p>
+            <p id="cv-modal-subtitle" data-i18n="cv_modal_subtitle">Choose your preferred language version to download:
+            </p>
             <div class="cv-modal-options">
                 <a href="assets/Majd_Almotaem_CV.pdf" download class="cv-btn btn btn-primary">
                     <i class="fa-solid fa-earth-americas"></i>

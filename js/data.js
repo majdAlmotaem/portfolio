@@ -2,6 +2,26 @@ export const portfolioData = {
     en: {
         projects: [
             {
+                id: 7,
+                title: "clickShare",
+                image: "assets/images/landingpage.png",
+                images: ["assets/images/landingpage.png", "assets/images/postEditor.png", "assets/images/userDashboard.png"],
+                description: "A modern web application to create, manage, and share posts across multiple social media platforms.",
+                techStack: [
+                    { name: "Node.js", iconClass: "fa-brands fa-node-js" },
+                    { name: "Express", iconClass: "fa-brands fa-node-js" },
+                    { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
+                    { name: "Passport.js", iconClass: "fa-solid fa-passport" }
+                ],
+                status: "in-progress",
+                link: "https://github.com/majdAlmotaem/clickShare",
+                githubLink: "https://github.com/majdAlmotaem/clickShare",
+                problem: "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
+                solution: "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
+                lessonsLearned: "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
+                newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS Library"]
+            },
+            {
                 id: 1,
                 title: "Password Manager",
                 image: "assets/images/password-manager-demo.gif",
@@ -116,26 +136,6 @@ export const portfolioData = {
                 solution: "Developed a local backend using Hugging Face diffusers to run SDXL models, connected to a modern web frontend.",
                 lessonsLearned: "Learned how to deploy and optimize local AI models, manage VRAM, and use the diffusers library.",
                 newTechLearned: ["Diffusers Library", "Stable Diffusion XL", "Realistic Vision Model", "Local AI Deployment"]
-            },
-            {
-                id: 7,
-                title: "clickShare",
-                image: "assets/images/project_ecommerce_1777468167512.png",
-                images: ["assets/images/project_ecommerce_1777468167512.png"],
-                description: "A modern web application to create, manage, and share posts across multiple social media platforms.",
-                techStack: [
-                    { name: "Node.js", iconClass: "fa-brands fa-node-js" },
-                    { name: "Express", iconClass: "fa-brands fa-node-js" },
-                    { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
-                    { name: "Passport.js", iconClass: "fa-solid fa-passport" }
-                ],
-                status: "in-progress",
-                link: "https://github.com/majdAlmotaem/clickShare",
-                githubLink: "https://github.com/majdAlmotaem/clickShare",
-                problem: "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
-                solution: "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
-                lessonsLearned: "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
-                newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS Library"]
             },
             {
                 id: 8,
@@ -360,6 +360,26 @@ export const portfolioData = {
     de: {
         projects: [
             {
+                id: 7,
+                title: "clickShare",
+                image: "assets/images/landingpage.png",
+                images: ["assets/images/landingpage.png", "assets/images/postEditor.png", "assets/images/userDashboard.png"],
+                description: "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen auf mehreren Social-Media-Plattformen.",
+                techStack: [
+                    { name: "Node.js", iconClass: "fa-brands fa-node-js" },
+                    { name: "Express", iconClass: "fa-brands fa-node-js" },
+                    { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
+                    { name: "Passport.js", iconClass: "fa-solid fa-passport" }
+                ],
+                status: "in-progress",
+                link: "https://github.com/majdAlmotaem/clickShare",
+                githubLink: "https://github.com/majdAlmotaem/clickShare",
+                problem: "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu planen und auf mehreren Plattformen zu veröffentlichen.",
+                solution: "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten Datenbank und einem zentralen Beitragsverwaltungssystem.",
+                lessonsLearned: "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL und Arbeit mit EJS-Vorlagen.",
+                newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS-Bibliothek"]
+            },
+            {
                 id: 1,
                 title: "Passwort-Manager",
                 image: "assets/images/password-manager-demo.gif",
@@ -474,26 +494,6 @@ export const portfolioData = {
                 solution: "Entwicklung eines lokalen Backends unter Verwendung von Hugging Face Diffusern zur Ausführung von SDXL-Modellen, verbunden mit einem modernen Web-Frontend.",
                 lessonsLearned: "Gelernt, wie man lokale KI-Modelle bereitstellt, optimiert, den VRAM verwaltet und die Diffuser-Bibliothek nutzt.",
                 newTechLearned: ["Diffusers-Bibliothek", "Stable Diffusion XL", "Realistic Vision Modell", "Lokaler KI-Einsatz"]
-            },
-            {
-                id: 7,
-                title: "clickShare",
-                image: "assets/images/project_ecommerce_1777468167512.png",
-                images: ["assets/images/project_ecommerce_1777468167512.png"],
-                description: "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen auf mehreren Social-Media-Plattformen.",
-                techStack: [
-                    { name: "Node.js", iconClass: "fa-brands fa-node-js" },
-                    { name: "Express", iconClass: "fa-brands fa-node-js" },
-                    { name: "PostgreSQL", iconClass: "fa-solid fa-database" },
-                    { name: "Passport.js", iconClass: "fa-solid fa-passport" }
-                ],
-                status: "in-progress",
-                link: "https://github.com/majdAlmotaem/clickShare",
-                githubLink: "https://github.com/majdAlmotaem/clickShare",
-                problem: "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu planen und auf mehreren Plattformen zu veröffentlichen.",
-                solution: "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten Datenbank und einem zentralen Beitragsverwaltungssystem.",
-                lessonsLearned: "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL und Arbeit mit EJS-Vorlagen.",
-                newTechLearned: ["Node.js", "Express.js", "PostgreSQL", "Passport.js", "EJS-Bibliothek"]
             },
             {
                 id: 8,

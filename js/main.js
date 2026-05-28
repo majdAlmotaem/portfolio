@@ -1,4 +1,5 @@
 import { portfolioData } from './data.js';
+import { initNeuralBg } from './neural-bg.js';
 
 const getHue = (str) => {
     let hash = 0;
@@ -9,6 +10,9 @@ const getHue = (str) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Neural Network Background
+    initNeuralBg();
+
     // 1. Language Configuration & State Management
     let currentLang = localStorage.getItem('portfolio-lang') || 'en';
 
@@ -19,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
         nav_certs: { en: "Certificates", de: "Zertifikate" },
         nav_blog: { en: "Blog", de: "Blog" },
         nav_contact: { en: "Contact", de: "Kontakt" },
-        hero_greet: { 
-            en: 'Hi, I\'m <span class="highlight">Majd</span>', 
-            de: 'Hi, ich bin <span class="highlight">Majd</span>' 
+        hero_greet: {
+            en: 'Hi, I\'m <span class="highlight">Majd</span>',
+            de: 'Hi, ich bin <span class="highlight">Majd</span>'
         },
-        hero_motto: { 
-            en: "Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.", 
-            de: "Code. Disziplin. Authentizität. Es ist nicht nur Arbeit, es ist ein Lebensstil." 
+        hero_motto: {
+            en: "Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.",
+            de: "Code. Disziplin. Authentizität. Es ist nicht nur Arbeit, es ist ein Lebensstil."
         },
         hero_btn_explore: { en: "Explore My Work", de: "Meine Arbeit ansehen" },
         hero_btn_resume: { en: "Download Resume", de: "Lebenslauf herunterladen" },
@@ -33,21 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
         cv_modal_subtitle: { en: "Choose your preferred language version to download:", de: "Wähle deine bevorzugte Sprachversion zum Herunterladen:" },
         cv_btn_english: { en: "English (CV)", de: "Englisch (CV)" },
         cv_btn_german: { en: "German (Lebenslauf)", de: "Deutsch (Lebenslauf)" },
-        stats_projects: { en: "Projects Completed", de: "Abgeschlossene Projekte" },
+        stats_projects: { en: "Projects", de: "Projekte" },
         stats_visitors: { en: "Site Visitors", de: "Seitenbesucher" },
         stats_coffee: { en: "Cups of Coffee", de: "Tassen Kaffee" },
-        projects_title: { en: "Featured Projects", de: "Ausgewählte Projekte" },
+        projects_title: { en: "Projects", de: "Projekte" },
         projects_btn_more: { en: "Show More", de: "Mehr anzeigen" },
         projects_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
         projects_coming_soon_title: { en: "More Coming Soon...", de: "Mehr in Kürze..." },
-        projects_coming_soon_desc: { 
-            en: "Stay tuned for more exciting projects and experiments!", 
-            de: "Bleib gespannt auf weitere spannende Projekte und Experimente!" 
+        projects_coming_soon_desc: {
+            en: "Stay tuned for more exciting projects and experiments!",
+            de: "Bleib gespannt auf weitere spannende Projekte und Experimente!"
         },
         skills_title: { en: "Tech Stack & Skills", de: "Tech Stack & Fähigkeiten" },
-        skills_footer: { 
-            en: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I\'m always ready to learn more and more....', 
-            de: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Ich bin immer bereit, noch mehr zu lernen....' 
+        skills_footer: {
+            en: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I\'m always ready to learn more and more....',
+            de: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Ich bin immer bereit, noch mehr zu lernen....'
         },
         certs_title: { en: "Certifications", de: "Zertifizierungen" },
         blog_title: { en: "Latest Insights", de: "Neueste Einblicke" },
@@ -55,17 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
         blog_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
         contact_title: { en: "Get In Touch", de: "Kontakt aufnehmen" },
         contact_subtitle: { en: "Let's work together", de: "Lass uns zusammenarbeiten" },
-        contact_text: { 
-            en: "I'm currently available for freelance work and full-time opportunities. If you have a project that you want to get started, think you need my help with something or just fancy saying hey, then get in touch.", 
-            de: "Ich bin derzeit für freiberufliche Tätigkeiten und Vollzeitstellen verfügbar. Wenn du ein Projekt starten möchtest, Hilfe brauchst oder einfach nur Hallo sagen willst, melde dich gerne." 
+        contact_text: {
+            en: "I'm currently available for freelance work and full-time opportunities. If you have a project that you want to get started, think you need my help with something or just fancy saying hey, then get in touch.",
+            de: "Ich bin derzeit für freiberufliche Tätigkeiten und Vollzeitstellen verfügbar. Wenn du ein Projekt starten möchtest, Hilfe brauchst oder einfach nur Hallo sagen willst, melde dich gerne."
         },
         contact_placeholder_name: { en: "Your Name", de: "Dein Name" },
         contact_placeholder_email: { en: "Your Email", de: "Deine E-Mail" },
         contact_placeholder_msg: { en: "Your Message", de: "Deine Nachricht" },
         contact_btn_send: { en: "Send Message", de: "Nachricht senden" },
-        footer_text: { 
-            en: "&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.", 
-            de: "&copy; 2026 Majd Almotaem. Erstellt mit Vanilla JS & CSS." 
+        footer_text: {
+            en: "&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.",
+            de: "&copy; 2026 Majd Almotaem. Erstellt mit Vanilla JS & CSS."
         },
         details_problem: { en: "The Problem", de: "Das Problem" },
         details_solution: { en: "The Solution", de: "Die Lösung" },
@@ -161,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const techTags = project.techStack.map(tech => `<span class="tech-badge" style="--badge-hue: ${getHue(tech.name)};"><i class="${tech.iconClass}"></i> ${tech.name}</span>`).join('');
 
             const isVideo = project.image.toLowerCase().endsWith('.mp4') || project.image.toLowerCase().endsWith('.webm');
-            const mediaHTML = isVideo 
+            const mediaHTML = isVideo
                 ? `<video src="${project.image}" class="project-img" autoplay muted loop playsinline></video>`
                 : `<img src="${project.image}" alt="${project.title}" class="project-img">`;
 
@@ -185,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Placeholder for future project expansion
         if (projectsExpanded) {
             projectsHTML += `
-                <div class="glass-card project-card coming-soon-card" style="display: flex; align-items: center; justify-content: center; text-align: center; border-style: dashed; opacity: 0.7; height: 100%;">
+                <div class="glass-card project-card coming-soon-card" style="display: flex; align-items: center; justify-content: center; text-align: center; border-style: dashed; height: 100%;">
                     <div class="project-info" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                         <i class="fa-solid fa-rocket" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite;"></i>
                         <h3 class="project-title">${translations.projects_coming_soon_title[currentLang]}</h3>
@@ -198,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
         projectsContainer.innerHTML = projectsHTML;
 
         if (toggleProjectsBtn) {
-            toggleProjectsBtn.textContent = projectsExpanded 
-                ? translations.projects_btn_less[currentLang] 
+            toggleProjectsBtn.textContent = projectsExpanded
+                ? translations.projects_btn_less[currentLang]
                 : translations.projects_btn_more[currentLang];
         }
     }
@@ -295,8 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         blogsContainer.innerHTML = blogsHTML;
 
         if (toggleBlogsBtn) {
-            toggleBlogsBtn.textContent = blogsExpanded 
-                ? translations.blog_btn_less[currentLang] 
+            toggleBlogsBtn.textContent = blogsExpanded
+                ? translations.blog_btn_less[currentLang]
                 : translations.blog_btn_more[currentLang];
         }
     }
@@ -472,11 +476,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('contact-name').value;
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
-            
-            const subjectText = currentLang === 'en' 
-                ? `Portfolio Contact from ${name}` 
+
+            const subjectText = currentLang === 'en'
+                ? `Portfolio Contact from ${name}`
                 : `Portfolio-Kontakt von ${name}`;
-            
+
             const bodyText = currentLang === 'en'
                 ? `Name: ${name}\nEmail: ${email}\n\n${message}`
                 : `Name: ${name}\nE-Mail: ${email}\n\n${message}`;
@@ -574,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Language Switcher Interactive Logic
     function setupLanguageSwitcher() {
         const switchers = document.querySelectorAll('.lang-switcher');
-        
+
         const updateSwitcherUI = () => {
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 if (btn.getAttribute('data-lang') === currentLang) {
@@ -589,16 +593,16 @@ document.addEventListener('DOMContentLoaded', () => {
             switcher.addEventListener('click', (e) => {
                 const btn = e.target.closest('.lang-btn');
                 if (!btn) return;
-                
+
                 const lang = btn.getAttribute('data-lang');
                 if (lang === currentLang) return;
-                
+
                 currentLang = lang;
                 localStorage.setItem('portfolio-lang', currentLang);
-                
+
                 updateSwitcherUI();
                 translateStaticUI();
-                
+
                 // Re-render dynamic elements
                 renderProjects();
                 renderSkills();
@@ -606,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderBlogs();
                 renderProjectDetails();
                 renderBlogDetails();
-                
+
                 // Reset typewriter localized phrases
                 startTypewriter();
             });
