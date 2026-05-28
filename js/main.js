@@ -251,8 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!certsContainer) return;
         let certsHTML = '';
         portfolioData[currentLang].certificates.forEach(cert => {
+            const hasImage = !!cert.image;
+            const clickableClass = hasImage ? 'clickable-cert' : '';
+            const dataAttr = hasImage ? `data-cert-img="${cert.image}" data-cert-title="${cert.title}"` : '';
+
             certsHTML += `
-                <div class="glass-card cert-card">
+                <div class="glass-card cert-card ${clickableClass}" ${dataAttr}>
                     <div class="cert-icon">
                         <i class="${cert.iconClass}"></i>
                     </div>
@@ -260,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>${cert.title}</h3>
                         <p>${cert.issuer}</p>
                     </div>
+                    ${hasImage ? `<div class="cert-preview-badge"><i class="fa-solid fa-magnifying-glass-plus"></i></div>` : ''}
                 </div>
             `;
         });
@@ -652,6 +657,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 3.7 Certificate Preview Modal Logic
+    function setupCertificatePreview() {
+        const previewModal = document.getElementById('preview-modal');
+        const previewImg = document.getElementById('preview-modal-img');
+        const previewCaption = document.getElementById('preview-modal-caption');
+        const previewCloseBtn = document.getElementById('preview-modal-close-btn');
+
+        // Since certificate cards are rendered dynamically, we use event delegation on the container
+        const certsContainer = document.getElementById('certificates-container');
+        if (certsContainer && previewModal && previewImg && previewCaption) {
+            certsContainer.addEventListener('click', (e) => {
+                const certCard = e.target.closest('.clickable-cert');
+                if (!certCard) return;
+
+                const imgUrl = certCard.getAttribute('data-cert-img');
+                const title = certCard.getAttribute('data-cert-title');
+
+                if (imgUrl) {
+                    previewImg.src = imgUrl;
+                    previewCaption.textContent = title || '';
+                    previewModal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                }
+            });
+        }
+
+        const closePreviewModal = () => {
+            if (previewModal) {
+                previewModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                // Clear the image source after transition to prevent flicker on reopen
+                setTimeout(() => {
+                    previewImg.src = '';
+                }, 400);
+            }
+        };
+
+        if (previewCloseBtn) {
+            previewCloseBtn.addEventListener('click', closePreviewModal);
+        }
+
+        if (previewModal) {
+            previewModal.addEventListener('click', (e) => {
+                if (e.target === previewModal) {
+                    closePreviewModal();
+                }
+            });
+        }
+    }
+
     // 4. Initial Bootstrap Execution
     translateStaticUI();
     renderProjects();
@@ -663,6 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startTypewriter();
     setupLanguageSwitcher();
     setupCVModal();
+    setupCertificatePreview();
 
     // Run counters once initially
     animateCounter('project-counter', portfolioData[currentLang].projects.length);

@@ -227,42 +227,50 @@ export const portfolioData = {
             {
                 title: "IT Specialist in Application Development",
                 issuer: "IHK Duisburg-Wesel-Kleve",
-                iconClass: "fa-solid fa-graduation-cap"
+                iconClass: "fa-solid fa-graduation-cap",
+                image: "assets/images/Fachinformatiker für Anwendungsentwicklung.png"
             },
             {
                 title: "AWS Certified Solutions Architect - Associate",
                 issuer: "Amazon Web Services",
-                iconClass: "fa-brands fa-aws"
+                iconClass: "fa-brands fa-aws",
+                image: "assets/images/aws.png"
             },
             {
                 title: "Introduction to Generative AI",
                 issuer: "LinkedIn Learning & Microsoft",
-                iconClass: "fa-solid fa-brain"
+                iconClass: "fa-solid fa-brain",
+                image: "assets/images/Grundwissen Generative KI.png"
             },
             {
                 title: "Data Science Foundations",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-chart-line"
+                iconClass: "fa-solid fa-chart-line",
+                image: "assets/images/Data Science.png"
             },
             {
                 title: "Prompt Engineering Foundations",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-comment-dots"
+                iconClass: "fa-solid fa-comment-dots",
+                image: "assets/images/Prompt Engineering.png"
             },
             {
                 title: "Class Diagrams with UML",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-diagram-project"
+                iconClass: "fa-solid fa-diagram-project",
+                image: "assets/images/Klassendiagramme.png"
             },
             {
                 title: "Networking Basics",
                 issuer: "CISCO Academy",
-                iconClass: "fa-solid fa-network-wired"
+                iconClass: "fa-solid fa-network-wired",
+                image: "assets/images/Networking Basics.png"
             },
             {
                 title: "Programming for Everybody (Python)",
                 issuer: "University of Michigan / Coursera",
-                iconClass: "fa-brands fa-python"
+                iconClass: "fa-brands fa-python",
+                image: "assets/images/Programming for Everybody python.png"
             }
         ],
         blogs: [
@@ -577,42 +585,50 @@ export const portfolioData = {
             {
                 title: "Fachinformatiker für Anwendungsentwicklung",
                 issuer: "IHK Duisburg-Wesel-Kleve",
-                iconClass: "fa-solid fa-graduation-cap"
+                iconClass: "fa-solid fa-graduation-cap",
+                image: "assets/images/Fachinformatiker für Anwendungsentwicklung.png"
             },
             {
                 title: "AWS Certified Solutions Architect - Associate",
                 issuer: "Amazon Web Services",
-                iconClass: "fa-brands fa-aws"
+                iconClass: "fa-brands fa-aws",
+                image: "assets/images/aws.png"
             },
             {
                 title: "Grundwissen Generative KI",
                 issuer: "LinkedIn Learning & Microsoft",
-                iconClass: "fa-solid fa-brain"
+                iconClass: "fa-solid fa-brain",
+                image: "assets/images/Grundwissen Generative KI.png"
             },
             {
                 title: "Data Science – Grundlagen",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-chart-line"
+                iconClass: "fa-solid fa-chart-line",
+                image: "assets/images/Data Science.png"
             },
             {
                 title: "Prompt Engineering - Grundlagen",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-comment-dots"
+                iconClass: "fa-solid fa-comment-dots",
+                image: "assets/images/Prompt Engineering.png"
             },
             {
                 title: "Klassendiagramme mit UML",
                 issuer: "LinkedIn Learning",
-                iconClass: "fa-solid fa-diagram-project"
+                iconClass: "fa-solid fa-diagram-project",
+                image: "assets/images/Klassendiagramme.png"
             },
             {
                 title: "Networking Basics",
                 issuer: "CISCO Academy",
-                iconClass: "fa-solid fa-network-wired"
+                iconClass: "fa-solid fa-network-wired",
+                image: "assets/images/Networking Basics.png"
             },
             {
                 title: "Programming for Everybody (Python)",
                 issuer: "University of Michigan / Coursera",
-                iconClass: "fa-brands fa-python"
+                iconClass: "fa-brands fa-python",
+                image: "assets/images/Programming for Everybody python.png"
             }
         ],
         blogs: [
