@@ -81,25 +81,6 @@ export const portfolioData = {
                 newTechLearned: ["n8n", "AI-Driven Automation", "Productivity Workflows"]
             },
             {
-                id: 4,
-                title: "Memory Game",
-                image: "assets/images/memoryGame.png",
-                images: ["assets/images/memoryGame.png", "assets/images/memoryGame2.png"],
-                description: "A fun and challenging memory card matching game built with Python and Toga.",
-                techStack: [
-                    { name: "Python", iconClass: "fa-brands fa-python" },
-                    { name: "Toga", iconClass: "fa-solid fa-gamepad" },
-                    { name: "BeeWare", iconClass: "fa-brands fa-python" }
-                ],
-                status: "completed",
-                link: "https://github.com/majdAlmotaem/MemoryGame",
-                githubLink: "https://github.com/majdAlmotaem/MemoryGame",
-                problem: "Needed a fun, interactive way to learn cross-platform Python GUI development.",
-                solution: "Created a fully functional memory card game with a dark theme, multiple difficulty levels, and a life system.",
-                lessonsLearned: "Mastered the Toga library and BeeWare toolkit for building cross-platform games in Python.",
-                newTechLearned: ["Toga Library", "BeeWare Toolkit", "Game Development"]
-            },
-            {
                 id: 5,
                 title: "DiscordBot-GithubIssues",
                 image: "assets/images/Mr.IssuesApp.png",
@@ -184,7 +165,6 @@ export const portfolioData = {
                     { name: "Python", iconClass: "fa-brands fa-python" },
                     { name: "JavaScript", iconClass: "fa-brands fa-js" },
                     { name: "SQL", iconClass: "fa-solid fa-database" },
-                    { name: "C#", iconClass: "fa-brands fa-microsoft" },
                     { name: "HTML/CSS", iconClass: "fa-brands fa-html5" }
                 ]
             },
@@ -439,25 +419,6 @@ export const portfolioData = {
                 newTechLearned: ["n8n", "KI-gestützte Automatisierung", "Produktivitäts-Workflows"]
             },
             {
-                id: 4,
-                title: "Memory-Spiel",
-                image: "assets/images/memoryGame.png",
-                images: ["assets/images/memoryGame.png", "assets/images/memoryGame2.png"],
-                description: "Ein unterhaltsames und herausforderndes Memory-Kartenspiel, entwickelt mit Python und Toga.",
-                techStack: [
-                    { name: "Python", iconClass: "fa-brands fa-python" },
-                    { name: "Toga", iconClass: "fa-solid fa-gamepad" },
-                    { name: "BeeWare", iconClass: "fa-brands fa-python" }
-                ],
-                status: "completed",
-                link: "https://github.com/majdAlmotaem/MemoryGame",
-                githubLink: "https://github.com/majdAlmotaem/MemoryGame",
-                problem: "Ein spielerischer Weg gesucht, um die plattformübergreifende Python-GUI-Entwicklung zu erlernen.",
-                solution: "Erstellung eines voll funktionsfähigen Memory-Kartenspiels mit dunklem Design, mehreren Schwierigkeitsgraden und einem Lebenssystem.",
-                lessonsLearned: "Die Toga-Bibliothek und das BeeWare-Toolkit zur Erstellung plattformübergreifender Spiele in Python gemeistert.",
-                newTechLearned: ["Toga-Bibliothek", "BeeWare-Toolkit", "Spieleentwicklung"]
-            },
-            {
                 id: 5,
                 title: "DiscordBot-GithubIssues",
                 image: "assets/images/Mr.IssuesApp.png",
@@ -542,7 +503,6 @@ export const portfolioData = {
                     { name: "Python", iconClass: "fa-brands fa-python" },
                     { name: "JavaScript", iconClass: "fa-brands fa-js" },
                     { name: "SQL", iconClass: "fa-solid fa-database" },
-                    { name: "C#", iconClass: "fa-brands fa-microsoft" },
                     { name: "HTML/CSS", iconClass: "fa-brands fa-html5" }
                 ]
             },
