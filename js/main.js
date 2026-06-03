@@ -39,8 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cv_btn_german: { en: "German (Lebenslauf)", de: "Deutsch (Lebenslauf)" },
         stats_projects: { en: "Projects", de: "Projekte" },
         stats_visitors: { en: "Site Visitors", de: "Seitenbesucher" },
-        stats_experience: { en: "Work Experience", de: "Berufserfahrung" },
-        stats_years_unit: { en: "Years", de: "Jahre" },
         projects_title: { en: "Projects", de: "Projekte" },
         projects_btn_more: { en: "Show More", de: "Mehr anzeigen" },
         projects_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
@@ -772,5 +770,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run counters once initially
     animateCounter('project-counter', portfolioData[currentLang].projects.length);
     updateVisitorCounter();
-    animateCounter('experience-counter', 3);
 });
