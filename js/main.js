@@ -24,15 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
         nav_blog: { en: "Blog", de: "Blog" },
         nav_contact: { en: "Contact", de: "Kontakt" },
         hero_greet: {
-            en: 'Hi, I\'m <span class="highlight">Majd</span>',
-            de: 'Hi, ich bin <span class="highlight">Majd</span>'
+            en: 'Majd <span class="highlight">Almotaem</span>',
+            de: 'Majd <span class="highlight">Almotaem</span>'
         },
+        hero_title: { en: "Fullstack Developer", de: "Fullstack-Entwickler" },
         hero_motto: {
-            en: "Code. Discipline. Authenticity. It’s not just work, it’s a lifestyle.",
-            de: "Code. Disziplin. Authentizität. Es ist nicht nur Arbeit, es ist ein Lebensstil."
+            en: "I build backend solutions and Python-based automations using SQL, JavaScript, cloud technologies and modern AI tools. I focus on clean code, structured problem-solving and continuous learning.",
+            de: "Ich entwickle Backend-Lösungen und Python-basierte Automatisierungen mit SQL, JavaScript, Cloud-Technologien und modernen KI-Tools. Mein Fokus liegt auf sauberem Code, strukturiertem Problemlösen und kontinuierlicher Weiterentwicklung."
         },
-        hero_btn_explore: { en: "Explore My Work", de: "Meine Arbeit ansehen" },
-        hero_btn_resume: { en: "Download Resume", de: "Lebenslauf herunterladen" },
+        hero_btn_explore: { en: "Explore My Work", de: "Projekte ansehen" },
+        hero_btn_resume: { en: "Download Resume", de: "Lebenslauf" },
         cv_modal_title: { en: "Select Resume Language", de: "Lebenslauf-Sprache wählen" },
         cv_modal_subtitle: { en: "Choose your preferred language version to download:", de: "Wähle deine bevorzugte Sprachversion zum Herunterladen:" },
         cv_btn_english: { en: "English (CV)", de: "Englisch (CV)" },
@@ -83,20 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         details_blog_not_found: { en: "Blog post not found.", de: "Blogbeitrag nicht gefunden." }
     };
 
-    const typewriterPhrases = {
-        en: [
-            'Software Developer',
-            'Full Stack Developer',
-            'Problem Solver',
-            'Creative Coder'
-        ],
-        de: [
-            'Softwareentwickler',
-            'Full-Stack-Entwickler',
-            'Problemlöser',
-            'Kreativer Coder'
-        ]
-    };
+
 
     const getStatusTranslation = (status) => {
         const statusMap = {
@@ -529,50 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCount();
     };
 
-    // Branding: Dynamic typewriter effect for hero section titles
-    let typewriterTimeout;
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typeSpeed = 100;
 
-    function startTypewriter() {
-        const typewriterElement = document.getElementById('typewriter');
-        if (!typewriterElement) return;
-
-        clearTimeout(typewriterTimeout);
-        typewriterElement.innerText = '';
-        charIndex = 0;
-        isDeleting = false;
-
-        const type = () => {
-            const phrases = typewriterPhrases[currentLang];
-            phraseIndex = phraseIndex % phrases.length;
-            const currentPhrase = phrases[phraseIndex];
-
-            if (isDeleting) {
-                typewriterElement.innerText = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 50;
-            } else {
-                typewriterElement.innerText = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 100;
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; // Pause at end
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-
-            typewriterTimeout = setTimeout(type, typeSpeed);
-        };
-        type();
-    }
 
     // 3. Language Switcher Interactive Logic
     function setupLanguageSwitcher() {
@@ -609,9 +554,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderBlogs();
                 renderProjectDetails();
                 renderBlogDetails();
-
-                // Reset typewriter localized phrases
-                startTypewriter();
             });
         });
 
@@ -718,7 +660,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBlogs();
     renderProjectDetails();
     renderBlogDetails();
-    startTypewriter();
     setupLanguageSwitcher();
     setupCVModal();
     setupCertificatePreview();
