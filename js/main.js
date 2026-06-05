@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         contact_placeholder_msg: { en: "Your Message", de: "Deine Nachricht" },
         contact_btn_send: { en: "Send Message", de: "Nachricht senden" },
         footer_text: {
-            en: "&copy; 2026 Majd Almotaem. Built with Vanilla JS & CSS.",
-            de: "&copy; 2026 Majd Almotaem. Erstellt mit Vanilla JS & CSS."
+            en: "&copy; 2026 Majd Almotaem.",
+            de: "&copy; 2026 Majd Almotaem."
         },
         details_problem: { en: "The Problem", de: "Das Problem" },
         details_solution: { en: "The Solution", de: "Die Lösung" },
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Image gallery
             let imagesHTML = '';
             const allImages = project.images || [project.image];
-            
+
             if (allImages.length > 0) {
                 imagesHTML = `
                     <div class="project-slider-wrapper">
@@ -323,16 +323,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${allImages.length > 1 ? `
                             <div class="thumbnail-strip">
                                 ${allImages.map((img, idx) => {
-                                    const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.webm');
-                                    return `
+                    const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.webm');
+                    return `
                                         <div class="thumbnail-item ${idx === 0 ? 'active' : ''}" data-index="${idx}">
-                                            ${isVid 
-                                                ? `<video src="${img}" muted playsinline></video>`
-                                                : `<img src="${img}" alt="Thumbnail ${idx + 1}">`
-                                            }
+                                            ${isVid
+                            ? `<video src="${img}" muted playsinline></video>`
+                            : `<img src="${img}" alt="Thumbnail ${idx + 1}">`
+                        }
                                         </div>
                                     `;
-                                }).join('')}
+                }).join('')}
                             </div>
                         ` : ''}
                     </div>
@@ -394,9 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentIndex = (index + allImages.length) % allImages.length;
                     const activeMedia = allImages[currentIndex];
                     const isVid = activeMedia.toLowerCase().endsWith('.mp4') || activeMedia.toLowerCase().endsWith('.webm');
-                    
+
                     viewport.style.opacity = '0';
-                    
+
                     setTimeout(() => {
                         if (isVid) {
                             viewport.innerHTML = `<video src="${activeMedia}" autoplay muted loop playsinline class="slider-media-content"></video>`;
@@ -506,26 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // UX Enhancement: Scroll-to-top functionality for better navigation
-    const scrollTopBtn = document.createElement('div');
-    scrollTopBtn.classList.add('scroll-top-btn');
-    scrollTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-    document.body.appendChild(scrollTopBtn);
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add('show');
-        } else {
-            scrollTopBtn.classList.remove('show');
-        }
-    });
-
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 
     // Communication: Contact form submission handling via mailto protocol
     const contactForm = document.getElementById('contact-form');
@@ -747,8 +728,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // If already counted, just GET the current value. Otherwise, increment using /up
-            const url = alreadyCounted 
-                ? `https://api.counterapi.dev/v1/${namespace}/${key}/` 
+            const url = alreadyCounted
+                ? `https://api.counterapi.dev/v1/${namespace}/${key}/`
                 : `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
 
             const response = await fetch(url);
@@ -756,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('API response not OK');
             }
             const data = await response.json();
-            
+
             // Extract count value from the API response
             const realCount = data.value || data.count;
             if (typeof realCount === 'number') {
