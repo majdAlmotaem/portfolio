@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sticky Navigation: Handles navbar visibility and scrolling effects
     const nav = document.getElementById('navbar');
-    let lastScrollY = 0;
     if (nav) {
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
@@ -125,12 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 nav.classList.remove('scrolled');
             }
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                nav.style.transform = 'translateY(-100%)';
-            } else {
-                nav.style.transform = 'translateY(0)';
-            }
-            lastScrollY = currentScrollY;
         });
     }
 
@@ -315,24 +308,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Image gallery
             let imagesHTML = '';
-            if (project.images && project.images.length > 0) {
-                imagesHTML = `<div class="project-gallery" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 2rem;">`;
-                project.images.forEach(img => {
-                    const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.webm');
-                    if (isVid) {
-                        imagesHTML += `<video src="${img}" autoplay muted loop playsinline style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);"></video>`;
-                    } else {
-                        imagesHTML += `<img src="${img}" alt="${project.title}" style="height: 400px; max-width: 100%; object-fit: contain; border-radius: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">`;
-                    }
-                });
-                imagesHTML += `</div>`;
-            } else {
-                const isVid = project.image.toLowerCase().endsWith('.mp4') || project.image.toLowerCase().endsWith('.webm');
-                if (isVid) {
-                    imagesHTML = `<video src="${project.image}" autoplay muted loop playsinline style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;"></video>`;
-                } else {
-                    imagesHTML = `<img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">`;
-                }
+            const allImages = project.images || [project.image];
+            
+            if (allImages.length > 0) {
+                imagesHTML = `
+                    <div class="project-slider-wrapper">
+                        <div class="main-preview-container">
+                            ${allImages.length > 1 ? `<button class="slider-arrow prev-arrow" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>` : ''}
+                            <div class="main-preview-viewport">
+                                <!-- Injected dynamically -->
+                            </div>
+                            ${allImages.length > 1 ? `<button class="slider-arrow next-arrow" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>` : ''}
+                        </div>
+                        ${allImages.length > 1 ? `
+                            <div class="thumbnail-strip">
+                                ${allImages.map((img, idx) => {
+                                    const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.webm');
+                                    return `
+                                        <div class="thumbnail-item ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+                                            ${isVid 
+                                                ? `<video src="${img}" muted playsinline></video>`
+                                                : `<img src="${img}" alt="Thumbnail ${idx + 1}">`
+                                            }
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
             }
 
             projectDetailsContainer.innerHTML = `
@@ -376,6 +380,74 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+
+            // Initialize slider logic if elements exist
+            const sliderWrapper = projectDetailsContainer.querySelector('.project-slider-wrapper');
+            if (sliderWrapper && allImages.length > 1) {
+                let currentIndex = 0;
+                const viewport = sliderWrapper.querySelector('.main-preview-viewport');
+                const thumbnails = sliderWrapper.querySelectorAll('.thumbnail-item');
+                const prevBtn = sliderWrapper.querySelector('.prev-arrow');
+                const nextBtn = sliderWrapper.querySelector('.next-arrow');
+
+                function updateActiveMedia(index) {
+                    currentIndex = (index + allImages.length) % allImages.length;
+                    const activeMedia = allImages[currentIndex];
+                    const isVid = activeMedia.toLowerCase().endsWith('.mp4') || activeMedia.toLowerCase().endsWith('.webm');
+                    
+                    viewport.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        if (isVid) {
+                            viewport.innerHTML = `<video src="${activeMedia}" autoplay muted loop playsinline class="slider-media-content"></video>`;
+                        } else {
+                            viewport.innerHTML = `<img src="${activeMedia}" alt="${project.title}" class="slider-media-content">`;
+                        }
+                        viewport.style.opacity = '1';
+                    }, 150);
+
+                    thumbnails.forEach((thumb, idx) => {
+                        if (idx === currentIndex) {
+                            thumb.classList.add('active');
+                        } else {
+                            thumb.classList.remove('active');
+                        }
+                    });
+                }
+
+                updateActiveMedia(0);
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateActiveMedia(currentIndex - 1);
+                    });
+                }
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateActiveMedia(currentIndex + 1);
+                    });
+                }
+
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', () => {
+                        const idx = parseInt(thumb.getAttribute('data-index'));
+                        updateActiveMedia(idx);
+                    });
+                });
+            } else if (sliderWrapper) {
+                const viewport = sliderWrapper.querySelector('.main-preview-viewport');
+                if (viewport) {
+                    const activeMedia = allImages[0];
+                    const isVid = activeMedia.toLowerCase().endsWith('.mp4') || activeMedia.toLowerCase().endsWith('.webm');
+                    if (isVid) {
+                        viewport.innerHTML = `<video src="${activeMedia}" autoplay muted loop playsinline class="slider-media-content"></video>`;
+                    } else {
+                        viewport.innerHTML = `<img src="${activeMedia}" alt="${project.title}" class="slider-media-content">`;
+                    }
+                }
+            }
         } else {
             projectDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; text-align: center;">
