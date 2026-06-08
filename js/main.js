@@ -1,4 +1,4 @@
-import { portfolioData } from './data.js';
+import { loadPortfolioData } from './cms-loader.js';
 import { initNeuralBg } from './neural-bg.js';
 
 const getHue = (str) => {
@@ -9,9 +9,12 @@ const getHue = (str) => {
     return Math.abs(hash) % 360;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Neural Network Background
     initNeuralBg();
+
+    // Load CMS & JSON content
+    const portfolioData = await loadPortfolioData();
 
     // 1. Language Configuration & State Management
     let currentLang = localStorage.getItem('portfolio-lang') || 'en';
@@ -706,6 +709,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Initial Bootstrap Execution
+    // Update translations and UI dynamically from loaded profile data
+    if (portfolioData.profile) {
+        const profile = portfolioData.profile;
+        if (profile.name) {
+            const nameParts = profile.name.split(' ');
+            let highlightedName = profile.name;
+            if (nameParts.length > 1) {
+                const last = nameParts.pop();
+                highlightedName = `${nameParts.join(' ')} <span class="highlight">${last}</span>`;
+            } else {
+                highlightedName = `<span class="highlight">${profile.name}</span>`;
+            }
+            translations.hero_greet.en = highlightedName;
+            translations.hero_greet.de = highlightedName;
+        }
+        if (profile.en?.title) translations.hero_title.en = profile.en.title;
+        if (profile.de?.title) translations.hero_title.de = profile.de.title;
+        if (profile.en?.motto) translations.hero_motto.en = profile.en.motto;
+        if (profile.de?.motto) translations.hero_motto.de = profile.de.motto;
+
+        // Dynamic Profile Image
+        const heroImg = document.querySelector('.hero-image-container img');
+        if (heroImg && profile.image) {
+            heroImg.src = profile.image;
+        }
+
+        // Dynamic Social Links
+        if (profile.socials) {
+            const githubLink = document.querySelector('a[href*="github.com"]');
+            if (githubLink && profile.socials.github) githubLink.href = profile.socials.github;
+
+            const linkedinLink = document.querySelector('a[href*="linkedin.com"]');
+            if (linkedinLink && profile.socials.linkedin) linkedinLink.href = profile.socials.linkedin;
+
+            const emailLink = document.querySelector('a[href^="mailto:"]');
+            if (emailLink && profile.socials.email) {
+                emailLink.href = `mailto:${profile.socials.email}`;
+            }
+        }
+
+        // Dynamic Resumes
+        if (profile.resume) {
+            const resumeLinks = document.querySelectorAll('.cv-modal-options a');
+            if (resumeLinks.length >= 2) {
+                if (profile.resume.en) resumeLinks[0].href = profile.resume.en;
+                if (profile.resume.de) resumeLinks[1].href = profile.resume.de;
+            }
+        }
+    }
+
     translateStaticUI();
     renderProjects();
     renderSkills();

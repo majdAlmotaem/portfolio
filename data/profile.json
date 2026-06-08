@@ -1,0 +1,21 @@
+{
+  "name": "Majd Almotaem",
+  "image": "assets/images/5447506338524108719_121.jpg",
+  "socials": {
+    "github": "https://github.com/majdAlmotaem",
+    "linkedin": "https://www.linkedin.com/in/majd-almotaem-5105b4266/",
+    "email": "majdalmotaem1998@gmail.com"
+  },
+  "en": {
+    "title": "Fullstack Developer",
+    "motto": "I build backend solutions and Python-based automations using SQL, JavaScript, cloud technologies and modern AI tools. I focus on clean code, structured problem-solving and continuous learning."
+  },
+  "de": {
+    "title": "Fullstack-Entwickler",
+    "motto": "Ich entwickle Backend-Lösungen und Python-basierte Automatisierungen mit SQL, JavaScript, Cloud-Technologien und modernen KI-Tools. Mein Fokus liegt auf sauberem Code, strukturiertem Problemlösen und kontinuierlicher Weiterentwicklung."
+  },
+  "resume": {
+    "en": "assets/resume/Majd_Almotaem_CV.pdf",
+    "de": "assets/resume/Majd_Almotaem_Lebenslauf.pdf"
+  }
+}
