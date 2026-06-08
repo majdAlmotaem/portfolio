@@ -55,13 +55,16 @@ export async function initSkills(container, showToast) {
                 catEl.style.background = 'rgba(255,255,255,0.01)';
                 
                 catEl.innerHTML = `
-                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;">
-                        <input type="text" value="${cat.category}" placeholder="Category Name" class="cat-title-input" style="font-weight: 600; flex-grow: 1;">
-                        <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-cat" title="Delete Category"><i class="fa-solid fa-trash-can"></i></button>
+                    <div style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 1.5rem; width: 100%;">
+                        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-align: left;">Category Title</span>
+                            <input type="text" value="${cat.category}" placeholder="e.g. Frontend Languages" class="cat-title-input" style="font-weight: 600; width: 100%; padding: 0.6rem 0.8rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.5rem; color: white;">
+                        </div>
+                        <button type="button" class="btn btn-danger btn-delete-cat" title="Delete Category" style="padding: 0.65rem; border-radius: 0.5rem;"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                     <div class="items-list-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
-                    <button type="button" class="btn btn-outline btn-sm btn-add-skill" style="margin-top: 0.8rem; font-size: 0.8rem;">
-                        <i class="fa-solid fa-plus"></i> Add Skill
+                    <button type="button" class="btn btn-outline btn-sm btn-add-skill" style="margin-top: 1rem; font-size: 0.8rem; border-radius: 0.4rem;">
+                        <i class="fa-solid fa-plus"></i> Add Skill Item
                     </button>
                 `;
 
@@ -69,11 +72,23 @@ export async function initSkills(container, showToast) {
                 const itemsContainer = catEl.querySelector('.items-list-container');
                 (cat.items || []).forEach((item, itemIdx) => {
                     const itemEl = document.createElement('div');
-                    itemEl.className = 'nested-item';
                     itemEl.innerHTML = `
-                        <input type="text" value="${item.name}" placeholder="Skill Name" class="skill-name-input" required>
-                        <input type="text" value="${item.iconClass}" placeholder="Icon Class (e.g. fa-brands fa-python)" class="skill-icon-input" required>
-                        <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill"><i class="fa-solid fa-xmark"></i></button>
+                        <div class="nested-item" style="display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; transition: all 0.2s; width: 100%;">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Skill Name</span>
+                                <input type="text" value="${item.name}" placeholder="e.g. Python" class="skill-name-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white;">
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">FontAwesome Icon Class</span>
+                                <div style="display: flex; gap: 8px; align-items: center; width: 100%;">
+                                    <div class="icon-preview-box" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; font-size: 1.15rem; color: var(--text-color); flex-shrink: 0;">
+                                        <i class="${item.iconClass || 'fa-solid fa-code'}"></i>
+                                    </div>
+                                    <input type="text" value="${item.iconClass}" placeholder="e.g. fa-brands fa-python" class="skill-icon-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; flex-grow: 1;">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill" style="margin-top: 1.1rem; height: 34px; width: 34px; border-radius: 0.4rem; flex-shrink: 0;"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
                     `;
 
                     // Delete Skill listener
@@ -88,6 +103,10 @@ export async function initSkills(container, showToast) {
                     });
                     itemEl.querySelector('.skill-icon-input').addEventListener('input', (e) => {
                         item.iconClass = e.target.value;
+                        const previewIcon = itemEl.querySelector('.icon-preview-box i');
+                        if (previewIcon) {
+                            previewIcon.className = e.target.value || 'fa-solid fa-code';
+                        }
                     });
 
                     itemsContainer.appendChild(itemEl);
