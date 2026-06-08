@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Content Manager | Custom CMS</title>
-  
+
   <!-- Custom Admin Dashboard Styles -->
   <link rel="stylesheet" href="css/admin.css" />
-  
+
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -15,6 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
+
 <body>
 
   <!-- ─── Toast System Notifications ─── -->
@@ -25,9 +27,10 @@
     <div class="login-card">
       <div class="login-logo">CMS <i class="fa-solid fa-laptop-code"></i></div>
       <div class="login-subtitle">Portfolio Content Manager</div>
-      
+
       <div class="login-actions" style="margin: 2rem 0 1.5rem 0;">
-        <button id="btn-github-login" class="btn btn-primary" style="width: 100%; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-size: 1rem;">
+        <button id="btn-github-login" class="btn btn-primary"
+          style="width: 100%; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-size: 1rem;">
           <i class="fa-brands fa-github" style="font-size: 1.3rem;"></i> Login with GitHub
         </button>
       </div>
@@ -40,17 +43,18 @@
 
   <!-- ─── Dashboard Main Interface ─── -->
   <div id="admin-container" class="admin-container hidden">
-    
+
     <!-- Sidebar Navigation -->
     <aside class="admin-sidebar">
       <div class="sidebar-brand">
         Admin <i class="fa-solid fa-laptop-code" style="color:var(--text-muted); font-size:1.1rem;"></i>
         <span>V2</span>
       </div>
-      
+
       <ul class="sidebar-menu">
         <li style="margin-bottom: 1.25rem; list-style: none;">
-          <a href="../index.html" class="btn btn-outline" style="width: 100%; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0.6rem 1rem; border-color: rgba(255,255,255,0.15);">
+          <a href="../index.html" class="btn btn-outline"
+            style="width: 100%; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0.6rem 1rem; border-color: rgba(255,255,255,0.15);">
             <i class="fa-solid fa-arrow-left"></i> View Portfolio
           </a>
         </li>
@@ -58,7 +62,7 @@
           <button type="button"><i class="fa-solid fa-user-gear"></i> Profile & Hero</button>
         </li>
         <li class="menu-item" data-tab="projects">
-          <button type="button"><i class="fa-solid fa-diagram-project"></i> Projects CRUD</button>
+          <button type="button"><i class="fa-solid fa-diagram-project"></i> Projects</button>
         </li>
         <li class="menu-item" data-tab="skills">
           <button type="button"><i class="fa-solid fa-code"></i> Tech & Skills</button>
@@ -70,7 +74,7 @@
           <button type="button"><i class="fa-solid fa-newspaper"></i> Blog Posts</button>
         </li>
       </ul>
-      
+
       <div class="sidebar-footer">
         <div id="user-footer-meta" style="margin-bottom: 1rem;"></div>
         <button type="button" class="btn btn-danger btn-sm" id="btn-logout" style="width: 100%;">
@@ -91,4 +95,5 @@
   <!-- Main JS ES6 Orchestrator -->
   <script type="module" src="js/admin-app.js"></script>
 </body>
+
 </html>

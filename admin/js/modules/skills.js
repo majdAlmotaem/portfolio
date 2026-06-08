@@ -72,22 +72,30 @@ export async function initSkills(container, showToast) {
                 const itemsContainer = catEl.querySelector('.items-list-container');
                 (cat.items || []).forEach((item, itemIdx) => {
                     const itemEl = document.createElement('div');
+                    itemEl.style.width = '100%';
                     itemEl.innerHTML = `
-                        <div class="nested-item" style="display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; transition: all 0.2s; width: 100%;">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                        <div class="nested-item" style="display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 1.25rem 1rem 1rem 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; position: relative; width: 100%;">
+                            <!-- Absolute positioned Delete button in the top right -->
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill" style="position: absolute; top: 10px; right: 10px; height: 26px; width: 26px; border-radius: 0.35rem; display: flex; align-items: center; justify-content: center; padding: 0; min-height: 0;">
+                                <i class="fa-solid fa-xmark" style="font-size: 0.8rem;"></i>
+                            </button>
+
+                            <!-- Skill Name Input (Stacked) -->
+                            <div style="display: flex; flex-direction: column; gap: 4px; text-align: left; padding-right: 28px;">
                                 <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Skill Name</span>
-                                <input type="text" value="${item.name}" placeholder="e.g. Python" class="skill-name-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white;">
+                                <input type="text" value="${item.name}" placeholder="e.g. Python" class="skill-name-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; width: 100%; box-sizing: border-box;">
                             </div>
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left;">
+
+                            <!-- Skill Icon Class Input (Stacked) -->
+                            <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
                                 <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">FontAwesome Icon Class</span>
                                 <div style="display: flex; gap: 8px; align-items: center; width: 100%;">
                                     <div class="icon-preview-box" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; font-size: 1.15rem; color: var(--text-color); flex-shrink: 0;">
                                         <i class="${item.iconClass || 'fa-solid fa-code'}"></i>
                                     </div>
-                                    <input type="text" value="${item.iconClass}" placeholder="e.g. fa-brands fa-python" class="skill-icon-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; flex-grow: 1;">
+                                    <input type="text" value="${item.iconClass}" placeholder="e.g. fa-brands fa-python" class="skill-icon-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; flex-grow: 1; box-sizing: border-box;">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill" style="margin-top: 1.1rem; height: 34px; width: 34px; border-radius: 0.4rem; flex-shrink: 0;"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     `;
 
