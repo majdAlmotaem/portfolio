@@ -1,6 +1,19 @@
 // Projects Markdown CRUD module for custom CMS
 import { fetchFile, saveFile, deleteFile, listDirectory, uploadMedia } from '../github-api.js';
 
+// Slugify text to safe filenames
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start
+        .replace(/-+$/, '');            // Trim - from end
+}
+
 // Parse YAML frontmatter and body
 function parseFrontMatter(text) {
     const regex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -166,11 +179,11 @@ function renderList(projects, container, showToast) {
 function renderForm(idx, projects, container, showToast) {
     const isEdit = idx !== null;
     const project = isEdit ? projects[idx] : {
-        filename: 'new-project.md',
-        path: 'content/projects/new-project.md',
+        filename: '',
+        path: '',
         sha: null,
         data: {
-            id: 1,
+            id: projects.length > 0 ? Math.max(...projects.map(p => p.data.id || 0)) + 1 : 1,
             title_en: '',
             title_de: '',
             image: '',
@@ -206,12 +219,12 @@ function renderForm(idx, projects, container, showToast) {
             <form id="project-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Filename (without spaces, e.g. custom-project.md)</label>
-                        <input type="text" id="proj-filename" value="${project.filename}" ${isEdit ? 'readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);"' : ''} required>
+                        <label>Filename (Auto-generated from English Title)</label>
+                        <input type="text" id="proj-filename" value="${project.filename}" placeholder="Will auto-generate..." readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
                     </div>
                     <div class="form-group">
-                        <label>Numeric ID (determines order)</label>
-                        <input type="number" id="proj-id" value="${project.data.id || 1}" required>
+                        <label>Numeric ID (Auto-generated)</label>
+                        <input type="number" id="proj-id" value="${project.data.id || 1}" readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
                     </div>
                 </div>
 
@@ -468,6 +481,16 @@ function renderForm(idx, projects, container, showToast) {
             showToast(`Upload failed: ${e.message}`, 'error');
         }
     });
+
+    // Dynamic filename generator from English Title in Create mode
+    const titleEnInp = document.getElementById('proj-title-en');
+    const filenameInp = document.getElementById('proj-filename');
+    if (titleEnInp && filenameInp && !isEdit) {
+        titleEnInp.addEventListener('input', (e) => {
+            const slug = slugify(e.target.value);
+            filenameInp.value = slug ? `${slug}.md` : '';
+        });
+    }
 
     // ─── Cancel and Submit listeners ───
     document.getElementById('btn-cancel-project').addEventListener('click', () => {

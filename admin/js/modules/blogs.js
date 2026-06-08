@@ -1,6 +1,19 @@
 // Blogs Markdown CRUD module for custom CMS
 import { fetchFile, saveFile, deleteFile, listDirectory, uploadMedia } from '../github-api.js';
 
+// Slugify text to safe filenames
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start
+        .replace(/-+$/, '');            // Trim - from end
+}
+
 // Parse YAML frontmatter and body
 function parseFrontMatter(text) {
     const regex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -152,11 +165,11 @@ function renderList(blogs, container, showToast) {
 function renderForm(idx, blogs, container, showToast) {
     const isEdit = idx !== null;
     const blog = isEdit ? blogs[idx] : {
-        filename: 'new-blog-post.md',
-        path: 'content/blogs/new-blog-post.md',
+        filename: '',
+        path: '',
         sha: null,
         data: {
-            id: 1,
+            id: blogs.length > 0 ? Math.max(...blogs.map(b => b.data.id || 0)) + 1 : 1,
             date: '',
             image: '',
             tags_en: [],
@@ -182,12 +195,12 @@ function renderForm(idx, blogs, container, showToast) {
             <form id="blog-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Filename (e.g. standard-wellness.md)</label>
-                        <input type="text" id="blog-filename" value="${blog.filename}" ${isEdit ? 'readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);"' : ''} required>
+                        <label>Filename (Auto-generated from English Title)</label>
+                        <input type="text" id="blog-filename" value="${blog.filename}" placeholder="Will auto-generate..." readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
                     </div>
                     <div class="form-group">
-                        <label>Unique Numeric ID</label>
-                        <input type="number" id="blog-id" value="${blog.data.id || 1}" required>
+                        <label>Unique Numeric ID (Auto-generated)</label>
+                        <input type="number" id="blog-id" value="${blog.data.id || 1}" readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
                     </div>
                 </div>
 
@@ -329,6 +342,16 @@ function renderForm(idx, blogs, container, showToast) {
             showToast(`Upload failed: ${e.message}`, 'error');
         }
     });
+
+    // Dynamic filename generator from English Title in Create mode
+    const titleEnInp = document.getElementById('blog-title-en');
+    const filenameInp = document.getElementById('blog-filename');
+    if (titleEnInp && filenameInp && !isEdit) {
+        titleEnInp.addEventListener('input', (e) => {
+            const slug = slugify(e.target.value);
+            filenameInp.value = slug ? `${slug}.md` : '';
+        });
+    }
 
     // Cancel and Submit listeners
     document.getElementById('btn-cancel-blog').addEventListener('click', () => {

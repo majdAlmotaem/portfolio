@@ -12,26 +12,14 @@ export async function initSkills(container, showToast) {
         container.innerHTML = `
             <div class="admin-card">
                 <form id="skills-form">
-                    <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-code"></i> Tech Stack & Skills</h3>
+                    <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-code"></i> Tech Stack & Skills</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Manage your tech stack categories and skills. Edits made here will automatically be applied to both English and German views.</p>
                     
-                    <div class="field-langs">
-                        <!-- English Skills -->
-                        <div>
-                            <h4 class="lang-header"><i class="fa-solid fa-earth-americas"></i> English Skills Categories</h4>
-                            <div id="en-categories-container" class="nested-list"></div>
-                            <button type="button" class="btn btn-outline btn-sm" id="btn-add-cat-en" style="margin-top: 1rem;">
-                                <i class="fa-solid fa-folder-plus"></i> Add English Category
-                            </button>
-                        </div>
-                        
-                        <!-- German Skills -->
-                        <div>
-                            <h4 class="lang-header"><i class="fa-solid fa-earth-europe"></i> German Skills Categories</h4>
-                            <div id="de-categories-container" class="nested-list"></div>
-                            <button type="button" class="btn btn-outline btn-sm" id="btn-add-cat-de" style="margin-top: 1rem;">
-                                <i class="fa-solid fa-folder-plus"></i> Add German Category
-                            </button>
-                        </div>
+                    <div>
+                        <div id="skills-categories-container" class="nested-list"></div>
+                        <button type="button" class="btn btn-outline btn-sm" id="btn-add-category" style="margin-top: 1.5rem;">
+                            <i class="fa-solid fa-folder-plus"></i> Add Category
+                        </button>
                     </div>
 
                     <div class="actions-bar">
@@ -41,11 +29,10 @@ export async function initSkills(container, showToast) {
             </div>
         `;
 
-        const enContainer = document.getElementById('en-categories-container');
-        const deContainer = document.getElementById('de-categories-container');
+        const categoriesContainer = document.getElementById('skills-categories-container');
 
         // Render categories and skills for a language
-        function renderLangCategories(langData, langContainer) {
+        function renderCategories(langData, langContainer) {
             langContainer.innerHTML = '';
             langData.forEach((cat, catIdx) => {
                 const catEl = document.createElement('div');
@@ -102,7 +89,7 @@ export async function initSkills(container, showToast) {
                     // Delete Skill listener
                     itemEl.querySelector('.btn-delete-skill').addEventListener('click', () => {
                         cat.items.splice(itemIdx, 1);
-                        renderLangCategories(langData, langContainer);
+                        renderCategories(langData, langContainer);
                     });
 
                     // Input listeners
@@ -123,7 +110,7 @@ export async function initSkills(container, showToast) {
                 // Delete Category listener
                 catEl.querySelector('.btn-delete-cat').addEventListener('click', () => {
                     langData.splice(catIdx, 1);
-                    renderLangCategories(langData, langContainer);
+                    renderCategories(langData, langContainer);
                 });
 
                 // Category Title listener
@@ -135,30 +122,22 @@ export async function initSkills(container, showToast) {
                 catEl.querySelector('.btn-add-skill').addEventListener('click', () => {
                     if (!cat.items) cat.items = [];
                     cat.items.push({ name: '', iconClass: 'fa-solid fa-code' });
-                    renderLangCategories(langData, langContainer);
+                    renderCategories(langData, langContainer);
                 });
 
                 langContainer.appendChild(catEl);
             });
         }
 
-        // Initialize lists
-        const enData = skillsData.en || [];
-        const deData = skillsData.de || [];
+        // Initialize lists using English skills as the master source
+        const unifiedData = skillsData.en || skillsData.de || [];
 
-        renderLangCategories(enData, enContainer);
-        renderLangCategories(deData, deContainer);
+        renderCategories(unifiedData, categoriesContainer);
 
-        // Add English Category button
-        document.getElementById('btn-add-cat-en').addEventListener('click', () => {
-            enData.push({ category: 'New Category', items: [] });
-            renderLangCategories(enData, enContainer);
-        });
-
-        // Add German Category button
-        document.getElementById('btn-add-cat-de').addEventListener('click', () => {
-            deData.push({ category: 'Neue Kategorie', items: [] });
-            renderLangCategories(deData, deContainer);
+        // Add Category button
+        document.getElementById('btn-add-category').addEventListener('click', () => {
+            unifiedData.push({ category: 'New Category', items: [] });
+            renderCategories(unifiedData, categoriesContainer);
         });
 
         // Form Submission
@@ -167,8 +146,8 @@ export async function initSkills(container, showToast) {
             showToast("Saving skills configuration...", 'loading');
 
             const payload = {
-                en: enData,
-                de: deData
+                en: unifiedData,
+                de: unifiedData
             };
 
             try {
