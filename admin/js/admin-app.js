@@ -5,7 +5,6 @@ import { initProjects } from './modules/projects.js';
 import { initSkills } from './modules/skills.js';
 import { initCertificates } from './modules/certificates.js';
 import { initBlogs } from './modules/blogs.js';
-import { initUploads } from './modules/uploads.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loginOverlay = document.getElementById('login-screen');
@@ -172,9 +171,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             case 'blogs':
                 initBlogs(workspace, showToast);
                 break;
-            case 'uploads':
-                initUploads(workspace, showToast);
-                break;
             default:
                 workspace.innerHTML = `<h3>Tab not found</h3>`;
         }
@@ -187,8 +183,8 @@ export function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
     if (!container) return;
 
-    // Remove existing loading toast if new message is displayed
-    if (loadingToast && type !== 'loading') {
+    // Remove existing loading toast if any new toast is shown
+    if (loadingToast) {
         loadingToast.remove();
         loadingToast = null;
     }
