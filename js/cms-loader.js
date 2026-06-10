@@ -97,7 +97,7 @@ export async function loadPortfolioData() {
     let configOwner = 'majdAlmotaem';
     let configRepo = 'portfolio';
     try {
-        const configRes = await fetch(`${base}admin/config.json`);
+        const configRes = await fetch(`${base}admin/config.json?t=${Date.now()}`);
         if (configRes.ok) {
             const configData = await configRes.json();
             if (configData) {
@@ -136,7 +136,7 @@ export async function loadPortfolioData() {
         }
     } else {
         try {
-            const profileRes = await fetch(`${base}data/profile.json`);
+            const profileRes = await fetch(`${base}data/profile.json?t=${Date.now()}`);
             profileData = await profileRes.json();
         } catch (err) {
             console.error("Error loading profile.json: ", err);
@@ -152,7 +152,7 @@ export async function loadPortfolioData() {
         }
     } else {
         try {
-            const skillsRes = await fetch(`${base}data/skills.json`);
+            const skillsRes = await fetch(`${base}data/skills.json?t=${Date.now()}`);
             skillsData = await skillsRes.json();
         } catch (err) {
             console.error("Error loading skills.json: ", err);
@@ -168,7 +168,7 @@ export async function loadPortfolioData() {
         }
     } else {
         try {
-            const certsRes = await fetch(`${base}data/certificates.json`);
+            const certsRes = await fetch(`${base}data/certificates.json?t=${Date.now()}`);
             certificatesData = await certsRes.json();
         } catch (err) {
             console.error("Error loading certificates.json: ", err);
@@ -229,7 +229,7 @@ export async function loadPortfolioData() {
             }
 
             if (text === null) {
-                const res = await fetch(`${base}content/projects/${filename}`);
+                const res = await fetch(`${base}content/projects/${filename}?t=${Date.now()}`);
                 if (res.ok) {
                     text = await res.text();
                 }
@@ -303,7 +303,7 @@ export async function loadPortfolioData() {
             }
 
             if (text === null) {
-                const res = await fetch(`${base}content/blogs/${filename}`);
+                const res = await fetch(`${base}content/blogs/${filename}?t=${Date.now()}`);
                 if (res.ok) {
                     text = await res.text();
                 }
