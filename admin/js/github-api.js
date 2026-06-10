@@ -247,15 +247,23 @@ export async function uploadMedia(file, targetDir) {
 
     const filePath = `${targetDir}/${file.name}`;
 
-    // Detect if file exists to fetch sha and overwrite
+    // Detect if file exists to fetch sha and overwrite (using direct metadata fetch to avoid binary decode errors)
     let sha = null;
     try {
-        const existing = await fetchFile(filePath);
-        if (existing && existing.sha) {
-            sha = existing.sha;
+        const response = await fetch(`https://api.github.com/repos/${auth.owner}/${auth.repo}/contents/${filePath}?ref=${auth.branch}`, {
+            headers: {
+                'Authorization': `token ${auth.token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        if (response.ok) {
+            const fileData = await response.json();
+            if (fileData && fileData.sha) {
+                sha = fileData.sha;
+            }
         }
     } catch (e) {
-        // Safe to ignore if 404
+        console.warn("Failed to check existing file metadata:", e);
     }
 
     const body = {
