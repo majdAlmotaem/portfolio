@@ -3,89 +3,197 @@
     {
       "category": "Programming Languages",
       "items": [
-        { "name": "Python", "iconClass": "fa-brands fa-python" },
-        { "name": "JavaScript", "iconClass": "fa-brands fa-js" },
-        { "name": "SQL", "iconClass": "fa-solid fa-database" },
-        { "name": "HTML/CSS", "iconClass": "fa-brands fa-html5" }
+        {
+          "name": "Python",
+          "iconClass": "fa-brands fa-python"
+        },
+        {
+          "name": "JavaScript",
+          "iconClass": "fa-brands fa-js"
+        },
+        {
+          "name": "SQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "HTML/CSS",
+          "iconClass": "fa-brands fa-html5"
+        }
       ]
     },
     {
       "category": "Web & Frameworks",
       "items": [
-        { "name": "Vue.js", "iconClass": "fa-brands fa-vuejs" },
-        { "name": "React", "iconClass": "fa-brands fa-react" },
-        { "name": "WordPress", "iconClass": "fa-brands fa-wordpress" },
-        { "name": "MVC", "iconClass": "fa-solid fa-layer-group" },
-        { "name": "Design Pattern", "iconClass": "fa-solid fa-diagram-project" },
-        { "name": "REST APIs", "iconClass": "fa-solid fa-network-wired" }
+        {
+          "name": "Vue.js",
+          "iconClass": "fa-brands fa-vuejs"
+        },
+        {
+          "name": "React",
+          "iconClass": "fa-brands fa-react"
+        },
+        {
+          "name": "WordPress",
+          "iconClass": "fa-brands fa-wordpress"
+        },
+        {
+          "name": "MVC",
+          "iconClass": "fa-solid fa-layer-group"
+        },
+        {
+          "name": "Design Pattern",
+          "iconClass": "fa-solid fa-diagram-project"
+        },
+        {
+          "name": "REST APIs",
+          "iconClass": "fa-solid fa-network-wired"
+        }
       ]
     },
     {
       "category": "Cloud & Infrastructure",
       "items": [
-        { "name": "AWS", "iconClass": "fa-brands fa-aws" },
-        { "name": "Docker", "iconClass": "fa-brands fa-docker" },
-        { "name": "Linux", "iconClass": "fa-brands fa-linux" }
+        {
+          "name": "AWS-SAA",
+          "iconClass": "fa-brands fa-aws"
+        },
+        {
+          "name": "Docker",
+          "iconClass": "fa-brands fa-docker"
+        },
+        {
+          "name": "Linux",
+          "iconClass": "fa-brands fa-linux"
+        }
       ]
     },
     {
       "category": "AI & Automation",
       "items": [
-        { "name": "Prompt Engineering", "iconClass": "fa-solid fa-brain" },
-        { "name": "Claude", "iconClass": "fa-solid fa-comment-dots" },
-        { "name": "n8n", "iconClass": "fa-solid fa-robot" }
+        {
+          "name": "Prompt Engineering",
+          "iconClass": "fa-solid fa-brain"
+        },
+        {
+          "name": "Claude",
+          "iconClass": "fa-solid fa-comment-dots"
+        },
+        {
+          "name": "n8n",
+          "iconClass": "fa-solid fa-robot"
+        }
       ]
     },
     {
       "category": "Project Management & Tools",
       "items": [
-        { "name": "Scrum / Agile", "iconClass": "fa-solid fa-users" },
-        { "name": "Git & GitHub", "iconClass": "fa-brands fa-github" }
+        {
+          "name": "Scrum / Agile",
+          "iconClass": "fa-solid fa-users"
+        },
+        {
+          "name": "Git & GitHub",
+          "iconClass": "fa-brands fa-github"
+        }
       ]
     }
   ],
   "de": [
     {
-      "category": "Programmiersprachen",
+      "category": "Programming Languages",
       "items": [
-        { "name": "Python", "iconClass": "fa-brands fa-python" },
-        { "name": "JavaScript", "iconClass": "fa-brands fa-js" },
-        { "name": "SQL", "iconClass": "fa-solid fa-database" },
-        { "name": "HTML/CSS", "iconClass": "fa-brands fa-html5" }
+        {
+          "name": "Python",
+          "iconClass": "fa-brands fa-python"
+        },
+        {
+          "name": "JavaScript",
+          "iconClass": "fa-brands fa-js"
+        },
+        {
+          "name": "SQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "HTML/CSS",
+          "iconClass": "fa-brands fa-html5"
+        }
       ]
     },
     {
       "category": "Web & Frameworks",
       "items": [
-        { "name": "Vue.js", "iconClass": "fa-brands fa-vuejs" },
-        { "name": "React", "iconClass": "fa-brands fa-react" },
-        { "name": "WordPress", "iconClass": "fa-brands fa-wordpress" },
-        { "name": "MVC", "iconClass": "fa-solid fa-layer-group" },
-        { "name": "Design Pattern", "iconClass": "fa-solid fa-diagram-project" },
-        { "name": "REST APIs", "iconClass": "fa-solid fa-network-wired" }
+        {
+          "name": "Vue.js",
+          "iconClass": "fa-brands fa-vuejs"
+        },
+        {
+          "name": "React",
+          "iconClass": "fa-brands fa-react"
+        },
+        {
+          "name": "WordPress",
+          "iconClass": "fa-brands fa-wordpress"
+        },
+        {
+          "name": "MVC",
+          "iconClass": "fa-solid fa-layer-group"
+        },
+        {
+          "name": "Design Pattern",
+          "iconClass": "fa-solid fa-diagram-project"
+        },
+        {
+          "name": "REST APIs",
+          "iconClass": "fa-solid fa-network-wired"
+        }
       ]
     },
     {
-      "category": "Cloud & Infrastruktur",
+      "category": "Cloud & Infrastructure",
       "items": [
-        { "name": "AWS", "iconClass": "fa-brands fa-aws" },
-        { "name": "Docker", "iconClass": "fa-brands fa-docker" },
-        { "name": "Linux", "iconClass": "fa-brands fa-linux" }
+        {
+          "name": "AWS-SAA",
+          "iconClass": "fa-brands fa-aws"
+        },
+        {
+          "name": "Docker",
+          "iconClass": "fa-brands fa-docker"
+        },
+        {
+          "name": "Linux",
+          "iconClass": "fa-brands fa-linux"
+        }
       ]
     },
     {
-      "category": "KI & Automatisierung",
+      "category": "AI & Automation",
       "items": [
-        { "name": "Prompt Engineering", "iconClass": "fa-solid fa-brain" },
-        { "name": "Claude", "iconClass": "fa-solid fa-comment-dots" },
-        { "name": "n8n", "iconClass": "fa-solid fa-robot" }
+        {
+          "name": "Prompt Engineering",
+          "iconClass": "fa-solid fa-brain"
+        },
+        {
+          "name": "Claude",
+          "iconClass": "fa-solid fa-comment-dots"
+        },
+        {
+          "name": "n8n",
+          "iconClass": "fa-solid fa-robot"
+        }
       ]
     },
     {
-      "category": "Projektmanagement & Tools",
+      "category": "Project Management & Tools",
       "items": [
-        { "name": "Scrum / Agile", "iconClass": "fa-solid fa-users" },
-        { "name": "Git & GitHub", "iconClass": "fa-brands fa-github" }
+        {
+          "name": "Scrum / Agile",
+          "iconClass": "fa-solid fa-users"
+        },
+        {
+          "name": "Git & GitHub",
+          "iconClass": "fa-brands fa-github"
+        }
       ]
     }
   ]
