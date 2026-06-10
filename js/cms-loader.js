@@ -122,88 +122,50 @@ export async function loadPortfolioData() {
         }
     }
 
-    // 2. Fetch profile, skills, and certificates JSON data
-    let profileData = {};
-    let skillsData = { en: [], de: [] };
-    let certificatesData = { certificates: [] };
+    // 2. Fetch profile, skills, and certificates JSON data in parallel (unless staged in preview changes)
+    const profilePromise = (isPreview && changes['data/profile.json'] && !changes['data/profile.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/profile.json'].content))
+        : fetch(`${base}data/profile.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading profile.json: ", err); return {}; });
 
-    // Profile
-    if (isPreview && changes['data/profile.json'] && !changes['data/profile.json'].deleted) {
-        try {
-            profileData = JSON.parse(changes['data/profile.json'].content);
-        } catch (err) {
-            console.error("Error parsing profile draft: ", err);
-        }
-    } else {
-        try {
-            const profileRes = await fetch(`${base}data/profile.json?t=${Date.now()}`);
-            profileData = await profileRes.json();
-        } catch (err) {
-            console.error("Error loading profile.json: ", err);
-        }
-    }
+    const skillsPromise = (isPreview && changes['data/skills.json'] && !changes['data/skills.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/skills.json'].content))
+        : fetch(`${base}data/skills.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading skills.json: ", err); return { en: [], de: [] }; });
 
-    // Skills
-    if (isPreview && changes['data/skills.json'] && !changes['data/skills.json'].deleted) {
-        try {
-            skillsData = JSON.parse(changes['data/skills.json'].content);
-        } catch (err) {
-            console.error("Error parsing skills draft: ", err);
-        }
-    } else {
-        try {
-            const skillsRes = await fetch(`${base}data/skills.json?t=${Date.now()}`);
-            skillsData = await skillsRes.json();
-        } catch (err) {
-            console.error("Error loading skills.json: ", err);
-        }
-    }
+    const certsPromise = (isPreview && changes['data/certificates.json'] && !changes['data/certificates.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/certificates.json'].content))
+        : fetch(`${base}data/certificates.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading certificates.json: ", err); return { certificates: [] }; });
 
-    // Certificates
-    if (isPreview && changes['data/certificates.json'] && !changes['data/certificates.json'].deleted) {
-        try {
-            certificatesData = JSON.parse(changes['data/certificates.json'].content);
-        } catch (err) {
-            console.error("Error parsing certificates draft: ", err);
-        }
-    } else {
-        try {
-            const certsRes = await fetch(`${base}data/certificates.json?t=${Date.now()}`);
-            certificatesData = await certsRes.json();
-        } catch (err) {
-            console.error("Error loading certificates.json: ", err);
-        }
-    }
+    const [profileData, skillsData, certificatesData] = await Promise.all([profilePromise, skillsPromise, certsPromise]);
 
-    // 3. Load Project Files
+    // 3. Query Project & Blog file lists from GitHub API in parallel
     let { owner, repo } = getGitHubRepoDetails();
     if (!window.location.hostname.endsWith('.github.io')) {
         owner = configOwner;
         repo = configRepo;
     }
-    let projectFiles = FALLBACK_PROJECT_FILES;
-    
-    try {
-        // Attempt to fetch file list dynamically from GitHub API (using correct branch ref)
-        const apiRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/projects?ref=${branch}`);
-        if (apiRes.ok) {
-            const apiData = await apiRes.json();
-            projectFiles = apiData.filter(f => f.name.endsWith('.md')).map(f => f.name);
-        } else {
-            console.warn(`GitHub API project list responded with ${apiRes.status}. Using fallback project list.`);
-        }
-    } catch (err) {
-        console.warn("Could not retrieve project list dynamically via GitHub API. Using fallback project list.", err);
-    }
 
+    const projectListPromise = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/projects?ref=${branch}`)
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null);
+
+    const blogListPromise = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/blogs?ref=${branch}`)
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null);
+
+    const [apiProjectsData, apiBlogsData] = await Promise.all([projectListPromise, blogListPromise]);
+
+    // Construct Project file list
+    let projectFiles = FALLBACK_PROJECT_FILES;
+    if (apiProjectsData) {
+        projectFiles = apiProjectsData.filter(f => f.name.endsWith('.md')).map(f => f.name);
+    }
     if (isPreview) {
         // Remove staged deletions from the file list
         projectFiles = projectFiles.filter(filename => {
             const path = `content/projects/${filename}`;
             return !(changes[path] && changes[path].deleted);
         });
-
-        // Add staged new project files that are not already in projectFiles list
+        // Add staged new project files
         Object.keys(changes).forEach(path => {
             if (path.startsWith('content/projects/') && path.endsWith('.md')) {
                 const filename = path.substring('content/projects/'.length);
@@ -214,8 +176,30 @@ export async function loadPortfolioData() {
         });
     }
 
-    const rawProjects = [];
-    for (const filename of projectFiles) {
+    // Construct Blog file list
+    let blogFiles = FALLBACK_BLOG_FILES;
+    if (apiBlogsData) {
+        blogFiles = apiBlogsData.filter(f => f.name.endsWith('.md')).map(f => f.name);
+    }
+    if (isPreview) {
+        // Remove staged deletions from the file list
+        blogFiles = blogFiles.filter(filename => {
+            const path = `content/blogs/${filename}`;
+            return !(changes[path] && changes[path].deleted);
+        });
+        // Add staged new blog files
+        Object.keys(changes).forEach(path => {
+            if (path.startsWith('content/blogs/') && path.endsWith('.md')) {
+                const filename = path.substring('content/blogs/'.length);
+                if (!changes[path].deleted && !blogFiles.includes(filename)) {
+                    blogFiles.push(filename);
+                }
+            }
+        });
+    }
+
+    // 4. Fetch all Project markdown files in parallel
+    const projectPromises = projectFiles.map(async (filename) => {
         try {
             const path = `content/projects/${filename}`;
             let text = null;
@@ -224,7 +208,7 @@ export async function loadPortfolioData() {
                 if (!changes[path].deleted) {
                     text = changes[path].content;
                 } else {
-                    continue; // Skip if deleted
+                    return null; // Skip if deleted
                 }
             }
 
@@ -238,58 +222,17 @@ export async function loadPortfolioData() {
             if (text !== null) {
                 const parsed = parseFrontMatterAndMarkdown(text, jsyaml, marked);
                 if (parsed.data && parsed.data.id) {
-                    rawProjects.push(parsed.data);
+                    return parsed.data;
                 }
             }
         } catch (err) {
             console.error(`Error loading project file ${filename}: `, err);
         }
-    }
-
-    // Sort projects to match original layout or place new ones at top
-    const projectOrder = [7, 1, 2, 3];
-    rawProjects.sort((a, b) => {
-        const idxA = projectOrder.indexOf(a.id);
-        const idxB = projectOrder.indexOf(b.id);
-        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-        return b.id - a.id;
+        return null;
     });
 
-    // 4. Load Blog Files
-    let blogFiles = FALLBACK_BLOG_FILES;
-    try {
-        // Attempt to fetch file list dynamically from GitHub API (using correct branch ref)
-        const apiRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/blogs?ref=${branch}`);
-        if (apiRes.ok) {
-            const apiData = await apiRes.json();
-            blogFiles = apiData.filter(f => f.name.endsWith('.md')).map(f => f.name);
-        } else {
-            console.warn(`GitHub API blog list responded with ${apiRes.status}. Using fallback blog list.`);
-        }
-    } catch (err) {
-        console.warn("Could not retrieve blog list dynamically via GitHub API. Using fallback blog list.", err);
-    }
-
-    if (isPreview) {
-        // Remove staged deletions from the file list
-        blogFiles = blogFiles.filter(filename => {
-            const path = `content/blogs/${filename}`;
-            return !(changes[path] && changes[path].deleted);
-        });
-
-        // Add staged new blog files that are not already in blogFiles list
-        Object.keys(changes).forEach(path => {
-            if (path.startsWith('content/blogs/') && path.endsWith('.md')) {
-                const filename = path.substring('content/blogs/'.length);
-                if (!changes[path].deleted && !blogFiles.includes(filename)) {
-                    blogFiles.push(filename);
-                }
-            }
-        });
-    }
-
-    const rawBlogs = [];
-    for (const filename of blogFiles) {
+    // 5. Fetch all Blog markdown files in parallel
+    const blogPromises = blogFiles.map(async (filename) => {
         try {
             const path = `content/blogs/${filename}`;
             let text = null;
@@ -298,7 +241,7 @@ export async function loadPortfolioData() {
                 if (!changes[path].deleted) {
                     text = changes[path].content;
                 } else {
-                    continue; // Skip if deleted
+                    return null; // Skip if deleted
                 }
             }
 
@@ -321,13 +264,32 @@ export async function loadPortfolioData() {
                             parsed.data.content_de = marked.parse(parsed.data.content_de);
                         }
                     }
-                    rawBlogs.push(parsed.data);
+                    return parsed.data;
                 }
             }
         } catch (err) {
             console.error(`Error loading blog file ${filename}: `, err);
         }
-    }
+        return null;
+    });
+
+    // Resolve all project & blog fetches concurrently
+    const [projectResults, blogResults] = await Promise.all([
+        Promise.all(projectPromises),
+        Promise.all(blogPromises)
+    ]);
+
+    const rawProjects = projectResults.filter(Boolean);
+    const rawBlogs = blogResults.filter(Boolean);
+
+    // Sort projects to match original layout or place new ones at top
+    const projectOrder = [7, 1, 2, 3];
+    rawProjects.sort((a, b) => {
+        const idxA = projectOrder.indexOf(a.id);
+        const idxB = projectOrder.indexOf(b.id);
+        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+        return b.id - a.id;
+    });
 
     // Sort blogs by ID ascending (matching the original chronological order)
     rawBlogs.sort((a, b) => a.id - b.id);
