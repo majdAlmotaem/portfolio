@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Image gallery
             let imagesHTML = '';
-            const allImages = project.images || [project.image];
+            const allImages = project.images && project.images.length > 0 ? project.images : [project.image];
 
             if (allImages.length > 0) {
                 imagesHTML = `

@@ -407,10 +407,14 @@ function renderForm(idx, projects, container, showToast) {
         inpMultipleFiles.addEventListener('change', async () => {
             if (inpMultipleFiles.files.length === 0) return;
             const files = Array.from(inpMultipleFiles.files);
-            showToast(`Uploading ${files.length} gallery items...`, 'loading');
             try {
-                const uploadPromises = files.map(file => uploadMedia(file, 'assets/images'));
-                const paths = await Promise.all(uploadPromises);
+                const paths = [];
+                for (let idx = 0; idx < files.length; idx++) {
+                    const file = files[idx];
+                    showToast(`Uploading gallery item ${idx + 1} of ${files.length}: ${file.name}...`, 'loading');
+                    const path = await uploadMedia(file, 'assets/images');
+                    paths.push(path);
+                }
                 images.push(...paths);
                 renderGallery();
                 showToast(`${files.length} gallery items uploaded successfully!`, 'success');
