@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const menuItems = document.querySelectorAll('.menu-item');
     const btnLogout = document.getElementById('btn-logout');
     const btnGithubLogin = document.getElementById('btn-github-login');
-    
+
     // Default configs (will be overridden by config.json)
     let config = {
         owner: 'majdAlmotaem',
         repo: 'portfolio',
-        branch: 'dynamic',
+        branch: 'main',
         clientId: '',
         authProxyUrl: ''
     };
@@ -104,16 +104,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     function showLoginOverlay() {
         loginOverlay.classList.remove('hidden');
         adminContainer.classList.add('hidden');
-        
+
         btnGithubLogin.onclick = () => {
             if (!config.clientId) {
                 showToast("GitHub Client ID is not configured in admin/config.json.", "error");
                 return;
             }
-            
+
             const redirectUri = window.location.origin + window.location.pathname;
             const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=repo&redirect_uri=${encodeURIComponent(redirectUri)}`;
-            
+
             showToast("Redirecting to GitHub...", "info");
             window.location.href = oauthUrl;
         };
@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             }, 2000);
             return;
         }
-        
+
         loginOverlay.classList.add('hidden');
         adminContainer.classList.remove('hidden');
-        
+
         // Update user profile metadata in sidebar footer
         const userFooter = document.getElementById('user-footer-meta');
         if (userFooter) {
@@ -256,7 +256,7 @@ export function showToast(message, type = 'info') {
 
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    
+
     let iconClass = 'fa-circle-info';
     if (type === 'success') iconClass = 'fa-circle-check';
     else if (type === 'error') iconClass = 'fa-circle-xmark';
