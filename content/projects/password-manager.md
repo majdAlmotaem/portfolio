@@ -5,7 +5,7 @@ title_de: Passwort-Manager
 image: assets/images/password-manager-demo.gif
 images:
   - assets/images/password-manager-demo.gif
-status: canceled
+status: completed
 link: https://github.com/majdAlmotaem/PasswordManager
 githubLink: https://github.com/majdAlmotaem/PasswordManager
 techStack:
