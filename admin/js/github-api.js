@@ -283,5 +283,20 @@ export async function uploadMedia(file, targetDir) {
         throw new Error(errorData.message || `Media upload failed: ${response.statusText}`);
     }
 
+    // Stage locally for instant preview
+    try {
+        const changes = getPendingChanges();
+        changes[filePath] = {
+            content: `data:${file.type};base64,${base64Content}`,
+            sha: sha || null,
+            message: `Upload media: ${file.name} via CMS`,
+            deleted: false,
+            isMedia: true
+        };
+        savePendingChanges(changes);
+    } catch (e) {
+        console.warn("Could not stage uploaded media to localStorage:", e);
+    }
+
     return filePath;
 }

@@ -244,7 +244,7 @@ export async function initStaging(container, showToast) {
     container.innerHTML = `<div class="toast-loading"><i class="fa-solid fa-spinner"></i> Loading staging manager...</div>`;
 
     const changes = getPendingChanges();
-    const paths = Object.keys(changes);
+    const paths = Object.keys(changes).filter(p => !changes[p].isMedia);
 
     if (paths.length === 0) {
         container.innerHTML = `
@@ -515,6 +515,15 @@ export async function initStaging(container, showToast) {
                 delete currentChanges[path];
                 savePendingChanges(currentChanges);
             }
+
+            // Also clean up any staged media preview caches
+            const finalChanges = getPendingChanges();
+            Object.keys(finalChanges).forEach(k => {
+                if (finalChanges[k].isMedia) {
+                    delete finalChanges[k];
+                }
+            });
+            savePendingChanges(finalChanges);
 
             showToast("All changes committed successfully!", 'success');
             initStaging(container, showToast);

@@ -332,15 +332,28 @@ export async function loadPortfolioData() {
     // Sort blogs by ID ascending (matching the original chronological order)
     rawBlogs.sort((a, b) => a.id - b.id);
 
+    // Helper to resolve images in preview mode
+    function resolvePreviewImage(path) {
+        if (!path) return "";
+        const normalized = path.replace(/^\//, "");
+        if (isPreview && changes[normalized] && changes[normalized].isMedia) {
+            return changes[normalized].content;
+        }
+        return path;
+    }
+
     // 5. Structure final portfolioData for the app
     const portfolioData = {
-        profile: profileData,
+        profile: {
+            ...profileData,
+            image: resolvePreviewImage(profileData.image || "")
+        },
         en: {
             projects: rawProjects.map(proj => ({
                 id: proj.id,
                 title: proj.title_en || proj.title || "",
-                image: proj.image || "",
-                images: proj.images || [proj.image],
+                image: resolvePreviewImage(proj.image || ""),
+                images: (proj.images || [proj.image]).map(img => resolvePreviewImage(img || "")),
                 description: proj.description_en || "",
                 techStack: proj.techStack || [],
                 status: proj.status || "",
@@ -356,7 +369,7 @@ export async function loadPortfolioData() {
                 title: cert.en?.title || cert.title || "",
                 issuer: cert.en?.issuer || cert.issuer || "",
                 iconClass: cert.iconClass || "",
-                image: cert.image || ""
+                image: resolvePreviewImage(cert.image || "")
             })),
             blogs: rawBlogs.map(blog => ({
                 id: blog.id,
@@ -364,7 +377,7 @@ export async function loadPortfolioData() {
                 date: blog.date || "",
                 excerpt: blog.excerpt_en || "",
                 content: blog.content_en || blog.content || "",
-                image: blog.image || "",
+                image: resolvePreviewImage(blog.image || ""),
                 tags: blog.tags_en || blog.tags || []
             }))
         },
@@ -372,8 +385,8 @@ export async function loadPortfolioData() {
             projects: rawProjects.map(proj => ({
                 id: proj.id,
                 title: proj.title_de || proj.title || "",
-                image: proj.image || "",
-                images: proj.images || [proj.image],
+                image: resolvePreviewImage(proj.image || ""),
+                images: (proj.images || [proj.image]).map(img => resolvePreviewImage(img || "")),
                 description: proj.description_de || "",
                 techStack: proj.techStack || [],
                 status: proj.status || "",
@@ -389,7 +402,7 @@ export async function loadPortfolioData() {
                 title: cert.de?.title || cert.title || "",
                 issuer: cert.de?.issuer || cert.issuer || "",
                 iconClass: cert.iconClass || "",
-                image: cert.image || ""
+                image: resolvePreviewImage(cert.image || "")
             })),
             blogs: rawBlogs.map(blog => ({
                 id: blog.id,
@@ -397,7 +410,7 @@ export async function loadPortfolioData() {
                 date: blog.date || "",
                 excerpt: blog.excerpt_de || "",
                 content: blog.content_de || blog.content || "",
-                image: blog.image || "",
+                image: resolvePreviewImage(blog.image || ""),
                 tags: blog.tags_de || blog.tags || []
             }))
         }

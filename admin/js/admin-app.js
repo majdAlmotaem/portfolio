@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         function updatePendingBadge() {
             const changes = getPendingChanges();
-            const count = Object.keys(changes).length;
+            const count = Object.keys(changes).filter(p => !changes[p].isMedia).length;
             badgeCount.textContent = count;
             btnCommit.disabled = count === 0;
         }

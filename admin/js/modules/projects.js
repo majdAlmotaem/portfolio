@@ -314,7 +314,11 @@ function renderForm(idx, projects, container, showToast) {
                     <div class="form-group">
                         <label>Additional Gallery Media</label>
                         <div id="gallery-list" class="nested-list"></div>
-                        <button type="button" class="btn btn-outline btn-sm" id="btn-add-gallery" style="margin-top: 0.5rem;"><i class="fa-solid fa-plus"></i> Add Gallery Item</button>
+                        <div style="display: flex; gap: 8px; margin-top: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-add-gallery"><i class="fa-solid fa-plus"></i> Add Row</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-upload-multiple-gallery"><i class="fa-solid fa-images"></i> Upload Multiple Pics</button>
+                            <input type="file" id="inp-gallery-multiple-files" accept="image/*,video/*" class="hidden" multiple>
+                        </div>
                     </div>
                 </div>
 
@@ -394,6 +398,28 @@ function renderForm(idx, projects, container, showToast) {
         renderGallery();
     });
     renderGallery();
+
+    // Multiple Upload Listener
+    const btnUploadMultiple = document.getElementById('btn-upload-multiple-gallery');
+    const inpMultipleFiles = document.getElementById('inp-gallery-multiple-files');
+    if (btnUploadMultiple && inpMultipleFiles) {
+        btnUploadMultiple.addEventListener('click', () => inpMultipleFiles.click());
+        inpMultipleFiles.addEventListener('change', async () => {
+            if (inpMultipleFiles.files.length === 0) return;
+            const files = Array.from(inpMultipleFiles.files);
+            showToast(`Uploading ${files.length} gallery items...`, 'loading');
+            try {
+                const uploadPromises = files.map(file => uploadMedia(file, 'assets/images'));
+                const paths = await Promise.all(uploadPromises);
+                images.push(...paths);
+                renderGallery();
+                showToast(`${files.length} gallery items uploaded successfully!`, 'success');
+            } catch (err) {
+                showToast(`Upload failed: ${err.message}`, 'error');
+            }
+            inpMultipleFiles.value = ''; // Reset selection
+        });
+    }
 
     // ─── Main image upload listener ───
     const mainImgInp = document.getElementById('proj-image');
