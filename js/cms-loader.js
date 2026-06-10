@@ -346,7 +346,11 @@ export async function loadPortfolioData() {
     const portfolioData = {
         profile: {
             ...profileData,
-            image: resolvePreviewImage(profileData.image || "")
+            image: resolvePreviewImage(profileData.image || ""),
+            resume: profileData.resume ? {
+                en: resolvePreviewImage(profileData.resume.en || ""),
+                de: resolvePreviewImage(profileData.resume.de || "")
+            } : undefined
         },
         en: {
             projects: rawProjects.map(proj => ({

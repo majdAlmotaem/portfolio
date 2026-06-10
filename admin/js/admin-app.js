@@ -96,6 +96,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else if (isLoggedIn()) {
         const auth = getAuth();
+        // Update session storage details with loaded config value if they differ
+        if (auth.branch !== config.branch || auth.owner !== config.owner || auth.repo !== config.repo) {
+            auth.branch = config.branch;
+            auth.owner = config.owner;
+            auth.repo = config.repo;
+            setAuth(auth.token, auth.owner, auth.repo, auth.branch);
+        }
         setupDashboard(auth);
     } else {
         showLoginOverlay();
