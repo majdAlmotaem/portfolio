@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (userFooter) {
             userFooter.innerHTML = `
                 <div style="font-weight:600; font-size:0.9rem;">Repo: ${auth.owner}/${auth.repo}</div>
-                <div style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-code-branch"></i> Branch: ${auth.branch}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-code-branch"></i> Main </div>
             `;
         }
 
