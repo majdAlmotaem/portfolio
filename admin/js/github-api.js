@@ -21,8 +21,43 @@ function encodeBase64UTF8(str) {
     return window.btoa(binString);
 }
 
-// Fetch file metadata and content from GitHub
+// Local draft storage key
+const DRAFT_KEY = 'cms_pending_changes';
+
+export function getPendingChanges() {
+    try {
+        return JSON.parse(localStorage.getItem(DRAFT_KEY)) || {};
+    } catch (e) {
+        return {};
+    }
+}
+
+export function savePendingChanges(changes) {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(changes));
+    // Dispatch custom event to notify listeners
+    window.dispatchEvent(new Event('cms-pending-changes-updated'));
+}
+
+export function clearPendingChanges() {
+    localStorage.removeItem(DRAFT_KEY);
+    window.dispatchEvent(new Event('cms-pending-changes-updated'));
+}
+
+// Fetch file metadata and content, checking local drafts first
 export async function fetchFile(path) {
+    const changes = getPendingChanges();
+    if (changes[path]) {
+        if (changes[path].deleted) {
+            throw new Error(`File not found: ${path} (staged for deletion)`);
+        }
+        return {
+            content: changes[path].content,
+            sha: changes[path].sha,
+            path: path,
+            name: path.split('/').pop()
+        };
+    }
+
     const auth = getAuth();
     if (!auth) throw new Error("Not authenticated");
 
@@ -51,8 +86,83 @@ export async function fetchFile(path) {
     };
 }
 
-// Create or update a file on GitHub
+// Stage a save locally
 export async function saveFile(path, contentStr, sha = null, message = "Update file via CMS") {
+    const changes = getPendingChanges();
+    changes[path] = {
+        content: contentStr,
+        sha: sha || (changes[path] ? changes[path].sha : null),
+        message: message,
+        deleted: false
+    };
+    savePendingChanges(changes);
+    
+    const mockSha = sha ? `${sha}_draft_${Date.now()}` : `draft_sha_${Date.now()}`;
+    return mockSha;
+}
+
+// Stage a deletion locally
+export async function deleteFile(path, sha, message = "Delete file via CMS") {
+    const changes = getPendingChanges();
+    changes[path] = {
+        deleted: true,
+        sha: sha,
+        message: message
+    };
+    savePendingChanges(changes);
+    return true;
+}
+
+// List directory merging staged additions and filtering staged deletions
+export async function listDirectory(path) {
+    const auth = getAuth();
+    if (!auth) throw new Error("Not authenticated");
+
+    const response = await fetch(`https://api.github.com/repos/${auth.owner}/${auth.repo}/contents/${path}?ref=${auth.branch}`, {
+        headers: {
+            'Authorization': `token ${auth.token}`,
+            'Accept': 'application/vnd.github.v3+json'
+        }
+    });
+
+    let files = [];
+    if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data)) {
+            files = data.filter(item => item.type === 'file');
+        }
+    }
+
+    // Apply staged draft changes
+    const changes = getPendingChanges();
+    const prefix = path.endsWith('/') ? path : `${path}/`;
+    
+    // Map existing files and filter deleted ones
+    let result = files.map(f => {
+        const draft = changes[f.path];
+        if (draft && draft.deleted) return null;
+        return f;
+    }).filter(Boolean);
+
+    // Add new files from pendingChanges that aren't in the GitHub response
+    Object.keys(changes).forEach(filePath => {
+        if (filePath.startsWith(prefix)) {
+            const fileName = filePath.substring(prefix.length);
+            if (!changes[filePath].deleted && !result.some(f => f.path === filePath)) {
+                result.push({
+                    name: fileName,
+                    path: filePath,
+                    type: 'file'
+                });
+            }
+        }
+    });
+
+    return result;
+}
+
+// Actual GitHub Committing logic for when Save & Commit is clicked
+export async function commitFileToGitHub(path, contentStr, sha = null, message = "Update file via CMS") {
     const auth = getAuth();
     if (!auth) throw new Error("Not authenticated");
 
@@ -64,7 +174,7 @@ export async function saveFile(path, contentStr, sha = null, message = "Update f
         branch: auth.branch
     };
 
-    if (sha) {
+    if (sha && !sha.includes('draft')) {
         body.sha = sha;
     }
 
@@ -80,23 +190,25 @@ export async function saveFile(path, contentStr, sha = null, message = "Update f
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Failed to save file: ${response.statusText}`);
+        throw new Error(errorData.message || `Failed to commit file: ${response.statusText}`);
     }
 
     const resData = await response.json();
-    return resData.content.sha; // Returns new sha
+    return resData.content.sha;
 }
 
-// Delete a file on GitHub
-export async function deleteFile(path, sha, message = "Delete file via CMS") {
+export async function commitDeleteToGitHub(path, sha, message = "Delete file via CMS") {
     const auth = getAuth();
     if (!auth) throw new Error("Not authenticated");
 
     const body = {
         message: message,
-        sha: sha,
         branch: auth.branch
     };
+
+    if (sha && !sha.includes('draft')) {
+        body.sha = sha;
+    }
 
     const response = await fetch(`https://api.github.com/repos/${auth.owner}/${auth.repo}/contents/${path}`, {
         method: 'DELETE',
@@ -110,36 +222,10 @@ export async function deleteFile(path, sha, message = "Delete file via CMS") {
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Failed to delete file: ${response.statusText}`);
+        throw new Error(errorData.message || `Failed to commit delete: ${response.statusText}`);
     }
 
     return true;
-}
-
-// List directory files on GitHub
-export async function listDirectory(path) {
-    const auth = getAuth();
-    if (!auth) throw new Error("Not authenticated");
-
-    const response = await fetch(`https://api.github.com/repos/${auth.owner}/${auth.repo}/contents/${path}?ref=${auth.branch}`, {
-        headers: {
-            'Authorization': `token ${auth.token}`,
-            'Accept': 'application/vnd.github.v3+json'
-        }
-    });
-
-    if (!response.ok) {
-        if (response.status === 404) {
-            return []; // Directory doesn't exist or is empty
-        }
-        throw new Error(`Failed to list directory: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    if (Array.isArray(data)) {
-        return data.filter(item => item.type === 'file');
-    }
-    return [];
 }
 
 // Upload a binary file (Image / PDF) to GitHub

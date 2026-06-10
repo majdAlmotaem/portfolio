@@ -49,7 +49,7 @@ export async function initSkills(container, showToast) {
                         </div>
                         <button type="button" class="btn btn-danger btn-delete-cat" title="Delete Category" style="padding: 0.65rem; border-radius: 0.5rem;"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
-                    <div class="items-list-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                    <div class="items-list-container"></div>
                     <button type="button" class="btn btn-outline btn-sm btn-add-skill" style="margin-top: 1rem; font-size: 0.8rem; border-radius: 0.4rem;">
                         <i class="fa-solid fa-plus"></i> Add Skill Item
                     </button>
@@ -57,32 +57,23 @@ export async function initSkills(container, showToast) {
 
                 // Render skills rows
                 const itemsContainer = catEl.querySelector('.items-list-container');
+                itemsContainer.style.display = 'grid';
+                itemsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+                itemsContainer.style.gap = '10px';
+
                 (cat.items || []).forEach((item, itemIdx) => {
                     const itemEl = document.createElement('div');
                     itemEl.style.width = '100%';
                     itemEl.innerHTML = `
-                        <div class="nested-item" style="display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 1.25rem 1rem 1rem 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; position: relative; width: 100%;">
-                            <!-- Absolute positioned Delete button in the top right -->
-                            <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill" style="position: absolute; top: 10px; right: 10px; height: 26px; width: 26px; border-radius: 0.35rem; display: flex; align-items: center; justify-content: center; padding: 0; min-height: 0;">
-                                <i class="fa-solid fa-xmark" style="font-size: 0.8rem;"></i>
+                        <div class="nested-item" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 6px 10px; border-radius: 0.5rem; width: 100%;">
+                            <div class="icon-preview-box" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; font-size: 1rem; color: var(--text-color); flex-shrink: 0;">
+                                <i class="${item.iconClass || 'fa-solid fa-code'}"></i>
+                            </div>
+                            <input type="text" value="${item.name}" placeholder="Name (e.g. Python)" class="skill-name-input" required style="flex: 2; padding: 4px 8px; font-size: 0.85rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; min-width: 0;">
+                            <input type="text" value="${item.iconClass || ''}" placeholder="Icon class" class="skill-icon-input" style="flex: 1.5; padding: 4px 8px; font-size: 0.8rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: #aaa; min-width: 0;">
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-only btn-delete-skill" title="Delete Skill" style="padding: 4px; border-radius: 0.35rem; min-height: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i class="fa-solid fa-xmark" style="font-size: 0.75rem;"></i>
                             </button>
-
-                            <!-- Skill Name Input (Stacked) -->
-                            <div style="display: flex; flex-direction: column; gap: 4px; text-align: left; padding-right: 28px;">
-                                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Skill Name</span>
-                                <input type="text" value="${item.name}" placeholder="e.g. Python" class="skill-name-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; width: 100%; box-sizing: border-box;">
-                            </div>
-
-                            <!-- Skill Icon Class Input (Stacked) -->
-                            <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
-                                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">FontAwesome Icon Class</span>
-                                <div style="display: flex; gap: 8px; align-items: center; width: 100%;">
-                                    <div class="icon-preview-box" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; font-size: 1.15rem; color: var(--text-color); flex-shrink: 0;">
-                                        <i class="${item.iconClass || 'fa-solid fa-code'}"></i>
-                                    </div>
-                                    <input type="text" value="${item.iconClass}" placeholder="e.g. fa-brands fa-python" class="skill-icon-input" required style="padding: 0.5rem 0.75rem; font-size: 0.9rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 0.4rem; color: white; flex-grow: 1; box-sizing: border-box;">
-                                </div>
-                            </div>
                         </div>
                     `;
 
@@ -93,12 +84,24 @@ export async function initSkills(container, showToast) {
                     });
 
                     // Input listeners
-                    itemEl.querySelector('.skill-name-input').addEventListener('input', (e) => {
+                    const nameInp = itemEl.querySelector('.skill-name-input');
+                    const iconInp = itemEl.querySelector('.skill-icon-input');
+                    const previewIcon = itemEl.querySelector('.icon-preview-box i');
+
+                    nameInp.addEventListener('input', (e) => {
                         item.name = e.target.value;
+                        
+                        // Auto-fill icon class if currently empty or default code icon
+                        if (!iconInp.value || iconInp.value === 'fa-solid fa-code') {
+                            const autoClass = getIconClassForTech(e.target.value);
+                            iconInp.value = autoClass;
+                            item.iconClass = autoClass;
+                            if (previewIcon) previewIcon.className = autoClass;
+                        }
                     });
-                    itemEl.querySelector('.skill-icon-input').addEventListener('input', (e) => {
+
+                    iconInp.addEventListener('input', (e) => {
                         item.iconClass = e.target.value;
-                        const previewIcon = itemEl.querySelector('.icon-preview-box i');
                         if (previewIcon) {
                             previewIcon.className = e.target.value || 'fa-solid fa-code';
                         }
@@ -127,6 +130,30 @@ export async function initSkills(container, showToast) {
 
                 langContainer.appendChild(catEl);
             });
+        }
+
+        // Helper for auto-detecting icons
+        function getIconClassForTech(name) {
+            const n = name.toLowerCase().trim();
+            if (n.includes('python')) return 'fa-brands fa-python';
+            if (n.includes('javascript') || (n.includes('js') && !n.includes('node'))) return 'fa-brands fa-js';
+            if (n.includes('node')) return 'fa-brands fa-node-js';
+            if (n.includes('react')) return 'fa-brands fa-react';
+            if (n.includes('vue')) return 'fa-brands fa-vuejs';
+            if (n.includes('angular')) return 'fa-brands fa-angular';
+            if (n.includes('html')) return 'fa-brands fa-html5';
+            if (n.includes('css')) return 'fa-brands fa-css3-alt';
+            if (n.includes('sass') || n.includes('scss')) return 'fa-brands fa-sass';
+            if (n.includes('database') || n.includes('sql') || n.includes('postgres') || n.includes('mongo')) return 'fa-solid fa-database';
+            if (n.includes('aws') || n.includes('cloud')) return 'fa-brands fa-aws';
+            if (n.includes('docker')) return 'fa-brands fa-docker';
+            if (n.includes('git')) return 'fa-brands fa-git-alt';
+            if (n.includes('github')) return 'fa-brands fa-github';
+            if (n.includes('c#') || n.includes('dotnet')) return 'fa-solid fa-hashtag';
+            if (n.includes('java')) return 'fa-brands fa-java';
+            if (n.includes('php')) return 'fa-brands fa-php';
+            if (n.includes('laravel')) return 'fa-brands fa-laravel';
+            return 'fa-solid fa-code';
         }
 
         // Initialize lists using English skills as the master source

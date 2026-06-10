@@ -5,6 +5,8 @@ import { initProjects } from './modules/projects.js';
 import { initSkills } from './modules/skills.js';
 import { initCertificates } from './modules/certificates.js';
 import { initBlogs } from './modules/blogs.js';
+import { initStaging } from './modules/staging.js';
+import { getPendingChanges, clearPendingChanges, commitFileToGitHub, commitDeleteToGitHub } from './github-api.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loginOverlay = document.getElementById('login-screen');
@@ -59,8 +61,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (!response.ok) {
-                const errData = await response.json().catch(() => ({}));
-                throw new Error(errData.error || `Proxy returned error: ${response.statusText}`);
+                let errorMsg = `Proxy returned error: ${response.statusText}`;
+                try {
+                    const errData = await response.json();
+                    if (errData && errData.error) {
+                        errorMsg = errData.error;
+                    }
+                } catch (e) {
+                    console.error("Failed to parse error response JSON from auth proxy:", e);
+                }
+                throw new Error(errorMsg);
             }
 
             const resData = await response.json();
@@ -80,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             showToast("Successfully authenticated!", "success");
             setupDashboard({ token, owner: config.owner, repo: config.repo, branch: config.branch });
         } catch (err) {
+            console.error("OAuth Exchange Error details:", err);
             showToast(err.message || "Failed to exchange authorization token.", "error");
             showLoginOverlay();
         }
@@ -110,6 +121,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ─── Setup Workspace & Dashboard Controls ───
     function setupDashboard(auth) {
+        // ─── SECURITY: Validate Owner ───
+        if (auth.owner !== 'majdAlmotaem') {
+            showToast("Unauthorized access. Only portfolio owner can access.", "error");
+            setTimeout(() => {
+                clearAuth();
+                window.location.href = '/portfolio/';
+            }, 2000);
+            return;
+        }
+        
         loginOverlay.classList.add('hidden');
         adminContainer.classList.remove('hidden');
         
@@ -121,6 +142,47 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-code-branch"></i> Branch: ${auth.branch}</div>
             `;
         }
+
+        // ─── Language Selector Control ───
+        let activeLang = localStorage.getItem('portfolio-lang') || 'en';
+        document.body.className = `lang-${activeLang}`;
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            const lang = btn.getAttribute('data-lang');
+            btn.classList.toggle('active', lang === activeLang);
+            btn.addEventListener('click', () => {
+                activeLang = lang;
+                localStorage.setItem('portfolio-lang', lang);
+                document.body.className = `lang-${lang}`;
+                langBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-lang') === lang));
+            });
+        });
+
+        // ─── Live Preview Control ───
+        const btnLivePreview = document.getElementById('btn-live-preview');
+        btnLivePreview.addEventListener('click', () => {
+            localStorage.setItem('cms_preview_mode', 'true');
+            window.open('../index.html?preview=true', '_blank');
+        });
+
+        // ─── Commit Changes Control ───
+        const btnCommit = document.getElementById('btn-commit-changes');
+        const badgeCount = document.getElementById('pending-count-badge');
+
+        function updatePendingBadge() {
+            const changes = getPendingChanges();
+            const count = Object.keys(changes).length;
+            badgeCount.textContent = count;
+            btnCommit.disabled = count === 0;
+        }
+
+        window.addEventListener('cms-pending-changes-updated', updatePendingBadge);
+        updatePendingBadge(); // initial load
+
+        btnCommit.addEventListener('click', () => {
+            switchTab('staging');
+        });
 
         // Setup menu item loaders
         menuItems.forEach(item => {
@@ -170,6 +232,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 break;
             case 'blogs':
                 initBlogs(workspace, showToast);
+                break;
+            case 'staging':
+                initStaging(workspace, showToast);
                 break;
             default:
                 workspace.innerHTML = `<h3>Tab not found</h3>`;

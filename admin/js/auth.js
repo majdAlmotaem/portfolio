@@ -1,6 +1,17 @@
 // Authentication state manager for custom CMS
 
+// Token expires after 2 hours for security
+const TOKEN_TTL = 2 * 60 * 60 * 1000;
+
 export function getAuth() {
+    const expiresAt = sessionStorage.getItem('cms_github_token_expires');
+    
+    // Check if token has expired
+    if (expiresAt && Date.now() > parseInt(expiresAt)) {
+        clearAuth();
+        return null;
+    }
+    
     const token = sessionStorage.getItem('cms_github_token');
     const owner = sessionStorage.getItem('cms_github_owner') || 'majdAlmotaem';
     const repo = sessionStorage.getItem('cms_github_repo') || 'portfolio';
@@ -12,6 +23,7 @@ export function getAuth() {
 
 export function setAuth(token, owner, repo, branch) {
     sessionStorage.setItem('cms_github_token', token.trim());
+    sessionStorage.setItem('cms_github_token_expires', Date.now() + TOKEN_TTL);
     sessionStorage.setItem('cms_github_owner', owner.trim());
     sessionStorage.setItem('cms_github_repo', repo.trim());
     sessionStorage.setItem('cms_github_branch', branch.trim());
@@ -19,13 +31,14 @@ export function setAuth(token, owner, repo, branch) {
 
 export function clearAuth() {
     sessionStorage.removeItem('cms_github_token');
+    sessionStorage.removeItem('cms_github_token_expires');
     sessionStorage.removeItem('cms_github_owner');
     sessionStorage.removeItem('cms_github_repo');
     sessionStorage.removeItem('cms_github_branch');
 }
 
 export function isLoggedIn() {
-    return !!sessionStorage.getItem('cms_github_token');
+    return !!getAuth();
 }
 
 export async function validateCredentials(token, owner, repo, branch) {

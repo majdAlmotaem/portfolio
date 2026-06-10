@@ -45,23 +45,29 @@ export async function initBlogs(container, showToast) {
 
     try {
         const files = await listDirectory('content/blogs');
-        const blogs = [];
-
-        for (const file of files) {
-            try {
-                const fileData = await fetchFile(file.path);
-                const parsed = parseFrontMatter(fileData.content);
-                blogs.push({
-                    filename: file.name,
-                    path: file.path,
-                    sha: fileData.sha,
-                    data: parsed.data,
-                    body: parsed.body
-                });
-            } catch (e) {
-                console.error(`Failed to load blog file ${file.name}:`, e);
-            }
-        }
+        
+        // ─── PERFORMANCE: Fetch all blogs in parallel (3-4x faster) ───
+        const blogsData = await Promise.all(
+            files.map(file =>
+                fetchFile(file.path)
+                    .then(fileData => {
+                        const parsed = parseFrontMatter(fileData.content);
+                        return {
+                            filename: file.name,
+                            path: file.path,
+                            sha: fileData.sha,
+                            data: parsed.data,
+                            body: parsed.body
+                        };
+                    })
+                    .catch(e => {
+                        console.error(`Failed to load blog file ${file.name}:`, e);
+                        return null;
+                    })
+            )
+        );
+        
+        const blogs = blogsData.filter(b => b !== null);
 
         // Sort blogs by ID descending
         blogs.sort((a, b) => (b.data.id || 0) - (a.data.id || 0));
@@ -195,17 +201,6 @@ function renderForm(idx, blogs, container, showToast) {
             <form id="blog-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Filename (Auto-generated from English Title)</label>
-                        <input type="text" id="blog-filename" value="${blog.filename}" placeholder="Will auto-generate..." readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Unique Numeric ID (Auto-generated)</label>
-                        <input type="number" id="blog-id" value="${blog.data.id || 1}" readonly style="background:rgba(255,255,255,0.02);color:var(--text-muted);" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
                         <label>Featured Image Path</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="text" id="blog-image" value="${blog.data.image || ''}" style="flex-grow: 1;" required>
@@ -221,47 +216,47 @@ function renderForm(idx, blogs, container, showToast) {
 
                 <!-- ─── Multilingual Content ─── -->
                 <div class="field-langs">
-                    <div>
+                    <div class="lang-field-en">
                         <h4 class="lang-header"><i class="fa-solid fa-earth-americas"></i> English Post Details</h4>
                         <div class="form-group">
                             <label>English Title</label>
-                            <input type="text" id="blog-title-en" value="${blog.data.title_en || ''}" required>
+                            <input type="text" id="blog-title-en" value="${blog.data.title_en || ''}">
                         </div>
                         <div class="form-group">
                             <label>Excerpt (EN)</label>
-                            <textarea id="blog-excerpt-en" style="min-height: 80px;" required>${blog.data.excerpt_en || ''}</textarea>
+                            <textarea id="blog-excerpt-en" style="min-height: 80px;">${blog.data.excerpt_en || ''}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Content (EN, HTML/Markdown)</label>
-                            <textarea id="blog-content-en" style="min-height: 250px;" required>${blog.data.content_en || ''}</textarea>
+                            <textarea id="blog-content-en" style="min-height: 250px;">${blog.data.content_en || ''}</textarea>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="lang-field-de">
                         <h4 class="lang-header"><i class="fa-solid fa-earth-europe"></i> German Post Details</h4>
                         <div class="form-group">
                             <label>Zertifikat Titel (DE)</label>
-                            <input type="text" id="blog-title-de" value="${blog.data.title_de || ''}" required>
+                            <input type="text" id="blog-title-de" value="${blog.data.title_de || ''}">
                         </div>
                         <div class="form-group">
                             <label>Beschreibung (DE)</label>
-                            <textarea id="blog-excerpt-de" style="min-height: 80px;" required>${blog.data.excerpt_de || ''}</textarea>
+                            <textarea id="blog-excerpt-de" style="min-height: 80px;">${blog.data.excerpt_de || ''}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Inhalt (DE, HTML/Markdown)</label>
-                            <textarea id="blog-content-de" style="min-height: 250px;" required>${blog.data.content_de || ''}</textarea>
+                            <textarea id="blog-content-de" style="min-height: 250px;">${blog.data.content_de || ''}</textarea>
                         </div>
                     </div>
                 </div>
 
                 <!-- ─── Tags Editing ─── -->
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group lang-field-en">
                         <label>Tags (English list)</label>
                         <div id="tags-en-list" class="nested-list"></div>
                         <button type="button" class="btn btn-outline btn-sm" id="btn-add-tag-en" style="margin-top: 0.5rem;"><i class="fa-solid fa-plus"></i> Add Tag</button>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group lang-field-de">
                         <label>Tags (German list)</label>
                         <div id="tags-de-list" class="nested-list"></div>
                         <button type="button" class="btn btn-outline btn-sm" id="btn-add-tag-de" style="margin-top: 0.5rem;"><i class="fa-solid fa-plus"></i> Add Tag</button>
@@ -343,16 +338,6 @@ function renderForm(idx, blogs, container, showToast) {
         }
     });
 
-    // Dynamic filename generator from English Title in Create mode
-    const titleEnInp = document.getElementById('blog-title-en');
-    const filenameInp = document.getElementById('blog-filename');
-    if (titleEnInp && filenameInp && !isEdit) {
-        titleEnInp.addEventListener('input', (e) => {
-            const slug = slugify(e.target.value);
-            filenameInp.value = slug ? `${slug}.md` : '';
-        });
-    }
-
     // Cancel and Submit listeners
     document.getElementById('btn-cancel-blog').addEventListener('click', () => {
         renderList(blogs, container, showToast);
@@ -361,28 +346,37 @@ function renderForm(idx, blogs, container, showToast) {
     document.getElementById('blog-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        let filename = document.getElementById('blog-filename').value.trim();
+        const titleEn = document.getElementById('blog-title-en').value.trim();
+        if (!titleEn) {
+            showToast("English Blog Title is required.", "error");
+            return;
+        }
+
+        let filename = blog.filename || (slugify(titleEn) + '.md');
         if (!filename.endsWith('.md')) filename += '.md';
 
         const filePath = `content/blogs/${filename}`;
+        
+        // Auto-assign ID if creating new post
+        const blogId = blog.data.id || (blogs.length > 0 ? Math.max(...blogs.map(b => b.data.id || 0)) + 1 : 1);
 
         const payloadData = {
-            id: parseInt(document.getElementById('blog-id').value),
+            id: blogId,
             date: document.getElementById('blog-date').value,
             image: document.getElementById('blog-image').value,
             tags_en: tags_en.filter(Boolean),
             tags_de: tags_de.filter(Boolean),
-            title_en: document.getElementById('blog-title-en').value,
-            title_de: document.getElementById('blog-title-de').value,
-            excerpt_en: document.getElementById('blog-excerpt-en').value,
-            excerpt_de: document.getElementById('blog-excerpt-de').value,
-            content_en: document.getElementById('blog-content-en').value,
-            content_de: document.getElementById('blog-content-de').value
+            title_en: titleEn,
+            title_de: document.getElementById('blog-title-de').value || titleEn,
+            excerpt_en: document.getElementById('blog-excerpt-en').value || "",
+            excerpt_de: document.getElementById('blog-excerpt-de').value || "",
+            content_en: document.getElementById('blog-content-en').value || "",
+            content_de: document.getElementById('blog-content-de').value || ""
         };
 
         const markdownText = stringifyFrontMatter(payloadData, blog.body);
 
-        showToast(`Saving blog post ${filename} on GitHub...`, 'loading');
+        showToast(`Staging blog post changes...`, 'success');
         try {
             await saveFile(
                 filePath,
@@ -390,10 +384,9 @@ function renderForm(idx, blogs, container, showToast) {
                 blog.sha,
                 `Update blog post ${payloadData.title_en} via Custom CMS`
             );
-            showToast("Blog post saved successfully!", 'success');
             initBlogs(container, showToast);
         } catch (err) {
-            showToast(`Save failed: ${err.message}`, 'error');
+            showToast(`Staging failed: ${err.message}`, 'error');
         }
     });
 }

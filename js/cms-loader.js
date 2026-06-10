@@ -110,30 +110,69 @@ export async function loadPortfolioData() {
         console.warn("Could not retrieve config from config.json, defaulting branch to 'main'.", e);
     }
 
+    // Detect preview mode
+    const isPreview = window.location.search.includes('preview=true') || localStorage.getItem('cms_preview_mode') === 'true';
+    let changes = {};
+    if (isPreview) {
+        try {
+            changes = JSON.parse(localStorage.getItem('cms_pending_changes')) || {};
+            console.log("CMS Preview Mode Active. Staged changes:", changes);
+        } catch (e) {
+            console.warn("Could not load pending CMS changes from localStorage:", e);
+        }
+    }
+
     // 2. Fetch profile, skills, and certificates JSON data
     let profileData = {};
     let skillsData = { en: [], de: [] };
     let certificatesData = { certificates: [] };
 
-    try {
-        const profileRes = await fetch(`${base}data/profile.json`);
-        profileData = await profileRes.json();
-    } catch (err) {
-        console.error("Error loading profile.json: ", err);
+    // Profile
+    if (isPreview && changes['data/profile.json'] && !changes['data/profile.json'].deleted) {
+        try {
+            profileData = JSON.parse(changes['data/profile.json'].content);
+        } catch (err) {
+            console.error("Error parsing profile draft: ", err);
+        }
+    } else {
+        try {
+            const profileRes = await fetch(`${base}data/profile.json`);
+            profileData = await profileRes.json();
+        } catch (err) {
+            console.error("Error loading profile.json: ", err);
+        }
     }
 
-    try {
-        const skillsRes = await fetch(`${base}data/skills.json`);
-        skillsData = await skillsRes.json();
-    } catch (err) {
-        console.error("Error loading skills.json: ", err);
+    // Skills
+    if (isPreview && changes['data/skills.json'] && !changes['data/skills.json'].deleted) {
+        try {
+            skillsData = JSON.parse(changes['data/skills.json'].content);
+        } catch (err) {
+            console.error("Error parsing skills draft: ", err);
+        }
+    } else {
+        try {
+            const skillsRes = await fetch(`${base}data/skills.json`);
+            skillsData = await skillsRes.json();
+        } catch (err) {
+            console.error("Error loading skills.json: ", err);
+        }
     }
 
-    try {
-        const certsRes = await fetch(`${base}data/certificates.json`);
-        certificatesData = await certsRes.json();
-    } catch (err) {
-        console.error("Error loading certificates.json: ", err);
+    // Certificates
+    if (isPreview && changes['data/certificates.json'] && !changes['data/certificates.json'].deleted) {
+        try {
+            certificatesData = JSON.parse(changes['data/certificates.json'].content);
+        } catch (err) {
+            console.error("Error parsing certificates draft: ", err);
+        }
+    } else {
+        try {
+            const certsRes = await fetch(`${base}data/certificates.json`);
+            certificatesData = await certsRes.json();
+        } catch (err) {
+            console.error("Error loading certificates.json: ", err);
+        }
     }
 
     // 3. Load Project Files
@@ -157,12 +196,46 @@ export async function loadPortfolioData() {
         console.warn("Could not retrieve project list dynamically via GitHub API. Using fallback project list.", err);
     }
 
+    if (isPreview) {
+        // Remove staged deletions from the file list
+        projectFiles = projectFiles.filter(filename => {
+            const path = `content/projects/${filename}`;
+            return !(changes[path] && changes[path].deleted);
+        });
+
+        // Add staged new project files that are not already in projectFiles list
+        Object.keys(changes).forEach(path => {
+            if (path.startsWith('content/projects/') && path.endsWith('.md')) {
+                const filename = path.substring('content/projects/'.length);
+                if (!changes[path].deleted && !projectFiles.includes(filename)) {
+                    projectFiles.push(filename);
+                }
+            }
+        });
+    }
+
     const rawProjects = [];
     for (const filename of projectFiles) {
         try {
-            const res = await fetch(`${base}content/projects/${filename}`);
-            if (res.ok) {
-                const text = await res.text();
+            const path = `content/projects/${filename}`;
+            let text = null;
+
+            if (isPreview && changes[path]) {
+                if (!changes[path].deleted) {
+                    text = changes[path].content;
+                } else {
+                    continue; // Skip if deleted
+                }
+            }
+
+            if (text === null) {
+                const res = await fetch(`${base}content/projects/${filename}`);
+                if (res.ok) {
+                    text = await res.text();
+                }
+            }
+
+            if (text !== null) {
                 const parsed = parseFrontMatterAndMarkdown(text, jsyaml, marked);
                 if (parsed.data && parsed.data.id) {
                     rawProjects.push(parsed.data);
@@ -197,12 +270,46 @@ export async function loadPortfolioData() {
         console.warn("Could not retrieve blog list dynamically via GitHub API. Using fallback blog list.", err);
     }
 
+    if (isPreview) {
+        // Remove staged deletions from the file list
+        blogFiles = blogFiles.filter(filename => {
+            const path = `content/blogs/${filename}`;
+            return !(changes[path] && changes[path].deleted);
+        });
+
+        // Add staged new blog files that are not already in blogFiles list
+        Object.keys(changes).forEach(path => {
+            if (path.startsWith('content/blogs/') && path.endsWith('.md')) {
+                const filename = path.substring('content/blogs/'.length);
+                if (!changes[path].deleted && !blogFiles.includes(filename)) {
+                    blogFiles.push(filename);
+                }
+            }
+        });
+    }
+
     const rawBlogs = [];
     for (const filename of blogFiles) {
         try {
-            const res = await fetch(`${base}content/blogs/${filename}`);
-            if (res.ok) {
-                const text = await res.text();
+            const path = `content/blogs/${filename}`;
+            let text = null;
+
+            if (isPreview && changes[path]) {
+                if (!changes[path].deleted) {
+                    text = changes[path].content;
+                } else {
+                    continue; // Skip if deleted
+                }
+            }
+
+            if (text === null) {
+                const res = await fetch(`${base}content/blogs/${filename}`);
+                if (res.ok) {
+                    text = await res.text();
+                }
+            }
+
+            if (text !== null) {
                 const parsed = parseFrontMatterAndMarkdown(text, jsyaml, marked);
                 if (parsed.data && parsed.data.id) {
                     // Pre-parse Markdown contents for translation fields if any

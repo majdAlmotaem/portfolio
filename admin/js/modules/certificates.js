@@ -116,10 +116,6 @@ function renderForm(idx, certs, sha, container, showToast) {
             <form id="cert-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>FontAwesome Icon Class (e.g., fa-solid fa-graduation-cap)</label>
-                        <input type="text" id="cert-iconClass" value="${cert.iconClass || ''}" required>
-                    </div>
-                    <div class="form-group">
                         <label>Certificate Image Path</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="text" id="cert-image" value="${cert.image || ''}" style="flex-grow: 1;" required>
@@ -130,27 +126,27 @@ function renderForm(idx, certs, sha, container, showToast) {
                 </div>
 
                 <div class="field-langs">
-                    <div>
+                    <div class="lang-field-en">
                         <h4 class="lang-header"><i class="fa-solid fa-earth-americas"></i> English Certificate Details</h4>
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" id="cert-title-en" value="${cert.en?.title || ''}" required>
+                            <input type="text" id="cert-title-en" value="${cert.en?.title || ''}">
                         </div>
                         <div class="form-group">
                             <label>Issuer</label>
-                            <input type="text" id="cert-issuer-en" value="${cert.en?.issuer || ''}" required>
+                            <input type="text" id="cert-issuer-en" value="${cert.en?.issuer || ''}">
                         </div>
                     </div>
                     
-                    <div>
+                    <div class="lang-field-de">
                         <h4 class="lang-header"><i class="fa-solid fa-earth-europe"></i> German Certificate Details</h4>
                         <div class="form-group">
                             <label>Zertifikat Titel (DE)</label>
-                            <input type="text" id="cert-title-de" value="${cert.de?.title || ''}" required>
+                            <input type="text" id="cert-title-de" value="${cert.de?.title || ''}">
                         </div>
                         <div class="form-group">
                             <label>Aussteller (DE)</label>
-                            <input type="text" id="cert-issuer-de" value="${cert.de?.issuer || ''}" required>
+                            <input type="text" id="cert-issuer-de" value="${cert.de?.issuer || ''}">
                         </div>
                     </div>
                 </div>
@@ -180,6 +176,20 @@ function renderForm(idx, certs, sha, container, showToast) {
         }
     });
 
+    // Helper for Cert Icons
+    function getIconClassForCert(title) {
+        const t = title.toLowerCase();
+        if (t.includes('aws') || t.includes('cloud')) return 'fa-brands fa-aws';
+        if (t.includes('python')) return 'fa-brands fa-python';
+        if (t.includes('cisco') || t.includes('network')) return 'fa-solid fa-network-wired';
+        if (t.includes('generative') || t.includes('ai') || t.includes('artificial')) return 'fa-solid fa-brain';
+        if (t.includes('uml') || t.includes('class diagram') || t.includes('design')) return 'fa-solid fa-diagram-project';
+        if (t.includes('data science') || t.includes('analysis')) return 'fa-solid fa-chart-line';
+        if (t.includes('prompt')) return 'fa-solid fa-comment-dots';
+        if (t.includes('it specialist') || t.includes('application') || t.includes('develop')) return 'fa-solid fa-graduation-cap';
+        return 'fa-solid fa-award'; // default fallback
+    }
+
     // Cancel Listener
     document.getElementById('btn-cancel-cert').addEventListener('click', () => {
         renderList(certs, sha, container, showToast);
@@ -190,16 +200,17 @@ function renderForm(idx, certs, sha, container, showToast) {
         e.preventDefault();
         showToast("Saving certificate list...", 'loading');
 
+        const titleEn = document.getElementById('cert-title-en').value;
         const updatedCert = {
-            iconClass: document.getElementById('cert-iconClass').value,
+            iconClass: getIconClassForCert(titleEn),
             image: document.getElementById('cert-image').value,
             en: {
-                title: document.getElementById('cert-title-en').value,
-                issuer: document.getElementById('cert-issuer-en').value
+                title: titleEn,
+                issuer: document.getElementById('cert-issuer-en').value || ""
             },
             de: {
-                title: document.getElementById('cert-title-de').value,
-                issuer: document.getElementById('cert-issuer-de').value
+                title: document.getElementById('cert-title-de').value || titleEn,
+                issuer: document.getElementById('cert-issuer-de').value || ""
             }
         };
 

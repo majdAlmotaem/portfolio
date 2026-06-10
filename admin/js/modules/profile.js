@@ -46,45 +46,44 @@ export async function initProfile(container, showToast) {
                     </div>
 
                     <div class="field-langs">
-                        <div>
+                        <div class="lang-field-en">
                             <h4 class="lang-header"><i class="fa-solid fa-earth-americas"></i> English Hero Content</h4>
                             <div class="form-group">
                                 <label>Job Title</label>
-                                <input type="text" id="prof-title-en" value="${profile.en?.title || ''}" required>
+                                <input type="text" id="prof-title-en" value="${profile.en?.title || ''}">
                             </div>
                             <div class="form-group">
                                 <label>Motto / Description</label>
-                                <textarea id="prof-motto-en" required>${profile.en?.motto || ''}</textarea>
+                                <textarea id="prof-motto-en">${profile.en?.motto || ''}</textarea>
                             </div>
                         </div>
                         
-                        <div>
+                        <div class="lang-field-de">
                             <h4 class="lang-header"><i class="fa-solid fa-earth-europe"></i> German Hero Content</h4>
                             <div class="form-group">
                                 <label>Job Title (DE)</label>
-                                <input type="text" id="prof-title-de" value="${profile.de?.title || ''}" required>
+                                <input type="text" id="prof-title-de" value="${profile.de?.title || ''}">
                             </div>
                             <div class="form-group">
                                 <label>Motto / Description (DE)</label>
-                                <textarea id="prof-motto-de" required>${profile.de?.motto || ''}</textarea>
+                                <textarea id="prof-motto-de">${profile.de?.motto || ''}</textarea>
                             </div>
                         </div>
                     </div>
 
-                    <h4 class="lang-header"><i class="fa-solid fa-file-pdf"></i> Resumes / CVs</h4>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label>English Resume (PDF)</label>
+                        <div class="form-group lang-field-en">
+                            <label><i class="fa-solid fa-file-pdf"></i> English Resume (PDF)</label>
                             <div style="display: flex; gap: 8px;">
-                                <input type="text" id="prof-resume-en" value="${profile.resume?.en || ''}" style="flex-grow: 1;" required>
+                                <input type="text" id="prof-resume-en" value="${profile.resume?.en || ''}" style="flex-grow: 1;">
                                 <input type="file" id="prof-resume-en-file" accept="application/pdf" class="hidden">
                                 <button type="button" class="btn btn-outline btn-sm" id="btn-upload-pdf-en"><i class="fa-solid fa-upload"></i> Upload</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>German Resume (PDF)</label>
+                        <div class="form-group lang-field-de">
+                            <label><i class="fa-solid fa-file-pdf"></i> German Resume (PDF)</label>
                             <div style="display: flex; gap: 8px;">
-                                <input type="text" id="prof-resume-de" value="${profile.resume?.de || ''}" style="flex-grow: 1;" required>
+                                <input type="text" id="prof-resume-de" value="${profile.resume?.de || ''}" style="flex-grow: 1;">
                                 <input type="file" id="prof-resume-de-file" accept="application/pdf" class="hidden">
                                 <button type="button" class="btn btn-outline btn-sm" id="btn-upload-pdf-de"><i class="fa-solid fa-upload"></i> Upload</button>
                             </div>
