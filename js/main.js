@@ -1,4 +1,4 @@
-import { portfolioData } from './data.js';
+import { loadPortfolioData } from './cms-loader.js';
 import { initNeuralBg } from './neural-bg.js';
 
 const getHue = (str) => {
@@ -9,9 +9,165 @@ const getHue = (str) => {
     return Math.abs(hash) % 360;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function injectPreviewBanner() {
+    if (document.getElementById('cms-preview-banner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'cms-preview-banner';
+    banner.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background: linear-gradient(90deg, #0f0f15, #1d1d28);
+        border-bottom: 2px solid #e5a93b;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 100000;
+        font-family: 'Outfit', 'Inter', sans-serif;
+        color: #ffffff;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    `;
+
+    const leftSide = document.createElement('div');
+    leftSide.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    `;
+
+    const pulseDot = document.createElement('span');
+    pulseDot.style.cssText = `
+        width: 10px;
+        height: 10px;
+        background-color: #e5a93b;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 8px #e5a93b;
+        animation: preview-pulse 1.5s infinite alternate;
+    `;
+
+    // Inject keyframes style
+    const styleSheet = document.createElement('style');
+    styleSheet.type = 'text/css';
+    styleSheet.innerText = `
+        @keyframes preview-pulse {
+            from { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px #e5a93b; }
+            to { transform: scale(1.25); opacity: 1; box-shadow: 0 0 12px #e5a93b; }
+        }
+        .cms-preview-btn {
+            padding: 0.45rem 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+        .cms-preview-btn-primary {
+            background: #e5a93b;
+            color: #050505;
+            border: 1px solid #e5a93b;
+        }
+        .cms-preview-btn-primary:hover {
+            background: #f0bd5a;
+            box-shadow: 0 0 12px rgba(229, 169, 59, 0.4);
+            transform: translateY(-1px);
+        }
+        .cms-preview-btn-secondary {
+            background: transparent;
+            color: #cccccc;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .cms-preview-btn-secondary:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
+        }
+        .cms-preview-btn-secondary:hover .fa-rotate {
+            transform: rotate(180deg);
+        }
+        .fa-rotate {
+            transition: transform 0.3s ease;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+
+    leftSide.appendChild(pulseDot);
+    const textSpan = document.createElement('span');
+    textSpan.innerHTML = `⚡ <span style="color: #e5a93b;">PREVIEW MODE</span> ACTIVE &nbsp;<span style="color: #888888; font-weight: normal; font-size: 0.85rem;">(Showing local staged changes)</span>`;
+    leftSide.appendChild(textSpan);
+
+    const rightSide = document.createElement('div');
+    rightSide.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    `;
+
+    const btnAdmin = document.createElement('a');
+    btnAdmin.href = 'admin/index.html';
+    btnAdmin.className = 'cms-preview-btn cms-preview-btn-primary';
+    btnAdmin.innerHTML = `<i class="fa-solid fa-arrow-left"></i> Return to CMS`;
+
+    const btnRefresh = document.createElement('button');
+    btnRefresh.className = 'cms-preview-btn cms-preview-btn-secondary';
+    btnRefresh.innerHTML = `<i class="fa-solid fa-rotate"></i> Refresh`;
+    btnRefresh.addEventListener('click', () => {
+        window.location.reload();
+    });
+
+    const btnExit = document.createElement('button');
+    btnExit.className = 'cms-preview-btn cms-preview-btn-secondary';
+    btnExit.innerHTML = `<i class="fa-solid fa-xmark"></i> Exit Preview`;
+    btnExit.addEventListener('click', () => {
+        localStorage.removeItem('cms_preview_mode');
+        const url = new URL(window.location.href);
+        url.searchParams.delete('preview');
+        window.location.href = url.pathname + url.search;
+    });
+
+    rightSide.appendChild(btnAdmin);
+    rightSide.appendChild(btnRefresh);
+    rightSide.appendChild(btnExit);
+
+    banner.appendChild(leftSide);
+    banner.appendChild(rightSide);
+
+    document.body.appendChild(banner);
+    document.body.style.paddingTop = '50px';
+
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        navbar.style.top = '50px';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Check if preview mode is active
+    const isPreview = window.location.search.includes('preview=true') || localStorage.getItem('cms_preview_mode') === 'true';
+    if (isPreview) {
+        injectPreviewBanner();
+    }
+
     // Neural Network Background
     initNeuralBg();
+
+    // Load CMS & JSON content
+    const portfolioData = await loadPortfolioData();
 
     // 1. Language Configuration & State Management
     let currentLang = localStorage.getItem('portfolio-lang') || 'en';
@@ -706,6 +862,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Initial Bootstrap Execution
+    // Update translations and UI dynamically from loaded profile data
+    if (portfolioData.profile) {
+        const profile = portfolioData.profile;
+        if (profile.name) {
+            const nameParts = profile.name.split(' ');
+            let highlightedName = profile.name;
+            if (nameParts.length > 1) {
+                const last = nameParts.pop();
+                highlightedName = `${nameParts.join(' ')} <span class="highlight">${last}</span>`;
+            } else {
+                highlightedName = `<span class="highlight">${profile.name}</span>`;
+            }
+            translations.hero_greet.en = highlightedName;
+            translations.hero_greet.de = highlightedName;
+        }
+        if (profile.en?.title) translations.hero_title.en = profile.en.title;
+        if (profile.de?.title) translations.hero_title.de = profile.de.title;
+        if (profile.en?.motto) translations.hero_motto.en = profile.en.motto;
+        if (profile.de?.motto) translations.hero_motto.de = profile.de.motto;
+
+        // Dynamic Profile Image
+        const heroImg = document.querySelector('.hero-image-container img');
+        if (heroImg && profile.image) {
+            heroImg.src = profile.image;
+        }
+
+        // Dynamic Social Links
+        if (profile.socials) {
+            const githubLink = document.querySelector('a[href*="github.com"]');
+            if (githubLink && profile.socials.github) githubLink.href = profile.socials.github;
+
+            const linkedinLink = document.querySelector('a[href*="linkedin.com"]');
+            if (linkedinLink && profile.socials.linkedin) linkedinLink.href = profile.socials.linkedin;
+
+            const emailLink = document.querySelector('a[href^="mailto:"]');
+            if (emailLink && profile.socials.email) {
+                emailLink.href = `mailto:${profile.socials.email}`;
+            }
+        }
+
+        // Dynamic Resumes
+        if (profile.resume) {
+            const resumeLinks = document.querySelectorAll('.cv-modal-options a');
+            if (resumeLinks.length >= 2) {
+                if (profile.resume.en) resumeLinks[0].href = profile.resume.en;
+                if (profile.resume.de) resumeLinks[1].href = profile.resume.de;
+            }
+        }
+    }
+
     translateStaticUI();
     renderProjects();
     renderSkills();

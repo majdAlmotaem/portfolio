@@ -1,0 +1,100 @@
+{
+  "certificates": [
+    {
+      "iconClass": "fa-solid fa-graduation-cap",
+      "image": "assets/images/Fachinformatiker für Anwendungsentwicklung.png",
+      "en": {
+        "title": "IT Specialist in Application Development",
+        "issuer": "IHK Duisburg-Wesel-Kleve"
+      },
+      "de": {
+        "title": "Fachinformatiker für Anwendungsentwicklung",
+        "issuer": "IHK Duisburg-Wesel-Kleve"
+      }
+    },
+    {
+      "iconClass": "fa-brands fa-aws",
+      "image": "assets/images/aws.png",
+      "en": {
+        "title": "AWS Certified Solutions Architect - Associate",
+        "issuer": "Amazon Web Services"
+      },
+      "de": {
+        "title": "AWS Certified Solutions Architect - Associate",
+        "issuer": "Amazon Web Services"
+      }
+    },
+    {
+      "iconClass": "fa-solid fa-brain",
+      "image": "assets/images/Grundwissen Generative KI.png",
+      "en": {
+        "title": "Introduction to Generative AI",
+        "issuer": "LinkedIn Learning & Microsoft"
+      },
+      "de": {
+        "title": "Grundwissen Generative KI",
+        "issuer": "LinkedIn Learning & Microsoft"
+      }
+    },
+    {
+      "iconClass": "fa-solid fa-chart-line",
+      "image": "assets/images/Data Science.png",
+      "en": {
+        "title": "Data Science Foundations",
+        "issuer": "LinkedIn Learning"
+      },
+      "de": {
+        "title": "Data Science – Grundlagen",
+        "issuer": "LinkedIn Learning"
+      }
+    },
+    {
+      "iconClass": "fa-solid fa-comment-dots",
+      "image": "assets/images/Prompt Engineering.png",
+      "en": {
+        "title": "Prompt Engineering Foundations",
+        "issuer": "LinkedIn Learning"
+      },
+      "de": {
+        "title": "Prompt Engineering - Grundlagen",
+        "issuer": "LinkedIn Learning"
+      }
+    },
+    {
+      "iconClass": "fa-solid fa-diagram-project",
+      "image": "assets/images/Klassendiagramme.png",
+      "en": {
+        "title": "Class Diagrams with UML",
+        "issuer": "LinkedIn Learning"
+      },
+      "de": {
+        "title": "Klassendiagramme mit UML",
+        "issuer": "LinkedIn Learning"
+      }
+    },
+    {
+      "iconClass": "fa-solid fa-network-wired",
+      "image": "assets/images/Networking Basics.png",
+      "en": {
+        "title": "Networking Basics",
+        "issuer": "CISCO Academy"
+      },
+      "de": {
+        "title": "Networking Basics",
+        "issuer": "CISCO Academy"
+      }
+    },
+    {
+      "iconClass": "fa-brands fa-python",
+      "image": "assets/images/Programming for Everybody python.png",
+      "en": {
+        "title": "Programming for Everybody (Python)",
+        "issuer": "University of Michigan / Coursera"
+      },
+      "de": {
+        "title": "Programming for Everybody (Python)",
+        "issuer": "University of Michigan / Coursera"
+      }
+    }
+  ]
+}
