@@ -12,17 +12,34 @@
     "status": "completed",
     "link": "https://github.com/majdAlmotaem/clickShare",
     "githubLink": "https://github.com/majdAlmotaem/clickShare",
-    "techStack": "iconClass: fa-brands fa-node-js\niconClass: fa-brands fa-node-js\niconClass: fa-solid fa-database\niconClass: fa-solid fa-passport",
-    "newTechLearned_en": "[]",
-    "newTechLearned_de": "[]",
-    "description_en": "A modern web application to create, manage, and share posts across multiple\nsocial media platforms.",
-    "description_de": "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen\nauf mehreren Social-Media-Plattformen.",
-    "problem_en": "Content creators needed a dashboard to draft, schedule, and publish to\nmultiple platforms.",
-    "problem_de": "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu\nplanen und auf mehreren Plattformen zu veröffentlichen.",
-    "solution_en": "Developing a full-stack web app with OAuth 2.0 integration, a robust database,\nand a centralized post management system.",
-    "solution_de": "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten\nDatenbank und einem Beitragsverwaltungssystem.",
-    "lessonsLearned_en": "Learned full-stack development, handling OAuth, configuring PostgreSQL, and\nworking with EJS templates.",
-    "lessonsLearned_de": "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL\nund Arbeit mit EJS-Vorlagen."
+    "techStack": [
+      {
+        "name": "Node.js",
+        "iconClass": "fa-brands fa-node-js"
+      },
+      {
+        "name": "Express",
+        "iconClass": "fa-brands fa-node-js"
+      },
+      {
+        "name": "PostgreSQL",
+        "iconClass": "fa-solid fa-database"
+      },
+      {
+        "name": "Passport.js",
+        "iconClass": "fa-solid fa-passport"
+      }
+    ],
+    "newTechLearned_en": [],
+    "newTechLearned_de": [],
+    "description_en": "A modern web application to create, manage, and share posts across multiple social media platforms.",
+    "description_de": "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen auf mehreren Social-Media-Plattformen.",
+    "problem_en": "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
+    "problem_de": "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu planen und auf mehreren Plattformen zu veröffentlichen.",
+    "solution_en": "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
+    "solution_de": "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten Datenbank und einem Beitragsverwaltungssystem.",
+    "lessonsLearned_en": "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
+    "lessonsLearned_de": "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL und Arbeit mit EJS-Vorlagen."
   },
   {
     "id": 1,
@@ -35,7 +52,24 @@
     "status": "completed",
     "link": "https://github.com/majdAlmotaem/PasswordManager",
     "githubLink": "https://github.com/majdAlmotaem/PasswordManager",
-    "techStack": "iconClass: fa-brands fa-python\niconClass: fa-solid fa-window-maximize\niconClass: fa-solid fa-database\niconClass: fa-solid fa-shield-halved",
+    "techStack": [
+      {
+        "name": "Python",
+        "iconClass": "fa-brands fa-python"
+      },
+      {
+        "name": "Tkinter",
+        "iconClass": "fa-solid fa-window-maximize"
+      },
+      {
+        "name": "SQLite",
+        "iconClass": "fa-solid fa-database"
+      },
+      {
+        "name": "Security",
+        "iconClass": "fa-solid fa-shield-halved"
+      }
+    ],
     "newTechLearned_en": [
       "Security",
       "Hashing",
@@ -46,14 +80,14 @@
       "Hashing",
       "Datenverschlüsselung"
     ],
-    "description_en": "A modern, secure, and user-friendly password manager built with Python and\nTkinter.",
-    "description_de": "Ein moderner, sicherer und benutzerfreundlicher Passwort-Manager, entwickelt\nmit Python und Tkinter.",
-    "problem_en": "Managing multiple passwords securely without relying on third-party cloud\nservices.",
-    "problem_de": "Sichere Verwaltung mehrerer Passwörter, ohne auf Cloud-Dienste von\nDrittanbietern angewiesen zu sein.",
-    "solution_en": "Built a local, fully encrypted desktop application with a modern UI to\nsecurely store and manage passwords using PBKDF2 hashing.",
-    "solution_de": "Entwicklung einer lokalen, vollständig verschlüsselten Desktop-Anwendung mit\nmoderner Benutzeroberfläche zur sicheren Speicherung und Verwaltung von\nPasswörtern mittels PBKDF2-Hashing.",
-    "lessonsLearned_en": "Gained deep insights into security protocols, data hashing, and building\ndesktop UIs with Python.",
-    "lessonsLearned_de": "Tiefere Einblicke in Sicherheitsprotokolle, Daten-Hashing und die Erstellung\nvon Desktop-UIs mit Python gewonnen."
+    "description_en": "A modern, secure, and user-friendly password manager built with Python and Tkinter.",
+    "description_de": "Ein moderner, sicherer und benutzerfreundlicher Passwort-Manager, entwickelt mit Python und Tkinter.",
+    "problem_en": "Managing multiple passwords securely without relying on third-party cloud services.",
+    "problem_de": "Sichere Verwaltung mehrerer Passwörter, ohne auf Cloud-Dienste von Drittanbietern angewiesen zu sein.",
+    "solution_en": "Built a local, fully encrypted desktop application with a modern UI to securely store and manage passwords using PBKDF2 hashing.",
+    "solution_de": "Entwicklung einer lokalen, vollständig verschlüsselten Desktop-Anwendung mit moderner Benutzeroberfläche zur sicheren Speicherung und Verwaltung von Passwörtern mittels PBKDF2-Hashing.",
+    "lessonsLearned_en": "Gained deep insights into security protocols, data hashing, and building desktop UIs with Python.",
+    "lessonsLearned_de": "Tiefere Einblicke in Sicherheitsprotokolle, Daten-Hashing und die Erstellung von Desktop-UIs mit Python gewonnen."
   },
   {
     "id": 2,
@@ -68,7 +102,20 @@
     "status": "completed",
     "link": "https://majdAlmotaem.github.io/mouseApp/",
     "githubLink": "https://github.com/majdAlmotaem/mouseApp",
-    "techStack": "iconClass: \"fa-brands fa-python\"\niconClass: \"fa-brands fa-android\"\niconClass: \"fa-solid fa-network-wired",
+    "techStack": [
+      {
+        "name": "Python",
+        "iconClass": "fa-brands fa-python"
+      },
+      {
+        "name": "Android Studio",
+        "iconClass": "fa-brands fa-android"
+      },
+      {
+        "name": "Sockets",
+        "iconClass": "fa-solid fa-network-wired"
+      }
+    ],
     "newTechLearned_en": [
       "Android App Development",
       "Desktop App Communication",
@@ -99,7 +146,24 @@
     "status": "completed",
     "link": "#",
     "githubLink": "#",
-    "techStack": "iconClass: \"fa-solid fa-robot\"\niconClass: \"fa-solid fa-brain\"\niconClass: \"fa-solid fa-gears\"\niconClass: \"fa-solid fa-bolt",
+    "techStack": [
+      {
+        "name": "n8n",
+        "iconClass": "fa-solid fa-robot"
+      },
+      {
+        "name": "AI",
+        "iconClass": "fa-solid fa-brain"
+      },
+      {
+        "name": "Automation",
+        "iconClass": "fa-solid fa-gears"
+      },
+      {
+        "name": "Productivity",
+        "iconClass": "fa-solid fa-bolt"
+      }
+    ],
     "newTechLearned_en": [
       "n8n",
       "AI-Driven Automation",
