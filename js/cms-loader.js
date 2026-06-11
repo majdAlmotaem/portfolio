@@ -81,34 +81,16 @@ function parseFrontMatterAndMarkdown(text, jsyaml, marked) {
 
 // Main loader function
 export async function loadPortfolioData() {
-    // 1. Load dependencies from CDN
-    let jsyaml, marked;
-    try {
-        jsyaml = await loadScript('https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js', 'jsyaml');
-        marked = await loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', 'marked');
-    } catch (err) {
-        console.error("Failed to load parsing libraries from CDN. Falling back to text rendering.", err);
-    }
-
     const base = getBaseUrl();
 
+    // 1. Kick off CDN loading for marked in parallel (js-yaml is not needed on frontend!)
+    const markedPromise = loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', 'marked')
+        .catch(err => { console.warn("Failed to load marked from CDN:", err); return null; });
+
     // Fetch config.json to detect branch, owner, and repo dynamically
-    let branch = 'main';
-    let configOwner = 'majdAlmotaem';
-    let configRepo = 'portfolio';
-    try {
-        const configRes = await fetch(`${base}admin/config.json?t=${Date.now()}`);
-        if (configRes.ok) {
-            const configData = await configRes.json();
-            if (configData) {
-                if (configData.branch) branch = configData.branch;
-                if (configData.owner) configOwner = configData.owner;
-                if (configData.repo) configRepo = configData.repo;
-            }
-        }
-    } catch (e) {
-        console.warn("Could not retrieve config from config.json, defaulting branch to 'main'.", e);
-    }
+    const configPromise = fetch(`${base}admin/config.json?t=${Date.now()}`)
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
 
     // Detect preview mode
     const isPreview = window.location.search.includes('preview=true') || localStorage.getItem('cms_preview_mode') === 'true';
@@ -122,7 +104,7 @@ export async function loadPortfolioData() {
         }
     }
 
-    // 2. Fetch profile, skills, and certificates JSON data in parallel (unless staged in preview changes)
+    // 2. Fetch profile, skills, certificates, projects, and blogs concurrently
     const profilePromise = (isPreview && changes['data/profile.json'] && !changes['data/profile.json'].deleted)
         ? Promise.resolve(JSON.parse(changes['data/profile.json'].content))
         : fetch(`${base}data/profile.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading profile.json: ", err); return {}; });
@@ -135,45 +117,24 @@ export async function loadPortfolioData() {
         ? Promise.resolve(JSON.parse(changes['data/certificates.json'].content))
         : fetch(`${base}data/certificates.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading certificates.json: ", err); return { certificates: [] }; });
 
-    const [profileData, skillsData, certificatesData] = await Promise.all([profilePromise, skillsPromise, certsPromise]);
+    const projectsPromise = (isPreview && changes['data/projects.json'] && !changes['data/projects.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/projects.json'].content))
+        : fetch(`${base}data/projects.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading projects.json: ", err); return []; });
 
-    // 3. Load Projects database JSON (check preview changes first)
-    let projectsData = [];
-    if (isPreview && changes['data/projects.json'] && !changes['data/projects.json'].deleted) {
-        try {
-            projectsData = JSON.parse(changes['data/projects.json'].content);
-        } catch (err) {
-            console.error("Error parsing projects draft: ", err);
-        }
-    } else {
-        try {
-            const projectsRes = await fetch(`${base}data/projects.json?t=${Date.now()}`);
-            if (projectsRes.ok) {
-                projectsData = await projectsRes.json();
-            }
-        } catch (err) {
-            console.error("Error loading projects.json: ", err);
-        }
-    }
+    const blogsPromise = (isPreview && changes['data/blogs.json'] && !changes['data/blogs.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/blogs.json'].content))
+        : fetch(`${base}data/blogs.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading blogs.json: ", err); return []; });
 
-    // 4. Load Blogs database JSON (check preview changes first)
-    let blogsData = [];
-    if (isPreview && changes['data/blogs.json'] && !changes['data/blogs.json'].deleted) {
-        try {
-            blogsData = JSON.parse(changes['data/blogs.json'].content);
-        } catch (err) {
-            console.error("Error parsing blogs draft: ", err);
-        }
-    } else {
-        try {
-            const blogsRes = await fetch(`${base}data/blogs.json?t=${Date.now()}`);
-            if (blogsRes.ok) {
-                blogsData = await blogsRes.json();
-            }
-        } catch (err) {
-            console.error("Error loading blogs.json: ", err);
-        }
-    }
+    // Wait for all CDN loading and static file fetches to resolve concurrently
+    const [marked, configData, profileData, skillsData, certificatesData, projectsData, blogsData] = await Promise.all([
+        markedPromise,
+        configPromise,
+        profilePromise,
+        skillsPromise,
+        certsPromise,
+        projectsPromise,
+        blogsPromise
+    ]);
 
     // Helper to resolve images in preview mode
     function resolvePreviewImage(path) {
