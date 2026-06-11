@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7,
+    "title_en": "clickShare",
+    "title_de": "clickShare",
+    "image": "assets/images/landingpage.png",
+    "images": [
+      "assets/images/landingpage.png",
+      "assets/images/postEditor.png",
+      "assets/images/userDashboard.png"
+    ],
+    "status": "completed",
+    "link": "https://github.com/majdAlmotaem/clickShare",
+    "githubLink": "https://github.com/majdAlmotaem/clickShare",
+    "techStack": "iconClass: fa-brands fa-node-js\niconClass: fa-brands fa-node-js\niconClass: fa-solid fa-database\niconClass: fa-solid fa-passport",
+    "newTechLearned_en": "[]",
+    "newTechLearned_de": "[]",
+    "description_en": "A modern web application to create, manage, and share posts across multiple\nsocial media platforms.",
+    "description_de": "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen\nauf mehreren Social-Media-Plattformen.",
+    "problem_en": "Content creators needed a dashboard to draft, schedule, and publish to\nmultiple platforms.",
+    "problem_de": "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu\nplanen und auf mehreren Plattformen zu veröffentlichen.",
+    "solution_en": "Developing a full-stack web app with OAuth 2.0 integration, a robust database,\nand a centralized post management system.",
+    "solution_de": "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten\nDatenbank und einem Beitragsverwaltungssystem.",
+    "lessonsLearned_en": "Learned full-stack development, handling OAuth, configuring PostgreSQL, and\nworking with EJS templates.",
+    "lessonsLearned_de": "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL\nund Arbeit mit EJS-Vorlagen."
+  },
+  {
+    "id": 1,
+    "title_en": "Password Manager",
+    "title_de": "Passwort-Manager",
+    "image": "assets/images/password-manager-demo.gif",
+    "images": [
+      "assets/images/password-manager-demo.gif"
+    ],
+    "status": "completed",
+    "link": "https://github.com/majdAlmotaem/PasswordManager",
+    "githubLink": "https://github.com/majdAlmotaem/PasswordManager",
+    "techStack": "iconClass: fa-brands fa-python\niconClass: fa-solid fa-window-maximize\niconClass: fa-solid fa-database\niconClass: fa-solid fa-shield-halved",
+    "newTechLearned_en": [
+      "Security",
+      "Hashing",
+      "Data Encryption"
+    ],
+    "newTechLearned_de": [
+      "Sicherheit",
+      "Hashing",
+      "Datenverschlüsselung"
+    ],
+    "description_en": "A modern, secure, and user-friendly password manager built with Python and\nTkinter.",
+    "description_de": "Ein moderner, sicherer und benutzerfreundlicher Passwort-Manager, entwickelt\nmit Python und Tkinter.",
+    "problem_en": "Managing multiple passwords securely without relying on third-party cloud\nservices.",
+    "problem_de": "Sichere Verwaltung mehrerer Passwörter, ohne auf Cloud-Dienste von\nDrittanbietern angewiesen zu sein.",
+    "solution_en": "Built a local, fully encrypted desktop application with a modern UI to\nsecurely store and manage passwords using PBKDF2 hashing.",
+    "solution_de": "Entwicklung einer lokalen, vollständig verschlüsselten Desktop-Anwendung mit\nmoderner Benutzeroberfläche zur sicheren Speicherung und Verwaltung von\nPasswörtern mittels PBKDF2-Hashing.",
+    "lessonsLearned_en": "Gained deep insights into security protocols, data hashing, and building\ndesktop UIs with Python.",
+    "lessonsLearned_de": "Tiefere Einblicke in Sicherheitsprotokolle, Daten-Hashing und die Erstellung\nvon Desktop-UIs mit Python gewonnen."
+  },
+  {
+    "id": 2,
+    "title_en": "Lazy Controller",
+    "title_de": "Lazy Controller",
+    "image": "assets/images/lazyController.jpg",
+    "images": [
+      "assets/images/lazyController.jpg",
+      "assets/images/mouse-app-desktopApp.png",
+      "assets/images/mouse-app-androidApp.jpg"
+    ],
+    "status": "completed",
+    "link": "https://majdAlmotaem.github.io/mouseApp/",
+    "githubLink": "https://github.com/majdAlmotaem/mouseApp",
+    "techStack": "iconClass: \"fa-brands fa-python\"\niconClass: \"fa-brands fa-android\"\niconClass: \"fa-solid fa-network-wired",
+    "newTechLearned_en": [
+      "Android App Development",
+      "Desktop App Communication",
+      "Sockets"
+    ],
+    "newTechLearned_de": [
+      "Android-App-Entwicklung",
+      "Desktop-App-Kommunikation",
+      "Sockets"
+    ],
+    "description_en": "A futuristic, seamless way to control your PC directly from your Android phone.",
+    "description_de": "Eine futuristische, nahtlose Möglichkeit, Ihren PC direkt von Ihrem Android-Telefon aus zu steuern.",
+    "problem_en": "Wanted a seamless way to control a PC from bed without a physical wireless mouse/keyboard.",
+    "problem_de": "Es wurde ein nahtloser Weg gesucht, um einen PC vom Bett aus ohne eine physische kabellose Maus oder Tastatur zu steuern.",
+    "solution_en": "Developed a cross-platform system (Android app + Windows server) that communicates via local Wi-Fi sockets to simulate mouse and keyboard inputs.",
+    "solution_de": "Entwicklung eines plattformübergreifenden Systems (Android-App + Windows-Server), das über lokale Wi-Fi-Sockets kommuniziert, um Maus- und Tastatureingaben zu simulieren.",
+    "lessonsLearned_en": "Learned Android app development, desktop app integration, and real-time socket communication.",
+    "lessonsLearned_de": "Erfahrung gesammelt in der Android-App-Entwicklung, Desktop-App-Integration und Echtzeit-Socket-Kommunikation."
+  },
+  {
+    "id": 3,
+    "title_en": "AI News Digest Automation",
+    "title_de": "KI-News-Digest Automatisierung",
+    "image": "assets/images/n8n.mp4",
+    "images": [
+      "assets/images/n8n.mp4"
+    ],
+    "status": "completed",
+    "link": "#",
+    "githubLink": "#",
+    "techStack": "iconClass: \"fa-solid fa-robot\"\niconClass: \"fa-solid fa-brain\"\niconClass: \"fa-solid fa-gears\"\niconClass: \"fa-solid fa-bolt",
+    "newTechLearned_en": [
+      "n8n",
+      "AI-Driven Automation",
+      "Productivity Workflows"
+    ],
+    "newTechLearned_de": [
+      "n8n",
+      "KI-gestützte Automatisierung",
+      "Produktivitäts-Workflows"
+    ],
+    "description_en": "A smart automation workflow built with n8n that delivers a daily AI-summarized tech news digest to your inbox and to-do list.",
+    "description_de": "Ein intelligenter Automatisierungs-Workflow, der mit n8n erstellt wurde und täglich einen KI-zusammengefassten Tech-News-Digest in den Posteingang und die To-Do-Liste liefert.",
+    "problem_en": "Staying updated with AI and tech news is time-consuming. I needed a way to consolidate and summarize the most important information daily.",
+    "problem_de": "Es ist zeitaufwendig, über KI- und Tech-News auf dem Laufenden zu bleiben. Ich brauchte einen Weg, die wichtigsten Informationen täglich zu konsolidieren und zusammenzufassen.",
+    "solution_en": "Developed a smart automation with n8n! Now, I get a daily digest of the latest AI and tech news straight to my inbox, summarized by AI. Plus, it adds a quick reminder to my to-do list so I don't miss anything.",
+    "solution_de": "Eine intelligente Automatisierung mit n8n entwickelt! Jetzt erhalte ich eine tägliche Zusammenfassung der neuesten KI- und Tech-News direkt in meinen Posteingang, zusammengefasst von einer KI. Zudem wird eine kurze Erinnerung zu meiner To-Do-Liste hinzugefügt, damit ich nichts verpasse.",
+    "lessonsLearned_en": "It was awesome to see how easily n8n handles fetching, processing, and delivering information. It's a truly powerful tool for automating tasks and improving productivity. Highly recommend exploring n8n if you're into smart workflows!",
+    "lessonsLearned_de": "Es war großartig zu sehen, wie einfach n8n das Abrufen, Verarbeiten und Ausliefern von Informationen handhabt. Es ist ein wirklich mächtiges Tool zur Automatisierung von Aufgaben und zur Steigerung der Produktivität. Ich empfehle n8n wärmstens für smarte Workflows!"
+  }
+]

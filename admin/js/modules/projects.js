@@ -171,7 +171,26 @@ function renderList(projects, container, showToast) {
             if (confirm(`Are you sure you want to delete "${proj.data.title_en}"? This will delete the markdown file from GitHub.`)) {
                 showToast(`Deleting ${proj.filename}...`, 'loading');
                 try {
+                    // 1. Delete individual markdown file
                     await deleteFile(proj.path, proj.sha, `Delete project ${proj.data.title_en} via Custom CMS`);
+                    
+                    // 2. Compile updated projects list
+                    const updatedProjects = projects.filter((_, i) => i !== idx);
+                    const compiledData = updatedProjects.map(p => p.data);
+                    
+                    let jsonSha = null;
+                    try {
+                        const existingJson = await fetchFile('data/projects.json');
+                        if (existingJson && existingJson.sha) jsonSha = existingJson.sha;
+                    } catch (e) {}
+                    
+                    await saveFile(
+                        'data/projects.json',
+                        JSON.stringify(compiledData, null, 2),
+                        jsonSha,
+                        `Compile projects list JSON via Custom CMS (Delete project)`
+                    );
+
                     showToast("Project deleted successfully!", 'success');
                     initProjects(container, showToast);
                 } catch (err) {
@@ -519,12 +538,51 @@ function renderForm(idx, projects, container, showToast) {
 
         showToast(`Staging project changes...`, 'success');
         try {
+            // 1. Save individual project markdown file
             await saveFile(
                 filePath, 
                 markdownText, 
                 project.sha, 
                 `Update project ${payloadData.title_en} via Custom CMS`
             );
+
+            // 2. Compile all projects to data/projects.json
+            const updatedProjects = [...projects];
+            const newProjectObj = {
+                filename,
+                path: filePath,
+                sha: project.sha,
+                data: payloadData,
+                body: project.body
+            };
+            if (isEdit) {
+                updatedProjects[idx] = newProjectObj;
+            } else {
+                updatedProjects.push(newProjectObj);
+            }
+
+            const projectOrder = [7, 1, 2, 3];
+            const compiledData = updatedProjects.map(p => p.data);
+            compiledData.sort((a, b) => {
+                const idxA = projectOrder.indexOf(a.id);
+                const idxB = projectOrder.indexOf(b.id);
+                if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+                return b.id - a.id;
+            });
+
+            let jsonSha = null;
+            try {
+                const existingJson = await fetchFile('data/projects.json');
+                if (existingJson && existingJson.sha) jsonSha = existingJson.sha;
+            } catch (e) {}
+
+            await saveFile(
+                'data/projects.json',
+                JSON.stringify(compiledData, null, 2),
+                jsonSha,
+                `Compile projects list JSON via Custom CMS`
+            );
+
             initProjects(container, showToast);
         } catch (err) {
             showToast(`Staging failed: ${err.message}`, 'error');

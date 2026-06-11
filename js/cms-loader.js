@@ -137,162 +137,43 @@ export async function loadPortfolioData() {
 
     const [profileData, skillsData, certificatesData] = await Promise.all([profilePromise, skillsPromise, certsPromise]);
 
-    // 3. Query Project & Blog file lists from GitHub API in parallel
-    let { owner, repo } = getGitHubRepoDetails();
-    if (!window.location.hostname.endsWith('.github.io')) {
-        owner = configOwner;
-        repo = configRepo;
-    }
-
-    const projectListPromise = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/projects?ref=${branch}`)
-        .then(res => res.ok ? res.json() : null)
-        .catch(() => null);
-
-    const blogListPromise = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/content/blogs?ref=${branch}`)
-        .then(res => res.ok ? res.json() : null)
-        .catch(() => null);
-
-    const [apiProjectsData, apiBlogsData] = await Promise.all([projectListPromise, blogListPromise]);
-
-    // Construct Project file list
-    let projectFiles = FALLBACK_PROJECT_FILES;
-    if (apiProjectsData) {
-        projectFiles = apiProjectsData.filter(f => f.name.endsWith('.md')).map(f => f.name);
-    }
-    if (isPreview) {
-        // Remove staged deletions from the file list
-        projectFiles = projectFiles.filter(filename => {
-            const path = `content/projects/${filename}`;
-            return !(changes[path] && changes[path].deleted);
-        });
-        // Add staged new project files
-        Object.keys(changes).forEach(path => {
-            if (path.startsWith('content/projects/') && path.endsWith('.md')) {
-                const filename = path.substring('content/projects/'.length);
-                if (!changes[path].deleted && !projectFiles.includes(filename)) {
-                    projectFiles.push(filename);
-                }
-            }
-        });
-    }
-
-    // Construct Blog file list
-    let blogFiles = FALLBACK_BLOG_FILES;
-    if (apiBlogsData) {
-        blogFiles = apiBlogsData.filter(f => f.name.endsWith('.md')).map(f => f.name);
-    }
-    if (isPreview) {
-        // Remove staged deletions from the file list
-        blogFiles = blogFiles.filter(filename => {
-            const path = `content/blogs/${filename}`;
-            return !(changes[path] && changes[path].deleted);
-        });
-        // Add staged new blog files
-        Object.keys(changes).forEach(path => {
-            if (path.startsWith('content/blogs/') && path.endsWith('.md')) {
-                const filename = path.substring('content/blogs/'.length);
-                if (!changes[path].deleted && !blogFiles.includes(filename)) {
-                    blogFiles.push(filename);
-                }
-            }
-        });
-    }
-
-    // 4. Fetch all Project markdown files in parallel
-    const projectPromises = projectFiles.map(async (filename) => {
+    // 3. Load Projects database JSON (check preview changes first)
+    let projectsData = [];
+    if (isPreview && changes['data/projects.json'] && !changes['data/projects.json'].deleted) {
         try {
-            const path = `content/projects/${filename}`;
-            let text = null;
-
-            if (isPreview && changes[path]) {
-                if (!changes[path].deleted) {
-                    text = changes[path].content;
-                } else {
-                    return null; // Skip if deleted
-                }
-            }
-
-            if (text === null) {
-                const res = await fetch(`${base}content/projects/${filename}?t=${Date.now()}`);
-                if (res.ok) {
-                    text = await res.text();
-                }
-            }
-
-            if (text !== null) {
-                const parsed = parseFrontMatterAndMarkdown(text, jsyaml, marked);
-                if (parsed.data && parsed.data.id) {
-                    return parsed.data;
-                }
+            projectsData = JSON.parse(changes['data/projects.json'].content);
+        } catch (err) {
+            console.error("Error parsing projects draft: ", err);
+        }
+    } else {
+        try {
+            const projectsRes = await fetch(`${base}data/projects.json?t=${Date.now()}`);
+            if (projectsRes.ok) {
+                projectsData = await projectsRes.json();
             }
         } catch (err) {
-            console.error(`Error loading project file ${filename}: `, err);
+            console.error("Error loading projects.json: ", err);
         }
-        return null;
-    });
+    }
 
-    // 5. Fetch all Blog markdown files in parallel
-    const blogPromises = blogFiles.map(async (filename) => {
+    // 4. Load Blogs database JSON (check preview changes first)
+    let blogsData = [];
+    if (isPreview && changes['data/blogs.json'] && !changes['data/blogs.json'].deleted) {
         try {
-            const path = `content/blogs/${filename}`;
-            let text = null;
-
-            if (isPreview && changes[path]) {
-                if (!changes[path].deleted) {
-                    text = changes[path].content;
-                } else {
-                    return null; // Skip if deleted
-                }
-            }
-
-            if (text === null) {
-                const res = await fetch(`${base}content/blogs/${filename}?t=${Date.now()}`);
-                if (res.ok) {
-                    text = await res.text();
-                }
-            }
-
-            if (text !== null) {
-                const parsed = parseFrontMatterAndMarkdown(text, jsyaml, marked);
-                if (parsed.data && parsed.data.id) {
-                    // Pre-parse Markdown contents for translation fields if any
-                    if (marked && marked.parse) {
-                        if (parsed.data.content_en) {
-                            parsed.data.content_en = marked.parse(parsed.data.content_en);
-                        }
-                        if (parsed.data.content_de) {
-                            parsed.data.content_de = marked.parse(parsed.data.content_de);
-                        }
-                    }
-                    return parsed.data;
-                }
+            blogsData = JSON.parse(changes['data/blogs.json'].content);
+        } catch (err) {
+            console.error("Error parsing blogs draft: ", err);
+        }
+    } else {
+        try {
+            const blogsRes = await fetch(`${base}data/blogs.json?t=${Date.now()}`);
+            if (blogsRes.ok) {
+                blogsData = await blogsRes.json();
             }
         } catch (err) {
-            console.error(`Error loading blog file ${filename}: `, err);
+            console.error("Error loading blogs.json: ", err);
         }
-        return null;
-    });
-
-    // Resolve all project & blog fetches concurrently
-    const [projectResults, blogResults] = await Promise.all([
-        Promise.all(projectPromises),
-        Promise.all(blogPromises)
-    ]);
-
-    const rawProjects = projectResults.filter(Boolean);
-    const rawBlogs = blogResults.filter(Boolean);
-
-    // Sort projects to match original layout or place new ones at top
-    const projectOrder = [7, 1, 2, 3];
-    rawProjects.sort((a, b) => {
-        const idxA = projectOrder.indexOf(a.id);
-        const idxB = projectOrder.indexOf(b.id);
-        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-        return b.id - a.id;
-    });
-
-    // Sort blogs by ID ascending (matching the original chronological order)
-    rawBlogs.sort((a, b) => a.id - b.id);
+    }
 
     // Helper to resolve images in preview mode
     function resolvePreviewImage(path) {
@@ -315,7 +196,7 @@ export async function loadPortfolioData() {
             } : undefined
         },
         en: {
-            projects: rawProjects.map(proj => ({
+            projects: projectsData.map(proj => ({
                 id: proj.id,
                 title: proj.title_en || proj.title || "",
                 image: resolvePreviewImage(proj.image || ""),
@@ -337,18 +218,24 @@ export async function loadPortfolioData() {
                 iconClass: cert.iconClass || "",
                 image: resolvePreviewImage(cert.image || "")
             })),
-            blogs: rawBlogs.map(blog => ({
-                id: blog.id,
-                title: blog.title_en || blog.title || "",
-                date: blog.date || "",
-                excerpt: blog.excerpt_en || "",
-                content: blog.content_en || blog.content || "",
-                image: resolvePreviewImage(blog.image || ""),
-                tags: blog.tags_en || blog.tags || []
-            }))
+            blogs: blogsData.map(blog => {
+                let contentEnHTML = blog.content_en || "";
+                if (marked && marked.parse) {
+                    try { contentEnHTML = marked.parse(contentEnHTML); } catch(e) {}
+                }
+                return {
+                    id: blog.id,
+                    title: blog.title_en || blog.title || "",
+                    date: blog.date || "",
+                    excerpt: blog.excerpt_en || "",
+                    content: contentEnHTML,
+                    image: resolvePreviewImage(blog.image || ""),
+                    tags: blog.tags_en || blog.tags || []
+                };
+            })
         },
         de: {
-            projects: rawProjects.map(proj => ({
+            projects: projectsData.map(proj => ({
                 id: proj.id,
                 title: proj.title_de || proj.title || "",
                 image: resolvePreviewImage(proj.image || ""),
@@ -370,15 +257,21 @@ export async function loadPortfolioData() {
                 iconClass: cert.iconClass || "",
                 image: resolvePreviewImage(cert.image || "")
             })),
-            blogs: rawBlogs.map(blog => ({
-                id: blog.id,
-                title: blog.title_de || blog.title || "",
-                date: blog.date || "",
-                excerpt: blog.excerpt_de || "",
-                content: blog.content_de || blog.content || "",
-                image: resolvePreviewImage(blog.image || ""),
-                tags: blog.tags_de || blog.tags || []
-            }))
+            blogs: blogsData.map(blog => {
+                let contentDeHTML = blog.content_de || "";
+                if (marked && marked.parse) {
+                    try { contentDeHTML = marked.parse(contentDeHTML); } catch(e) {}
+                }
+                return {
+                    id: blog.id,
+                    title: blog.title_de || blog.title || "",
+                    date: blog.date || "",
+                    excerpt: blog.excerpt_de || "",
+                    content: contentDeHTML,
+                    image: resolvePreviewImage(blog.image || ""),
+                    tags: blog.tags_de || blog.tags || []
+                };
+            })
         }
     };
 

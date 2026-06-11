@@ -162,6 +162,62 @@ function generateComparison(path, oldText, newText) {
                         changes.push(`• Removed Certificate "${oldCert.en?.title || oldCert.title}"`);
                     }
                 });
+            } else if (path.includes('projects.json')) {
+                const oldProjs = oldData || [];
+                const newProjs = newData || [];
+                newProjs.forEach(newP => {
+                    const oldP = oldProjs.find(o => o.id === newP.id);
+                    if (!oldP) {
+                        changes.push(`• Added Project (ID: ${newP.id}): "${newP.title_en || newP.title || ''}"`);
+                    } else {
+                        const fieldChanges = [];
+                        if ((oldP.title_en || oldP.title) !== (newP.title_en || newP.title)) {
+                            fieldChanges.push(`Title (EN): "${oldP.title_en || oldP.title || ''}" ➔ "${newP.title_en || newP.title || ''}"`);
+                        }
+                        if (oldP.status !== newP.status) {
+                            fieldChanges.push(`Status: "${oldP.status || ''}" ➔ "${newP.status || ''}"`);
+                        }
+                        if (oldP.image !== newP.image) {
+                            fieldChanges.push(`Image: "${oldP.image || ''}" ➔ "${newP.image || ''}"`);
+                        }
+                        if (fieldChanges.length > 0) {
+                            changes.push(`• Updated Project (ID: ${newP.id}):\n  ` + fieldChanges.join('\n  '));
+                        }
+                    }
+                });
+                oldProjs.forEach(oldP => {
+                    if (!newProjs.some(n => n.id === oldP.id)) {
+                        changes.push(`• Removed Project (ID: ${oldP.id}): "${oldP.title_en || oldP.title || ''}"`);
+                    }
+                });
+            } else if (path.includes('blogs.json')) {
+                const oldBlogs = oldData || [];
+                const newBlogs = newData || [];
+                newBlogs.forEach(newB => {
+                    const oldB = oldBlogs.find(o => o.id === newB.id);
+                    if (!oldB) {
+                        changes.push(`• Added Blog Post (ID: ${newB.id}): "${newB.title_en || newB.title || ''}"`);
+                    } else {
+                        const fieldChanges = [];
+                        if ((oldB.title_en || oldB.title) !== (newB.title_en || newB.title)) {
+                            fieldChanges.push(`Title (EN): "${oldB.title_en || oldB.title || ''}" ➔ "${newB.title_en || newB.title || ''}"`);
+                        }
+                        if (oldB.date !== newB.date) {
+                            fieldChanges.push(`Date: "${oldB.date || ''}" ➔ "${newB.date || ''}"`);
+                        }
+                        if (oldB.image !== newB.image) {
+                            fieldChanges.push(`Image: "${oldB.image || ''}" ➔ "${newB.image || ''}"`);
+                        }
+                        if (fieldChanges.length > 0) {
+                            changes.push(`• Updated Blog Post (ID: ${newB.id}):\n  ` + fieldChanges.join('\n  '));
+                        }
+                    }
+                });
+                oldBlogs.forEach(oldB => {
+                    if (!newBlogs.some(n => n.id === oldB.id)) {
+                        changes.push(`• Removed Blog Post (ID: ${oldB.id}): "${oldB.title_en || oldB.title || ''}"`);
+                    }
+                });
             }
 
             return changes.length > 0 ? changes.join('\n\n') : 'No differences detected in JSON configurations.';

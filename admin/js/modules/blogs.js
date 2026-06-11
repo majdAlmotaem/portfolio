@@ -157,7 +157,26 @@ function renderList(blogs, container, showToast) {
             if (confirm(`Are you sure you want to delete "${blog.data.title_en}"?`)) {
                 showToast(`Deleting ${blog.filename}...`, 'loading');
                 try {
+                    // 1. Delete individual markdown file
                     await deleteFile(blog.path, blog.sha, `Delete blog post ${blog.data.title_en} via Custom CMS`);
+                    
+                    // 2. Compile updated blogs list
+                    const updatedBlogs = blogs.filter((_, i) => i !== idx);
+                    const compiledData = updatedBlogs.map(b => b.data);
+                    
+                    let jsonSha = null;
+                    try {
+                        const existingJson = await fetchFile('data/blogs.json');
+                        if (existingJson && existingJson.sha) jsonSha = existingJson.sha;
+                    } catch (e) {}
+                    
+                    await saveFile(
+                        'data/blogs.json',
+                        JSON.stringify(compiledData, null, 2),
+                        jsonSha,
+                        `Compile blogs list JSON via Custom CMS (Delete blog)`
+                    );
+
                     showToast("Blog post deleted successfully!", 'success');
                     initBlogs(container, showToast);
                 } catch (err) {
@@ -378,12 +397,46 @@ function renderForm(idx, blogs, container, showToast) {
 
         showToast(`Staging blog post changes...`, 'success');
         try {
+            // 1. Save individual blog post markdown file
             await saveFile(
                 filePath,
                 markdownText,
                 blog.sha,
                 `Update blog post ${payloadData.title_en} via Custom CMS`
             );
+
+            // 2. Compile all blogs to data/blogs.json
+            const updatedBlogs = [...blogs];
+            const newBlogObj = {
+                filename,
+                path: filePath,
+                sha: blog.sha,
+                data: payloadData,
+                body: blog.body
+            };
+            if (isEdit) {
+                updatedBlogs[idx] = newBlogObj;
+            } else {
+                updatedBlogs.push(newBlogObj);
+            }
+
+            // Sort blogs by ID descending
+            updatedBlogs.sort((a, b) => (b.data.id || 0) - (a.data.id || 0));
+            const compiledData = updatedBlogs.map(b => b.data);
+
+            let jsonSha = null;
+            try {
+                const existingJson = await fetchFile('data/blogs.json');
+                if (existingJson && existingJson.sha) jsonSha = existingJson.sha;
+            } catch (e) {}
+
+            await saveFile(
+                'data/blogs.json',
+                JSON.stringify(compiledData, null, 2),
+                jsonSha,
+                `Compile blogs list JSON via Custom CMS`
+            );
+
             initBlogs(container, showToast);
         } catch (err) {
             showToast(`Staging failed: ${err.message}`, 'error');
