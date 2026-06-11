@@ -2,7 +2,7 @@
 id: 1
 title_en: Password Manager
 title_de: Passwort-Manager
-image: assets/images/password-manager-preview.png
+image: assets/images/password-manager-demo.gif
 images:
   - assets/images/password-manager-demo.gif
 status: completed
