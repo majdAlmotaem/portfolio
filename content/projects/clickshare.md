@@ -7,7 +7,7 @@ images:
   - assets/images/landingpage.png
   - assets/images/postEditor.png
   - assets/images/userDashboard.png
-status: completed
+status: in-progress
 link: https://github.com/majdAlmotaem/clickShare
 githubLink: https://github.com/majdAlmotaem/clickShare
 techStack:
