@@ -1,5 +1,5 @@
 ---
-id: 8
+id: 2
 date: "2025"
 image: "assets/images/FOMO.jpg"
 tags_en:

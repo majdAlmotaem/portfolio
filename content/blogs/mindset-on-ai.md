@@ -1,5 +1,5 @@
 ---
-id: 6
+id: 4
 date: "2025"
 image: "assets/images/dontFearAI.jpg"
 tags_en:

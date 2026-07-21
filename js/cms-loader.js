@@ -136,6 +136,9 @@ export async function loadPortfolioData() {
         blogsPromise
     ]);
 
+    // Ensure blogs are sorted descending by ID (newest first)
+    blogsData.sort((a, b) => (b.id || 0) - (a.id || 0));
+
     // Helper to resolve images in preview mode
     function resolvePreviewImage(path) {
         if (!path) return "";

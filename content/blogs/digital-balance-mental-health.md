@@ -1,5 +1,5 @@
 ---
-id: 10
+id: 1
 date: "2025"
 image: "assets/images/WenigerSmartphones.jpg"
 tags_en:
