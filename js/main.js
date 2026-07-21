@@ -423,9 +423,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         let blogsHTML = '';
 
         blogsToRender.forEach(blog => {
+            const isVideo = blog.image && (blog.image.endsWith('.mp4') || blog.image.endsWith('.webm'));
+            const mediaTag = isVideo
+                ? `<video src="${blog.image}" autoplay loop muted playsinline style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;"></video>`
+                : `<img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;">`;
+
             blogsHTML += `
                 <a href="blog-details.html?id=${blog.id}" class="glass-card blog-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
-                    <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    ${mediaTag}
                     <span class="blog-date" style="color: var(--accent-color); font-weight: 600; font-size: 0.9rem;">${blog.date}</span>
                     <h3 class="blog-title" style="margin: 0.5rem 0;">${blog.title}</h3>
                     <p class="blog-excerpt" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.4; flex-grow: 1;">${blog.excerpt}</p>
@@ -625,9 +630,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (blog) {
             const tagsHTML = (blog.tags || []).map(tag => `<span class="tech-badge" style="--badge-hue: ${getHue(tag)}; font-size: 0.9rem; padding: 0.4rem 1rem;">#${tag}</span>`).join('');
 
+            const mediaList = (blog.images && blog.images.length > 0) ? blog.images : (blog.image ? [blog.image] : []);
+            const renderMediaItem = (src, alt, style) => {
+                if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+                    return `<video src="${src}" autoplay loop muted playsinline controls style="${style}"></video>`;
+                }
+                return `<img src="${src}" alt="${alt}" style="${style}">`;
+            };
+
+            let mediaHTML = '';
+            if (mediaList.length > 1) {
+                mediaHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        ${mediaList.map(src => renderMediaItem(src, blog.title, "width: 100%; max-height: 450px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem;")).join('')}
+                    </div>
+                `;
+            } else if (mediaList.length === 1) {
+                mediaHTML = renderMediaItem(mediaList[0], blog.title, "width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;");
+            }
+
             blogDetailsContainer.innerHTML = `
                 <div class="glass-card" style="padding: 3rem; margin-top: 2rem;">
-                    <img src="${blog.image}" alt="${blog.title}" style="width: 100%; max-height: 500px; object-fit: contain; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 1rem; margin-bottom: 2rem;">
+                    ${mediaHTML}
                     
                     <div style="margin-bottom: 1.5rem;">
                         <span style="color: var(--accent-color); font-weight: 600; display: block; margin-bottom: 0.5rem;">${blog.date}</span>

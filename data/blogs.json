@@ -1,5 +1,101 @@
 [
   {
+    "id": 12,
+    "date": "Jul 2026",
+    "image": "assets/images/structured data.jpeg",
+    "tags_en": [
+      "SoftwareEngineering",
+      "SystemArchitecture",
+      "React",
+      "FastAPI",
+      "AI",
+      "BuildInPublic",
+      "SyncSheet"
+    ],
+    "tags_de": [
+      "SoftwareEngineering",
+      "SystemArchitecture",
+      "React",
+      "FastAPI",
+      "KI",
+      "BuildInPublic",
+      "SyncSheet"
+    ],
+    "title_en": "Turning Inbox Chaos into Structured Data: The AI Architecture behind SyncSheet",
+    "title_de": "Vom E-Mail-Chaos zu strukturierten Daten: Die KI-Architektur hinter SyncSheet",
+    "excerpt_en": "Automating data entry is great, but blindly trusting AI to overwrite your database is a recipe for disaster. Here is how SyncSheet combines Gmail API, Gemini Flash-Lite, and a Human-in-the-Loop verification pipeline.",
+    "excerpt_de": "Automatisierte Dateneingabe ist fantastisch, aber KI blind Datenbanken überschreiben zu lassen, führt schnell zum Desaster. So kombiniert SyncSheet die Gmail-API, Gemini Flash-Lite und eine Human-in-the-Loop-Validierung.",
+    "content_en": "Automating data entry is great, but blindly trusting AI to overwrite your database is a recipe for disaster.\n\nWhile building the email synchronization engine for my job application tracker, **SyncSheet**, I needed a robust data pipeline that leverages LLMs for parsing, but keeps the user in total control.\n\nHere is how the data flow is architected:\n\n1️⃣ **Ingestion (The Fetch):** The system connects to the Gmail API and scans for job-related emails (confirmations, rejections, interview invites). To optimize payload size and latency, the raw email bodies are truncated and batched.\n\n2️⃣ **Processing (The AI Layer):** The batched payloads are sent to a fast, low-latency LLM (**Gemini Flash-Lite**). Using strict JSON schemas and targeted prompt engineering, the AI extracts the hidden structure: Company name, job title, and the exact status change.\n\n3️⃣ **Validation (Human-in-the-Loop):** This is the most critical step. Instead of writing directly to the database, the extracted data is held in a temporary state in the React frontend. The user gets a visual diff (Old Status ➡️ New Status) and can accept, reject, or manually adjust the AI’s findings.\n\n4️⃣ **Persistence (The Commit):** Only after explicit user approval, the verified data is committed to the backend and securely saved into the SQLite database.\n\n**The Result:** High automation speed with zero risk of AI hallucinations corrupting the user's personal job tracker.\n\nBuilding AI features isn't just about API calls; it's about designing safe, reliable data pipelines.\n\nWhat are your thoughts on \"Human-in-the-Loop\" architectures? Do you prefer full automation or manual control gates? Let me know below! 👇\n",
+    "content_de": "Die Automatisierung der Dateneingabe ist großartig, aber einer KI blind zu vertrauen und Ihre Datenbank überschreiben zu lassen, ist ein Rezept für ein Desaster.\n\nBeim Bau der E-Mail-Synchronisations-Engine für meinen Bewerbungstracker **SyncSheet** benötigte ich eine robuste Datenpipeline, die LLMs für das Parsing nutzt, aber die volle Kontrolle beim Nutzer belässt.\n\nSo ist der Datenfluss architektonisch aufgebaut:\n\n1️⃣ **Ingestion (Der Abruf):** Das System verbindet sich mit der Gmail-API und scannt nach bewerbungsrelevanten E-Mails (Bestätigungen, Absagen, Einladungen zu Vorstellungsgesprächen). Um Nutzlastgröße und Latenz zu optimieren, werden die Rohdaten der E-Mails gekürzt und gebündelt.\n\n2️⃣ **Verarbeitung (Die KI-Schicht):** Die gebündelten E-Mail-Daten werden an ein schnelles LLM mit geringer Latenz gesendet (**Gemini Flash-Lite**). Unter Verwendung strikter JSON-Schemas und gezieltem Prompt Engineering extrahiert die KI die verborgene Struktur: Firmenname, Stellenbezeichnung und die genaue Statusänderung.\n\n3️⃣ **Validierung (Human-in-the-Loop):** Dies ist der kritischste Schritt. Anstatt direkt in die Datenbank zu schreiben, werden die extrahierten Daten im React-Frontend in einem temporären Zustand gehalten. Der Nutzer erhält ein visuelles Diff (Alter Status ➡️ Neuer Status) und kann die Ergebnisse der KI akzeptieren, ablehnen oder manuell anpassen.\n\n4️⃣ **Persistenz (Der Commit):** Erst nach ausdrücklicher Genehmigung durch den Nutzer werden die überprüften Daten an das Backend übergeben und sicher in der SQLite-Datenbank gespeichert.\n\n**Das Ergebnis:** Hohe Automatisierungsgeschwindigkeit ohne das Risiko, dass KI-Halluzinationen den persönlichen Jobtracker beschädigen.\n\nBeim Bau von KI-Funktionen geht es nicht nur um API-Aufrufe; es geht darum, sichere und zuverlässige Datenpipelines zu entwickeln.\n\nWas denken Sie über „Human-in-the-Loop“-Architekturen? Bevorzugen Sie die Vollautomatisierung oder manuelle Kontrollschranken?\n"
+  },
+  {
+    "id": 11,
+    "date": "Jul 2026",
+    "image": "assets/images/linuxscreenshot.jpeg",
+    "images": [
+      "assets/images/windowsscreenshot.jpeg",
+      "assets/images/linuxscreenshot.jpeg"
+    ],
+    "tags_en": [
+      "Linux",
+      "Windows",
+      "LinuxMint",
+      "GreenIT",
+      "OpenSource",
+      "Tech",
+      "Performance",
+      "Efficiency"
+    ],
+    "tags_de": [
+      "Linux",
+      "Windows",
+      "LinuxMint",
+      "GreenIT",
+      "OpenSource",
+      "Tech",
+      "Performance",
+      "Effizienz"
+    ],
+    "title_en": "Switching from Windows 11 to Linux Mint: Performance, Freedom & Green IT",
+    "title_de": "Der Wechsel von Windows 11 zu Linux Mint: Performance, Freiheit & Green IT",
+    "excerpt_en": "I replaced Windows 11 with Linux Mint on my laptop. RAM usage dropped from 7.4 GB (49%) down to 2.0 GB (12.8%). Here is why the switch is worth it.",
+    "excerpt_de": "Ich habe Windows 11 auf meinem Laptop durch Linux Mint ersetzt. Die RAM-Auslastung sank von 7,4 GB (49%) auf nur 2,0 GB (12,8%). Warum sich der Wechsel lohnt.",
+    "content_en": "The switch is absolutely worth it! 💻🐧\n\nI replaced Windows 11 with Linux Mint on my laptop, and the numbers speak for themselves:\n- **Windows 11:** 7.4 GB RAM (49%) in use.\n- **Linux Mint:** Only 2.0 GB RAM (12.8%) in use.\n\nThis doesn't just save massive hardware resources; it's also a strong step towards Green IT. Systems run more efficiently, and hardware can remain highly performant for much longer without the need for an upgrade.\n\nThe biggest win for me, however, is the newfound freedom. \nNo more being forced into specific products, no built-in ads, and no unnecessary bloatware slowing down the system in the background. \nJust a fast, clean, and user-friendly operating system where you are fully in control.\n\nWho else here has taken the leap to Linux? 👇\n",
+    "content_de": "Der Wechsel lohnt sich absolut! 💻🐧\n\nIch habe Windows 11 auf meinem Laptop durch Linux Mint ersetzt, und die Zahlen sprechen für sich:\n- **Windows 11:** 7,4 GB RAM (49 %) in Benutzung.\n- **Linux Mint:** Nur 2,0 GB RAM (12,8 %) in Benutzung.\n\nDas spart nicht nur enorme Hardware-Ressourcen; es ist auch ein starker Schritt in Richtung Green IT. Systeme laufen effizienter, und Hardware kann ohne Notwendigkeit eines Upgrades deutlich länger hochperformat bleiben.\n\nDer größte Gewinn für mich ist jedoch die neu gewonnene Freiheit.\nKein Zwang mehr zu bestimmten Produkten, keine eingebaute Werbung und keine unnötige Bloatware, die das System im Hintergrund ausbremst.\nEinfach ein schnelles, sauberes und benutzerfreundliches Betriebssystem, bei dem Sie die volle Kontrolle haben.\n\nWer von euch hat den Schritt zu Linux gewagt? 👇\n"
+  },
+  {
+    "id": 10,
+    "date": "Jul 2026",
+    "image": "assets/images/Langweiligen PDFs.mp4",
+    "images": [
+      "assets/images/Langweiligen PDFs.mp4"
+    ],
+    "tags_en": [
+      "ITSpecialist",
+      "SoftwareDevelopment",
+      "ITEducation",
+      "WebDev",
+      "Didactics",
+      "Volunteering",
+      "InteractiveLearning"
+    ],
+    "tags_de": [
+      "Fachinformatiker",
+      "Anwendungsentwicklung",
+      "ITAusbildung",
+      "WebDev",
+      "Didaktik",
+      "Ehrenamt",
+      "InteraktivesLernen"
+    ],
+    "title_en": "No More Boring PDFs in IT Tutoring: Interactive HTML & Simulators",
+    "title_de": "Schluss mit langweiligen PDFs im IT-Unterricht! Interaktives Lernen mit HTML-Simulatoren",
+    "excerpt_en": "Static PDFs are out. I build interactive HTML sites and debugger simulators to tutor IT specialist students. Here is how active learning transforms complex topics into engaging lessons.",
+    "excerpt_de": "Schluss mit statischen Dokumenten! Ich gestalte ehrenamtliche Nachhilfe für angehende Fachinformatiker mit interaktiven HTML-Seiten und Debugger-Simulatoren. Das Ergebnis: Höhere Motivation und langfristiger Lernerfolg.",
+    "content_en": "No more boring PDFs in IT lessons! 🚀\n\nIn addition to my current job search, I volunteer to tutor aspiring IT specialists. During this time, I made a clear observation: students understand and internalize complex IT topics much better when I design lessons using custom-built, interactive HTML pages instead of static documents.\n\nMy setup for a successful lesson looks like this:\n1. **Theory:** Clarify the basics briefly and concisely.\n2. **Practice & Simulators:** Make what has been learned tangible immediately – through interactive simulators from real developer life (the video above shows our debugger simulator in action!).\n3. **Quiz & Exercises:** Finally, actively apply the knowledge and consolidate it directly.\n\nThe result: The trainees are much more motivated to actively participate in class, and the concepts stick in the long term. This is how joint exam preparation becomes fun! 💻💡\n",
+    "content_de": "Schluss mit langweiligen PDFs im IT-Unterricht! 🚀\n\nNeben meiner aktuellen Jobsuche gebe ich ehrenamtlich Nachhilfe für angehende Fachinformatiker. Dabei habe ich eine klare Beobachtung gemacht: Die Schüler verstehen und verinnerlichen komplexe IT-Themen wesentlich besser, wenn ich den Unterricht über eigens entwickelte, interaktive HTML-Seiten gestalte statt über statische Dokumente.\n\nMein Aufbau für einen erfolgreichen Unterricht sieht so aus:\n1. **Theorie:** Kurz und prägnant die Grundlagen klären.\n2. **Praxis & Simulatoren:** Das Gelernte sofort erlebbar machen – durch interaktive Simulatoren aus dem echten Entwickler-Leben (das Video oben zeigt unseren Debugger-Simulator in Aktion!).\n3. **Quiz & Übungen:** Zum Abschluss das Wissen aktiv anwenden und direkt festigen.\n\nDas Ergebnis: Die Azubis haben deutlich mehr Lust, aktiv am Unterricht teilzunehmen, und die Konzepte bleiben langfristig hängen. So macht gemeinsame Prüfungsvorbereitung Spaß! 💻💡\n"
+  },
+  {
     "id": 9,
     "date": "2026",
     "image": "assets/images/DiscordNachhilfe.jpg",

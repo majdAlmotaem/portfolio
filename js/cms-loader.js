@@ -19,6 +19,9 @@ const FALLBACK_PROJECT_FILES = [
 ];
 
 const FALLBACK_BLOG_FILES = [
+    'syncsheet-ai-architecture.md',
+    'windows-11-to-linux-mint.md',
+    'interactive-it-tutoring-html.md',
     'it-tutoring-job-search.md',
     'graduation-milestone.md',
     '2025-year-in-review.md',
@@ -194,6 +197,7 @@ export async function loadPortfolioData() {
                     excerpt: blog.excerpt_en || "",
                     content: contentEnHTML,
                     image: resolvePreviewImage(blog.image || ""),
+                    images: (blog.images && blog.images.length > 0 ? blog.images : (blog.image ? [blog.image] : [])).map(img => resolvePreviewImage(img || "")),
                     tags: blog.tags_en || blog.tags || []
                 };
             })
@@ -233,6 +237,7 @@ export async function loadPortfolioData() {
                     excerpt: blog.excerpt_de || "",
                     content: contentDeHTML,
                     image: resolvePreviewImage(blog.image || ""),
+                    images: (blog.images && blog.images.length > 0 ? blog.images : (blog.image ? [blog.image] : [])).map(img => resolvePreviewImage(img || "")),
                     tags: blog.tags_de || blog.tags || []
                 };
             })

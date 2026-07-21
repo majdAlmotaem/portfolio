@@ -115,7 +115,7 @@ function renderList(blogs, container, showToast) {
             listHTML += `
                 <tr>
                     <td>
-                        ${blog.data.image ? `<img src="../${blog.data.image}" class="thumbnail" alt="Preview">` : `<div class="thumbnail" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);"><i class="fa-solid fa-image" style="color:var(--text-muted);"></i></div>`}
+                        ${blog.data.image ? ((blog.data.image.endsWith('.mp4') || blog.data.image.endsWith('.webm')) ? `<video src="../${blog.data.image}" class="thumbnail" autoplay loop muted playsinline></video>` : `<img src="../${blog.data.image}" class="thumbnail" alt="Preview">`) : `<div class="thumbnail" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);"><i class="fa-solid fa-image" style="color:var(--text-muted);"></i></div>`}
                     </td>
                     <td>${blog.data.date || ''}</td>
                     <td style="font-weight: 600;">${blog.data.title_en || ''}</td>
