@@ -19,6 +19,12 @@ const FALLBACK_PROJECT_FILES = [
 ];
 
 const FALLBACK_BLOG_FILES = [
+    'ai-architecture-strategic-integration.md',
+    'vibe-coder-vs-software-engineer-iso-25010.md',
+    'model-context-protocol-mcp-ai-agents.md',
+    'privacy-by-default-data-protection.md',
+    'focusnote-chrome-extension.md',
+    'n8n-ollama-invoice-automation.md',
     'syncsheet-ai-architecture.md',
     'windows-11-to-linux-mint.md',
     'interactive-it-tutoring-html.md',
