@@ -2,121 +2,36 @@
   {
     "id": 18,
     "date": "Aug 2026",
-    "image": "assets/images/KI-Intergration.jpeg",
+    "image": "assets/images/n8n-rechnung-workflow.jpeg",
     "tags_en": [
-      "AI",
-      "SoftwareArchitecture",
-      "RAG",
-      "DataEngineering",
-      "FinOps",
-      "TechStrategy",
-      "LLM",
-      "Production"
+      "n8n",
+      "Automation",
+      "Ollama",
+      "LocalLLM",
+      "DataPrivacy",
+      "Workflow",
+      "HumanInTheLoop",
+      "OpenSource"
     ],
     "tags_de": [
-      "KI",
-      "Softwarearchitektur",
-      "RAG",
-      "DataEngineering",
-      "FinOps",
-      "TechStrategie",
-      "LLM",
-      "Produktion"
+      "n8n",
+      "Automatisierung",
+      "Ollama",
+      "LocalLLM",
+      "Datenschutz",
+      "Workflow",
+      "HumanInTheLoop",
+      "OpenSource"
     ],
-    "title_en": "Why Companies Fail at AI: It's the Architecture, Not the Model",
-    "title_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter",
-    "excerpt_en": "Many companies don't fail because of AI—they fail because of the architecture behind it. Here is why simple API calls fail in production and how strategic AI integration with RAG, data engineering, and HITL creates reliable systems.",
-    "excerpt_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter. Warum einfache API-Calls in der Produktion versagen und wie strategische KI-Integration mit RAG, Daten-Engineering und HITL für Zuverlässigkeit sorgt.",
-    "content_en": "Many companies don't fail because of AI – they fail because of the architecture behind it. 🚀\n\nAfter the initial hype of a pilot project, the rude awakening often sets in: API costs explode, latency frustrates users, and the AI happily hallucinates.\n\nWhy? Because a simple API call is far from a scalable solution.\n\nThe graphic illustrates this contrast:\n\n✖️ **The Quick AI Start (Chaos):**\nUnstructured data, blind overwrites into production systems, and hidden costs destroying the ROI.\n\n✅ **Strategic AI Integration (Control):**\n• **Data Engineering:** Clean data preparation is more important than the LLM itself.\n• **RAG & Vector DBs:** For factual, company-specific outputs.\n• **Cost Control:** Actively manage API resources (token optimization & caching).\n• **Human-in-the-Loop (HITL):** Human verification safeguards data integrity.\n\nBringing AI features to production means designing reliable data pipelines – not just writing prompts.\n\nWhere do you see the biggest challenge when scaling AI? Costs, data quality, or architecture? 👇\n",
-    "content_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter. 🚀\n\nNach dem ersten Hype beim Pilotprojekt kommt oft das böse Erwachen: Die API-Kosten explodieren, Latenzen nerven die User und die KI halluziniert munter vor sich hin.\n\nWarum? Weil ein einfacher API-Call noch lange keine skalierbare Lösung ist.\n\nDas Bild zeigt genau diesen Kontrast:\n\n✖️ **Der schnelle KI-Start (Chaos):**\nUnstrukturierte Daten, blindes Überschreiben in Produktionssysteme und versteckte Kosten, die den ROI vernichten.\n\n✅ **Die strategische KI-Integration (Kontrolle):**\n• **Daten-Engineering:** Saubere Datenvorbereitung ist wichtiger als das LLM selbst.\n• **RAG & Vektor-DBs:** Für faktenbasierte, unternehmensspezifische Outputs.\n• **Kostenkontrolle:** API-Ressourcen aktiv steuern (Token-Optimierung).\n• **Human-in-the-Loop (HITL):** Die menschliche Kontrollinstanz schützt die Datenintegrität.\n\nKI-Features in Produktion zu bringen, bedeutet verlässliche Daten-Pipelines zu designen – nicht nur Prompts zu schreiben.\n\nWo siehst du die größte Herausforderung beim Skalieren von KI? Kosten, Datenqualität oder Architektur? 👇\n"
+    "title_en": "Automated Invoice Processing with n8n, Local Ollama LLM & Human-in-the-Loop",
+    "title_de": "Automatisierte Rechnungsverarbeitung mit n8n, lokalem Ollama LLM & Human-in-the-Loop",
+    "excerpt_en": "A privacy-first, on-premise automated invoice pipeline: n8n email ingestion, local data extraction using Ollama, and a Human-in-the-Loop approval gate.",
+    "excerpt_de": "Ein kompletter On-Premise Workflow für Rechnungsprüfung: E-Mail-Parsing mit n8n, lokale Extraktion via Ollama und manuelle Freigabe vor dem finalen Datenbank-Eintrag.",
+    "content_en": "Over the past few days, I built an automated workflow simulating a standard business routine: processing incoming invoices. 🧾⚡\n\nThe core priority was **maximum data privacy**. The system ingests incoming invoice emails and extracts the relevant invoice data. To achieve this, I combined **n8n** with a local LLM running via **Ollama**. This ensures sensitive financial and customer data never leaves the local server infrastructure.\n\nTo maintain reliable quality control, a **Human-in-the-Loop** verification step is integrated:\n1. The pipeline pauses after parsing and waits for manual one-click user approval.\n2. Upon approval, invoice items are automatically written to the database/spreadsheet.\n3. Upon rejection, a notification email is automatically dispatched.\n\nAn exciting project demonstrating how AI-driven automation can be implemented securely, privacy-first, and 100% on-premise.\n",
+    "content_de": "Ich habe in den letzten Tagen einen automatisierten Workflow gebaut, der eine typische Unternehmensroutine simuliert: die Verarbeitung von Eingangsrechnungen. 🧾⚡\n\nDer Fokus lag dabei auf **maximalem Datenschutz**. Das System liest eingehende E-Mails aus und extrahiert die relevanten Rechnungsdaten. Dafür nutze ich **n8n** in Kombination mit einem lokalen LLM über **Ollama**. Das bedeutet, dass sensible Unternehmensdaten zu keinem Zeitpunkt den eigenen Server verlassen.\n\nUm die Kontrolle zu behalten, ist ein **Human-in-the-Loop**-Schritt integriert:\n1. Das System pausiert nach der Extraktion und wartet auf eine manuelle Freigabe per Klick.\n2. Bei Zustimmung werden die Rechnungsdaten automatisch in eine Tabelle geschrieben.\n3. Bei Ablehnung wird automatisiert eine standardisierte Absage-Mail verschickt.\n\nEin spannendes Projekt, das zeigt, wie man KI-gestützte Automatisierung sicher, DSGVO-konform und komplett on-premise umsetzen kann.\n"
   },
   {
     "id": 17,
-    "date": "Aug 2026",
-    "image": "assets/images/vibeCoding.jpeg",
-    "tags_en": [
-      "SoftwareEngineering",
-      "CleanCode",
-      "ISO25010",
-      "SoftwareArchitecture",
-      "TechMindset",
-      "QualityAssurance"
-    ],
-    "tags_de": [
-      "SoftwareEngineering",
-      "CleanCode",
-      "ISO25010",
-      "Softwarearchitektur",
-      "TechMindset",
-      "Qualitätssicherung"
-    ],
-    "title_en": "Vibe Coder vs. Software Engineer: The 8 Pillars of ISO 25010",
-    "title_de": "Was unterscheidet einen \"Vibe Coder\" von einem echten Software Engineer?",
-    "excerpt_en": "A 'vibe coder' writes code that somehow works in the moment. A software engineer builds systems that scale and remain maintainable. Here is why the ISO 25010 standard defines true engineering excellence.",
-    "excerpt_de": "Ein Vibe Coder schreibt Code, der im Moment irgendwie funktioniert. Ein Software Engineer baut Systeme, die skalieren und wartbar sind. Ein Blick auf die 8 Säulen der ISO 25010 für echte Softwarequalität.",
-    "content_en": "What distinguishes a \"Vibe Coder\" from a true Software Engineer? 💻\n\nA vibe coder writes code that somehow works in the moment. A software engineer builds systems that scale, endure, and remain maintainable tomorrow.\n\nWhen working on projects, having a feature simply pass the \"happy path\" is not enough. True engineering means keeping the big picture in focus.\n\nMy guiding compass is the international standard **ISO 25010**, which defines the 8 pillars of real software quality:\n🔹 **Functional Suitability:** Does the software solve the actual problem completely and correctly?\n🔹 **Performance Efficiency:** Does the system manage resources (RAM, CPU) efficiently?\n🔹 **Compatibility:** Does the application interact seamlessly with other systems?\n🔹 **Usability:** Is the user interface and experience intuitive for end users?\n🔹 **Reliability:** Does the system remain resilient and stable when errors or downtime occur?\n🔹 **Security:** Are data assets protected and inputs strictly validated?\n🔹 **Maintainability:** Can a team member easily read, test, and extend the codebase 6 months from now?\n🔹 **Portability:** Can the system be deployed across different environments (cloud, on-premise, containers) with ease?\n\nCode that \"just works\" is quick to write. Designing it so that these 8 pillars stay in balance is the true craft of software engineering.\n\nIn your experience, which of these pillars gets compromised first under project deadlines? Maintainability, security, or something else? 👇\n",
-    "content_de": "Was unterscheidet einen \"Vibe Coder\" von einem echten Software Engineer? 💻\n\nEin Vibe Coder schreibt Code, der im Moment irgendwie funktioniert. Ein Software Engineer baut Systeme, die auch morgen noch skalieren und wartbar sind.\n\nWenn ich an Projekten arbeite, reicht es mir nicht, dass das Feature im \"Happy Path\" läuft. Echtes Engineering bedeutet für mich, das große Ganze im Blick zu behalten. \n\nMein Kompass dafür ist der internationale Standard **ISO 25010**, der die 8 Säulen echter Softwarequalität definiert:\n🔹 **Funktionale Eignung:** Löst die Software das eigentliche Problem vollständig und korrekt? \n🔹 **Leistungsfähigkeit (Performance):** Geht das System effizient mit Ressourcen (RAM, CPU) um? \n🔹 **Kompatibilität:** Spielt die Anwendung reibungslos mit anderen Systemen zusammen? \n🔹 **Benutzbarkeit (Usability):** Ist die Bedienung für den Endnutzer intuitiv? \n🔹 **Zuverlässigkeit:** Bleibt das System stabil, auch wenn Fehler oder Ausfälle auftreten? \n🔹 **Sicherheit:** Sind die Daten geschützt und werden Inputs streng validiert? \n🔹 **Wartbarkeit:** Kann ein anderes Teammitglied den Code in 6 Monaten noch problemlos lesen und erweitern? \n🔹 **Übertragbarkeit (Portability):** Lässt sich das System leicht in andere Umgebungen (z.B. Cloud/Server) deployen?\n\nCode, der \"nur funktioniert\", ist schnell getippt. Ihn aber so zu designen, dass diese 8 Säulen im Gleichgewicht bleiben – das ist das eigentliche Handwerk der Anwendungsentwicklung.\n\nWelche dieser Säulen fällt eurer Erfahrung nach im Projektstress als Erstes unter den Tisch? Wartbarkeit, Sicherheit oder eine andere? 👇\n"
-  },
-  {
-    "id": 16,
-    "date": "Aug 2026",
-    "image": "assets/images/mcp.jpeg",
-    "tags_en": [
-      "SoftwareEngineering",
-      "AI",
-      "ModelContextProtocol",
-      "SystemArchitecture",
-      "TechTrends",
-      "WebDev",
-      "BuildInPublic"
-    ],
-    "tags_de": [
-      "SoftwareEngineering",
-      "KI",
-      "ModelContextProtocol",
-      "Systemarchitektur",
-      "TechTrends",
-      "WebDev",
-      "BuildInPublic"
-    ],
-    "title_en": "APIs Built the Web. MCP Builds AI Agents: Model Context Protocol Explained",
-    "title_de": "APIs haben das Web gebaut – MCP baut KI-Agenten: Das Model Context Protocol erklärt",
-    "excerpt_en": "Traditional REST APIs require rigid, hardcoded glue code for LLMs. Model Context Protocol (MCP) acts like a universal USB-C plug for AI, allowing autonomous tool discovery and direct context integration.",
-    "excerpt_de": "Klassische REST-APIs erfordern starren Glue-Code für LLMs. Das Model Context Protocol (MCP) fungiert wie ein universeller USB-C-Stecker für KI und ermöglicht autonome Tool-Nutzung ohne ständigen Integrationsaufwand.",
-    "content_en": "APIs built the modern web. But for AI Agents, they are just too rigid. Enter MCP (Model Context Protocol). 🚀\n\nIf you want to connect Large Language Models (LLMs) to your internal systems, traditional REST APIs often become a bottleneck. They require rigid, hardcoded instructions.\n\nLet’s make the difference clear with a simple example:\n**Scenario:** You want an AI to check your database for a customer's recent order.\n\n✖️ **The Classic API Way (Manual & Rigid)**\nYou have to write custom \"glue code\" for everything:\n1. The user asks: *\"Where is my order?\"*\n2. Your code parses the intent, makes a `GET /api/orders/{id}` request, and gets the JSON.\n3. Your code injects this JSON into a new prompt.\n4. The LLM reads it and generates an answer.\n**Result:** High maintenance. If the API changes, your integration breaks.\n\n✅ **The MCP Server Way (Dynamic & Autonomous)**\nMCP is like a universal \"USB-C plug\" for AI. You simply expose your system via an MCP Server:\n1. The user asks: *\"Where is my order?\"*\n2. The LLM automatically talks to the MCP Server, discovers the available tools, fetches the exact data it needs, and answers the user.\n**Result:** Zero custom glue code.\n\n**The Strategic Shift:**\nInstead of hardcoding every single data pipeline for an AI, Software Engineers will now build standardized \"toolboxes\" (MCP Servers). The AI decides on its own when and how to use them. This drastically reduces boilerplate code and speeds up the time-to-market for intelligent SaaS applications.\n\nHave you looked into the Model Context Protocol yet, or are you still building custom API wrappers for your AI features? 👇\n",
-    "content_de": "APIs haben das moderne Web aufgebaut. Doch für KI-Agenten sind sie schlicht zu starr. Hier kommt das Model Context Protocol (MCP) ins Spiel. 🚀\n\nWenn Sie Large Language Models (LLMs) an interne Systeme anbinden möchten, werden traditionelle REST-APIs schnell zum Flaschenhals. Sie erfordern starre, fest verdrahtete Anweisungen.\n\nVerdeutlichen wir den Unterschied an einem einfachen Beispiel:\n**Szenario:** Eine KI soll in der Datenbank nach der letzten Bestellung eines Kunden suchen.\n\n✖️ **Der klassische API-Weg (Manuell & Starr)**\nMan muss für alles individuellen \"Glue Code\" schreiben:\n1. Der Nutzer fragt: *„Wo ist meine Bestellung?“*\n2. Ihr Code analysiert die Absicht, führt einen `GET /api/orders/{id}`-Request aus und empfängt das JSON.\n3. Ihr Code injiziert dieses JSON in einen neuen Prompt.\n4. Das LLM liest die Daten und formuliert die Antwort.\n**Ergebnis:** Hoher Wartungsaufwand. Ändert sich die API, bricht die gesamte Integration.\n\n✅ **Der MCP-Server-Weg (Dynamisch & Autonom)**\nMCP funktioniert wie ein universeller „USB-C-Stecker“ für KI. Man stellt Systeme einfach über einen MCP-Server bereit:\n1. Der Nutzer fragt: *„Wo ist meine Bestellung?“*\n2. Das LLM kommuniziert direkt mit dem MCP-Server, entdeckt verfügbare Tools selbstständig, holt exakt die benötigten Daten und antwortet dem Nutzer.\n**Ergebnis:** Kein maßgeschneiderter Glue-Code mehr nötig.\n\n**Der strategische Wandel:**\nAnstatt jede Datenpipeline mühsam fest zu verdrahten, erstellen Software Engineers standardisierte Werkzeugkästen (MCP-Server). Die KI entscheidet eigenständig, wann und wie sie diese einsetzt. Das reduziert Boilerplate-Code drastisch und beschleunigt die Bereitstellung intelligenter SaaS-Anwendungen.\n\nHabt ihr euch bereits mit dem Model Context Protocol beschäftigt, oder baut ihr noch eigene API-Wrapper für KI-Funktionen? 👇\n"
-  },
-  {
-    "id": 15,
-    "date": "Aug 2026",
-    "image": "assets/images/personalData.jpeg",
-    "tags_en": [
-      "Privacy",
-      "DataProtection",
-      "PrivacyByDefault",
-      "SoftwareEngineering",
-      "OpenSource",
-      "CyberSecurity",
-      "TechEthics"
-    ],
-    "tags_de": [
-      "Datenschutz",
-      "PrivacyByDefault",
-      "SoftwareEngineering",
-      "OpenSource",
-      "CyberSecurity",
-      "TechEthik",
-      "IT"
-    ],
-    "title_en": "\"Privacy by Default\" Is Practically Dead: Why Opt-Out Tracking Must End",
-    "title_de": "„Privacy by Default“ existiert praktisch nicht mehr",
-    "excerpt_en": "In almost every newly installed app, telemetry, tracking, and diagnostics are enabled by default. Why real software engineering requires respect for users and genuine Privacy by Design.",
-    "excerpt_de": "Bei fast jeder neuen App sind Tracking, Diagnosedaten und Telemetrie standardmäßig aktiv. Warum echte Softwareentwicklung Respekt vor dem Nutzer und 'Privacy by Design' erfordert.",
-    "content_en": "\"Privacy by Default\" is practically non-existent today. 🛑\n\nWhenever I install a new app today, my very first step is almost always digging into the deepest submenus of the settings.\n\nThe reason? Everything is already activated by default:\n• \"Share data for product improvement\" – ✅ ON\n• \"Send usage analytics\" – ✅ ON\n• \"Share diagnostic data\" – ✅ ON\n\nThe worst part: During first launch, there is rarely any honest, transparent disclosure. Users have to actively hunt down toggles to disable tracking (Opt-out instead of Opt-in).\n\nLet’s be honest: How many non-technical end users head straight to settings right after installing an app? Very few. And that lack of awareness is strategically exploited across the tech industry.\n\nTo me, good software engineering fundamentally involves respect and transparency towards the user. Privacy shouldn't be a hidden checkbox buried three levels deep that you have to untick.\n\nThat is why I am intentionally transitioning my personal workflow to tools and applications that truly embrace \"Privacy by Design\" and place security first.\n\nHow do you handle privacy settings after app installs? Do you take the time to audit them, and what are your favorite privacy-first tools? 👇\n",
-    "content_de": "„Privacy by Default“ existiert praktisch nicht mehr. 🛑\n\nWenn ich heute eine neue App installiere, ist mein allererster Schritt fast immer der Weg in die tiefsten Untermenüs der Einstellungen.\n\nDer Grund? Standardmäßig ist dort oft schon alles aktiviert:\n• „Daten zur Produktverbesserung teilen“ – ✅ AN\n• „Nutzungsstatistiken senden“ – ✅ AN\n• „Diagnosedaten teilen“ – ✅ AN\n\nDas Schlimmste daran: Beim ersten Start gibt es meistens keinen ehrlichen, transparenten Hinweis darauf. Man muss aktiv danach suchen, um das Tracking zu deaktivieren (Opt-out statt Opt-in).\n\nSeien wir mal ehrlich: Wie viele Endnutzer, die keine IT-Experten sind, gehen nach einer Installation direkt in die Settings? Die wenigsten. Und genau diese Unwissenheit wird von vielen großen Tech-Firmen strategisch ausgenutzt.\n\nFür mich bedeutet gute Softwareentwicklung auch Respekt und Transparenz gegenüber dem Nutzer. Datenschutz sollte keine gut versteckte Checkbox sein, die man erst mühsam abwählen muss.\n\nDeshalb versuche ich aktuell ganz bewusst, mein privates Setup auf Apps umzustellen, die „Privacy by Design“ wirklich leben und Sicherheit als oberste Priorität sehen.\n\nWie geht ihr damit um? Nehmt ihr euch die Zeit für den Settings-Check nach einer Installation? Und welche echten „Privacy-First“-Alternativen nutzt ihr im Alltag? 👇\n"
-  },
-  {
-    "id": 14,
     "date": "Aug 2026",
     "image": "assets/images/focusNote.jpeg",
     "tags_en": [
@@ -145,35 +60,120 @@
     "content_de": "Ich freue mich riesig, die Veröffentlichung meiner allerersten Chrome Extension bekannt zu geben: **FocusNote**! 📝🚀\n\nWir alle kennen diese Situation: Man liest einen spannenden Fachartikel oder recherchiert, und stößt auf eine wertvolle Idee. Man möchte sie sofort festhalten, aber ohne den Fokus zu verlieren oder durch das Wechseln in eine andere Notizen-App abgelenkt zu werden.\n\nGenau aus diesem Grund habe ich FocusNote entwickelt. Mit einem einfachen Rechtsklick lässt sich markierter Text von jeder beliebigen Website speichern. Später kann man alle Notizen gebündelt durchgehen – inklusive direktem Quelllink zur Originalseite.\n\nIch freue mich sehr über Feedback und hoffe, dass FocusNote auch anderen dabei hilft, produktiv im Flow zu bleiben!\n\n🔗 **Jetzt im Chrome Web Store testen:** [Chrome Web Store](https://lnkd.in/e-nfhDgk)\n"
   },
   {
-    "id": 13,
+    "id": 16,
     "date": "Aug 2026",
-    "image": "assets/images/n8n-rechnung-workflow.jpeg",
+    "image": "assets/images/personalData.jpeg",
     "tags_en": [
-      "n8n",
-      "Automation",
-      "Ollama",
-      "LocalLLM",
-      "DataPrivacy",
-      "Workflow",
-      "HumanInTheLoop",
-      "OpenSource"
+      "Privacy",
+      "DataProtection",
+      "PrivacyByDefault",
+      "SoftwareEngineering",
+      "OpenSource",
+      "CyberSecurity",
+      "TechEthics"
     ],
     "tags_de": [
-      "n8n",
-      "Automatisierung",
-      "Ollama",
-      "LocalLLM",
       "Datenschutz",
-      "Workflow",
-      "HumanInTheLoop",
-      "OpenSource"
+      "PrivacyByDefault",
+      "SoftwareEngineering",
+      "OpenSource",
+      "CyberSecurity",
+      "TechEthik",
+      "IT"
     ],
-    "title_en": "Automated Invoice Processing with n8n, Local Ollama LLM & Human-in-the-Loop",
-    "title_de": "Automatisierte Rechnungsverarbeitung mit n8n, lokalem Ollama LLM & Human-in-the-Loop",
-    "excerpt_en": "A privacy-first, on-premise automated invoice pipeline: n8n email ingestion, local data extraction using Ollama, and a Human-in-the-Loop approval gate.",
-    "excerpt_de": "Ein kompletter On-Premise Workflow für Rechnungsprüfung: E-Mail-Parsing mit n8n, lokale Extraktion via Ollama und manuelle Freigabe vor dem finalen Datenbank-Eintrag.",
-    "content_en": "Over the past few days, I built an automated workflow simulating a standard business routine: processing incoming invoices. 🧾⚡\n\nThe core priority was **maximum data privacy**. The system ingests incoming invoice emails and extracts the relevant invoice data. To achieve this, I combined **n8n** with a local LLM running via **Ollama**. This ensures sensitive financial and customer data never leaves the local server infrastructure.\n\nTo maintain reliable quality control, a **Human-in-the-Loop** verification step is integrated:\n1. The pipeline pauses after parsing and waits for manual one-click user approval.\n2. Upon approval, invoice items are automatically written to the database/spreadsheet.\n3. Upon rejection, a notification email is automatically dispatched.\n\nAn exciting project demonstrating how AI-driven automation can be implemented securely, privacy-first, and 100% on-premise.\n",
-    "content_de": "Ich habe in den letzten Tagen einen automatisierten Workflow gebaut, der eine typische Unternehmensroutine simuliert: die Verarbeitung von Eingangsrechnungen. 🧾⚡\n\nDer Fokus lag dabei auf **maximalem Datenschutz**. Das System liest eingehende E-Mails aus und extrahiert die relevanten Rechnungsdaten. Dafür nutze ich **n8n** in Kombination mit einem lokalen LLM über **Ollama**. Das bedeutet, dass sensible Unternehmensdaten zu keinem Zeitpunkt den eigenen Server verlassen.\n\nUm die Kontrolle zu behalten, ist ein **Human-in-the-Loop**-Schritt integriert:\n1. Das System pausiert nach der Extraktion und wartet auf eine manuelle Freigabe per Klick.\n2. Bei Zustimmung werden die Rechnungsdaten automatisch in eine Tabelle geschrieben.\n3. Bei Ablehnung wird automatisiert eine standardisierte Absage-Mail verschickt.\n\nEin spannendes Projekt, das zeigt, wie man KI-gestützte Automatisierung sicher, DSGVO-konform und komplett on-premise umsetzen kann.\n"
+    "title_en": "\"Privacy by Default\" Is Practically Dead: Why Opt-Out Tracking Must End",
+    "title_de": "„Privacy by Default“ existiert praktisch nicht mehr",
+    "excerpt_en": "In almost every newly installed app, telemetry, tracking, and diagnostics are enabled by default. Why real software engineering requires respect for users and genuine Privacy by Design.",
+    "excerpt_de": "Bei fast jeder neuen App sind Tracking, Diagnosedaten und Telemetrie standardmäßig aktiv. Warum echte Softwareentwicklung Respekt vor dem Nutzer und 'Privacy by Design' erfordert.",
+    "content_en": "\"Privacy by Default\" is practically non-existent today. 🛑\n\nWhenever I install a new app today, my very first step is almost always digging into the deepest submenus of the settings.\n\nThe reason? Everything is already activated by default:\n• \"Share data for product improvement\" – ✅ ON\n• \"Send usage analytics\" – ✅ ON\n• \"Share diagnostic data\" – ✅ ON\n\nThe worst part: During first launch, there is rarely any honest, transparent disclosure. Users have to actively hunt down toggles to disable tracking (Opt-out instead of Opt-in).\n\nLet’s be honest: How many non-technical end users head straight to settings right after installing an app? Very few. And that lack of awareness is strategically exploited across the tech industry.\n\nTo me, good software engineering fundamentally involves respect and transparency towards the user. Privacy shouldn't be a hidden checkbox buried three levels deep that you have to untick.\n\nThat is why I am intentionally transitioning my personal workflow to tools and applications that truly embrace \"Privacy by Design\" and place security first.\n\nHow do you handle privacy settings after app installs? Do you take the time to audit them, and what are your favorite privacy-first tools? 👇\n",
+    "content_de": "„Privacy by Default“ existiert praktisch nicht mehr. 🛑\n\nWenn ich heute eine neue App installiere, ist mein allererster Schritt fast immer der Weg in die tiefsten Untermenüs der Einstellungen.\n\nDer Grund? Standardmäßig ist dort oft schon alles aktiviert:\n• „Daten zur Produktverbesserung teilen“ – ✅ AN\n• „Nutzungsstatistiken senden“ – ✅ AN\n• „Diagnosedaten teilen“ – ✅ AN\n\nDas Schlimmste daran: Beim ersten Start gibt es meistens keinen ehrlichen, transparenten Hinweis darauf. Man muss aktiv danach suchen, um das Tracking zu deaktivieren (Opt-out statt Opt-in).\n\nSeien wir mal ehrlich: Wie viele Endnutzer, die keine IT-Experten sind, gehen nach einer Installation direkt in die Settings? Die wenigsten. Und genau diese Unwissenheit wird von vielen großen Tech-Firmen strategisch ausgenutzt.\n\nFür mich bedeutet gute Softwareentwicklung auch Respekt und Transparenz gegenüber dem Nutzer. Datenschutz sollte keine gut versteckte Checkbox sein, die man erst mühsam abwählen muss.\n\nDeshalb versuche ich aktuell ganz bewusst, mein privates Setup auf Apps umzustellen, die „Privacy by Design“ wirklich leben und Sicherheit als oberste Priorität sehen.\n\nWie geht ihr damit um? Nehmt ihr euch die Zeit für den Settings-Check nach einer Installation? Und welche echten „Privacy-First“-Alternativen nutzt ihr im Alltag? 👇\n"
+  },
+  {
+    "id": 15,
+    "date": "Aug 2026",
+    "image": "assets/images/mcp.jpeg",
+    "tags_en": [
+      "SoftwareEngineering",
+      "AI",
+      "ModelContextProtocol",
+      "SystemArchitecture",
+      "TechTrends",
+      "WebDev",
+      "BuildInPublic"
+    ],
+    "tags_de": [
+      "SoftwareEngineering",
+      "KI",
+      "ModelContextProtocol",
+      "Systemarchitektur",
+      "TechTrends",
+      "WebDev",
+      "BuildInPublic"
+    ],
+    "title_en": "APIs Built the Web. MCP Builds AI Agents: Model Context Protocol Explained",
+    "title_de": "APIs haben das Web gebaut – MCP baut KI-Agenten: Das Model Context Protocol erklärt",
+    "excerpt_en": "Traditional REST APIs require rigid, hardcoded glue code for LLMs. Model Context Protocol (MCP) acts like a universal USB-C plug for AI, allowing autonomous tool discovery and direct context integration.",
+    "excerpt_de": "Klassische REST-APIs erfordern starren Glue-Code für LLMs. Das Model Context Protocol (MCP) fungiert wie ein universeller USB-C-Stecker für KI und ermöglicht autonome Tool-Nutzung ohne ständigen Integrationsaufwand.",
+    "content_en": "APIs built the modern web. But for AI Agents, they are just too rigid. Enter MCP (Model Context Protocol). 🚀\n\nIf you want to connect Large Language Models (LLMs) to your internal systems, traditional REST APIs often become a bottleneck. They require rigid, hardcoded instructions.\n\nLet’s make the difference clear with a simple example:\n**Scenario:** You want an AI to check your database for a customer's recent order.\n\n✖️ **The Classic API Way (Manual & Rigid)**\nYou have to write custom \"glue code\" for everything:\n1. The user asks: *\"Where is my order?\"*\n2. Your code parses the intent, makes a `GET /api/orders/{id}` request, and gets the JSON.\n3. Your code injects this JSON into a new prompt.\n4. The LLM reads it and generates an answer.\n**Result:** High maintenance. If the API changes, your integration breaks.\n\n✅ **The MCP Server Way (Dynamic & Autonomous)**\nMCP is like a universal \"USB-C plug\" for AI. You simply expose your system via an MCP Server:\n1. The user asks: *\"Where is my order?\"*\n2. The LLM automatically talks to the MCP Server, discovers the available tools, fetches the exact data it needs, and answers the user.\n**Result:** Zero custom glue code.\n\n**The Strategic Shift:**\nInstead of hardcoding every single data pipeline for an AI, Software Engineers will now build standardized \"toolboxes\" (MCP Servers). The AI decides on its own when and how to use them. This drastically reduces boilerplate code and speeds up the time-to-market for intelligent SaaS applications.\n\nHave you looked into the Model Context Protocol yet, or are you still building custom API wrappers for your AI features? 👇\n",
+    "content_de": "APIs haben das moderne Web aufgebaut. Doch für KI-Agenten sind sie schlicht zu starr. Hier kommt das Model Context Protocol (MCP) ins Spiel. 🚀\n\nWenn Sie Large Language Models (LLMs) an interne Systeme anbinden möchten, werden traditionelle REST-APIs schnell zum Flaschenhals. Sie erfordern starre, fest verdrahtete Anweisungen.\n\nVerdeutlichen wir den Unterschied an einem einfachen Beispiel:\n**Szenario:** Eine KI soll in der Datenbank nach der letzten Bestellung eines Kunden suchen.\n\n✖️ **Der klassische API-Weg (Manuell & Starr)**\nMan muss für alles individuellen \"Glue Code\" schreiben:\n1. Der Nutzer fragt: *„Wo ist meine Bestellung?“*\n2. Ihr Code analysiert die Absicht, führt einen `GET /api/orders/{id}`-Request aus und empfängt das JSON.\n3. Ihr Code injiziert dieses JSON in einen neuen Prompt.\n4. Das LLM liest die Daten und formuliert die Antwort.\n**Ergebnis:** Hoher Wartungsaufwand. Ändert sich die API, bricht die gesamte Integration.\n\n✅ **Der MCP-Server-Weg (Dynamisch & Autonom)**\nMCP funktioniert wie ein universeller „USB-C-Stecker“ für KI. Man stellt Systeme einfach über einen MCP-Server bereit:\n1. Der Nutzer fragt: *„Wo ist meine Bestellung?“*\n2. Das LLM kommuniziert direkt mit dem MCP-Server, entdeckt verfügbare Tools selbstständig, holt exakt die benötigten Daten und antwortet dem Nutzer.\n**Ergebnis:** Kein maßgeschneiderter Glue-Code mehr nötig.\n\n**Der strategische Wandel:**\nAnstatt jede Datenpipeline mühsam fest zu verdrahten, erstellen Software Engineers standardisierte Werkzeugkästen (MCP-Server). Die KI entscheidet eigenständig, wann und wie sie diese einsetzt. Das reduziert Boilerplate-Code drastisch und beschleunigt die Bereitstellung intelligenter SaaS-Anwendungen.\n\nHabt ihr euch bereits mit dem Model Context Protocol beschäftigt, oder baut ihr noch eigene API-Wrapper für KI-Funktionen? 👇\n"
+  },
+  {
+    "id": 14,
+    "date": "Aug 2026",
+    "image": "assets/images/vibeCoding.jpeg",
+    "tags_en": [
+      "SoftwareEngineering",
+      "CleanCode",
+      "ISO25010",
+      "SoftwareArchitecture",
+      "TechMindset",
+      "QualityAssurance"
+    ],
+    "tags_de": [
+      "SoftwareEngineering",
+      "CleanCode",
+      "ISO25010",
+      "Softwarearchitektur",
+      "TechMindset",
+      "Qualitätssicherung"
+    ],
+    "title_en": "Vibe Coder vs. Software Engineer: The 8 Pillars of ISO 25010",
+    "title_de": "Was unterscheidet einen \"Vibe Coder\" von einem echten Software Engineer?",
+    "excerpt_en": "A 'vibe coder' writes code that somehow works in the moment. A software engineer builds systems that scale and remain maintainable. Here is why the ISO 25010 standard defines true engineering excellence.",
+    "excerpt_de": "Ein Vibe Coder schreibt Code, der im Moment irgendwie funktioniert. Ein Software Engineer baut Systeme, die skalieren und wartbar sind. Ein Blick auf die 8 Säulen der ISO 25010 für echte Softwarequalität.",
+    "content_en": "What distinguishes a \"Vibe Coder\" from a true Software Engineer? 💻\n\nA vibe coder writes code that somehow works in the moment. A software engineer builds systems that scale, endure, and remain maintainable tomorrow.\n\nWhen working on projects, having a feature simply pass the \"happy path\" is not enough. True engineering means keeping the big picture in focus.\n\nMy guiding compass is the international standard **ISO 25010**, which defines the 8 pillars of real software quality:\n🔹 **Functional Suitability:** Does the software solve the actual problem completely and correctly?\n🔹 **Performance Efficiency:** Does the system manage resources (RAM, CPU) efficiently?\n🔹 **Compatibility:** Does the application interact seamlessly with other systems?\n🔹 **Usability:** Is the user interface and experience intuitive for end users?\n🔹 **Reliability:** Does the system remain resilient and stable when errors or downtime occur?\n🔹 **Security:** Are data assets protected and inputs strictly validated?\n🔹 **Maintainability:** Can a team member easily read, test, and extend the codebase 6 months from now?\n🔹 **Portability:** Can the system be deployed across different environments (cloud, on-premise, containers) with ease?\n\nCode that \"just works\" is quick to write. Designing it so that these 8 pillars stay in balance is the true craft of software engineering.\n\nIn your experience, which of these pillars gets compromised first under project deadlines? Maintainability, security, or something else? 👇\n",
+    "content_de": "Was unterscheidet einen \"Vibe Coder\" von einem echten Software Engineer? 💻\n\nEin Vibe Coder schreibt Code, der im Moment irgendwie funktioniert. Ein Software Engineer baut Systeme, die auch morgen noch skalieren und wartbar sind.\n\nWenn ich an Projekten arbeite, reicht es mir nicht, dass das Feature im \"Happy Path\" läuft. Echtes Engineering bedeutet für mich, das große Ganze im Blick zu behalten. \n\nMein Kompass dafür ist der internationale Standard **ISO 25010**, der die 8 Säulen echter Softwarequalität definiert:\n🔹 **Funktionale Eignung:** Löst die Software das eigentliche Problem vollständig und korrekt? \n🔹 **Leistungsfähigkeit (Performance):** Geht das System effizient mit Ressourcen (RAM, CPU) um? \n🔹 **Kompatibilität:** Spielt die Anwendung reibungslos mit anderen Systemen zusammen? \n🔹 **Benutzbarkeit (Usability):** Ist die Bedienung für den Endnutzer intuitiv? \n🔹 **Zuverlässigkeit:** Bleibt das System stabil, auch wenn Fehler oder Ausfälle auftreten? \n🔹 **Sicherheit:** Sind die Daten geschützt und werden Inputs streng validiert? \n🔹 **Wartbarkeit:** Kann ein anderes Teammitglied den Code in 6 Monaten noch problemlos lesen und erweitern? \n🔹 **Übertragbarkeit (Portability):** Lässt sich das System leicht in andere Umgebungen (z.B. Cloud/Server) deployen?\n\nCode, der \"nur funktioniert\", ist schnell getippt. Ihn aber so zu designen, dass diese 8 Säulen im Gleichgewicht bleiben – das ist das eigentliche Handwerk der Anwendungsentwicklung.\n\nWelche dieser Säulen fällt eurer Erfahrung nach im Projektstress als Erstes unter den Tisch? Wartbarkeit, Sicherheit oder eine andere? 👇\n"
+  },
+  {
+    "id": 13,
+    "date": "Aug 2026",
+    "image": "assets/images/KI-Intergration.jpeg",
+    "tags_en": [
+      "AI",
+      "SoftwareArchitecture",
+      "RAG",
+      "DataEngineering",
+      "FinOps",
+      "TechStrategy",
+      "LLM",
+      "Production"
+    ],
+    "tags_de": [
+      "KI",
+      "Softwarearchitektur",
+      "RAG",
+      "DataEngineering",
+      "FinOps",
+      "TechStrategie",
+      "LLM",
+      "Produktion"
+    ],
+    "title_en": "Why Companies Fail at AI: It's the Architecture, Not the Model",
+    "title_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter",
+    "excerpt_en": "Many companies don't fail because of AI—they fail because of the architecture behind it. Here is why simple API calls fail in production and how strategic AI integration with RAG, data engineering, and HITL creates reliable systems.",
+    "excerpt_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter. Warum einfache API-Calls in der Produktion versagen und wie strategische KI-Integration mit RAG, Daten-Engineering und HITL für Zuverlässigkeit sorgt.",
+    "content_en": "Many companies don't fail because of AI – they fail because of the architecture behind it. 🚀\n\nAfter the initial hype of a pilot project, the rude awakening often sets in: API costs explode, latency frustrates users, and the AI happily hallucinates.\n\nWhy? Because a simple API call is far from a scalable solution.\n\nThe graphic illustrates this contrast:\n\n✖️ **The Quick AI Start (Chaos):**\nUnstructured data, blind overwrites into production systems, and hidden costs destroying the ROI.\n\n✅ **Strategic AI Integration (Control):**\n• **Data Engineering:** Clean data preparation is more important than the LLM itself.\n• **RAG & Vector DBs:** For factual, company-specific outputs.\n• **Cost Control:** Actively manage API resources (token optimization & caching).\n• **Human-in-the-Loop (HITL):** Human verification safeguards data integrity.\n\nBringing AI features to production means designing reliable data pipelines – not just writing prompts.\n\nWhere do you see the biggest challenge when scaling AI? Costs, data quality, or architecture? 👇\n",
+    "content_de": "Viele Unternehmen scheitern nicht an KI – sie scheitern an der Architektur dahinter. 🚀\n\nNach dem ersten Hype beim Pilotprojekt kommt oft das böse Erwachen: Die API-Kosten explodieren, Latenzen nerven die User und die KI halluziniert munter vor sich hin.\n\nWarum? Weil ein einfacher API-Call noch lange keine skalierbare Lösung ist.\n\nDas Bild zeigt genau diesen Kontrast:\n\n✖️ **Der schnelle KI-Start (Chaos):**\nUnstrukturierte Daten, blindes Überschreiben in Produktionssysteme und versteckte Kosten, die den ROI vernichten.\n\n✅ **Die strategische KI-Integration (Kontrolle):**\n• **Daten-Engineering:** Saubere Datenvorbereitung ist wichtiger als das LLM selbst.\n• **RAG & Vektor-DBs:** Für faktenbasierte, unternehmensspezifische Outputs.\n• **Kostenkontrolle:** API-Ressourcen aktiv steuern (Token-Optimierung).\n• **Human-in-the-Loop (HITL):** Die menschliche Kontrollinstanz schützt die Datenintegrität.\n\nKI-Features in Produktion zu bringen, bedeutet verlässliche Daten-Pipelines zu designen – nicht nur Prompts zu schreiben.\n\nWo siehst du die größte Herausforderung beim Skalieren von KI? Kosten, Datenqualität oder Architektur? 👇\n"
   },
   {
     "id": 12,

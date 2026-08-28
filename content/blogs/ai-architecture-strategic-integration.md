@@ -1,5 +1,5 @@
 ---
-id: 18
+id: 13
 date: "Aug 2026"
 image: "assets/images/KI-Intergration.jpeg"
 tags_en:

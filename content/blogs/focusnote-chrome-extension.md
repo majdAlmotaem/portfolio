@@ -1,5 +1,5 @@
 ---
-id: 14
+id: 17
 date: "Aug 2026"
 image: "assets/images/focusNote.jpeg"
 tags_en:

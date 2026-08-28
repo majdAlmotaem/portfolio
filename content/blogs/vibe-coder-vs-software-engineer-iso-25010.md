@@ -1,5 +1,5 @@
 ---
-id: 17
+id: 14
 date: "Aug 2026"
 image: "assets/images/vibeCoding.jpeg"
 tags_en:
