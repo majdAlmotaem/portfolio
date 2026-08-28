@@ -31,7 +31,7 @@ content_en: |
 
   I am really looking forward to your feedback and hope this helps you stay productive and in the zone.
 
-  🔗 **Try it out here:** [Chrome Web Store](https://lnkd.in/e-nfhDgk)
+  🔗 **Try it out here:** [Chrome Web Store](https://chromewebstore.google.com/detail/cejjojbnkiignlpcoenjmkgapimpakha?utm_source=item-share-cb)
 content_de: |
   Ich freue mich riesig, die Veröffentlichung meiner allerersten Chrome Extension bekannt zu geben: **FocusNote**! 📝🚀
 
@@ -41,5 +41,5 @@ content_de: |
 
   Ich freue mich sehr über Feedback und hoffe, dass FocusNote auch anderen dabei hilft, produktiv im Flow zu bleiben!
 
-  🔗 **Jetzt im Chrome Web Store testen:** [Chrome Web Store](https://lnkd.in/e-nfhDgk)
+  🔗 **Jetzt im Chrome Web Store testen:** [Chrome Web Store](https://chromewebstore.google.com/detail/cejjojbnkiignlpcoenjmkgapimpakha?utm_source=item-share-cb)
 ---
