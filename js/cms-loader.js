@@ -12,6 +12,9 @@ async function loadScript(url, globalName) {
 
 // Fallback lists in case GitHub API rate limit is reached or offline
 const FALLBACK_PROJECT_FILES = [
+    'gymsec-iam.md',
+    'focusnote-right-click-saver.md',
+    'job-application-tracker.md',
     'clickshare.md',
     'password-manager.md',
     'lazy-controller.md',
