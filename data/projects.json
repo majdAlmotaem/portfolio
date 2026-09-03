@@ -144,94 +144,52 @@
     "lessonsLearned_de": "Tiefe Einblicke in die KI-API-Integration (LLM Grounding mit Live-Suche), Aufbau von komplexem React-State-Management und Entwicklung intelligenter Daten-Reconciliation, um Live-KI-Ergebnisse nahtlos mit der lokalen Datenbank zu verschmelzen."
   },
   {
-    "id": 7,
-    "title_en": "clickShare",
-    "title_de": "clickShare",
-    "image": "assets/images/landingpage.png",
+    "id": 3,
+    "title_en": "AI News Digest Automation",
+    "title_de": "KI-News-Digest Automatisierung",
+    "image": "assets/images/n8n.mp4",
     "images": [
-      "assets/images/landingpage.png",
-      "assets/images/postEditor.png",
-      "assets/images/userDashboard.png"
-    ],
-    "status": "in-progress",
-    "link": "https://github.com/majdAlmotaem/clickShare",
-    "githubLink": "https://github.com/majdAlmotaem/clickShare",
-    "techStack": [
-      {
-        "name": "Node.js",
-        "iconClass": "fa-brands fa-node-js"
-      },
-      {
-        "name": "Express",
-        "iconClass": "fa-brands fa-node-js"
-      },
-      {
-        "name": "PostgreSQL",
-        "iconClass": "fa-solid fa-database"
-      },
-      {
-        "name": "Passport.js",
-        "iconClass": "fa-solid fa-passport"
-      }
-    ],
-    "newTechLearned_en": [],
-    "newTechLearned_de": [],
-    "description_en": "A modern web application to create, manage, and share posts across multiple social media platforms.",
-    "description_de": "Eine moderne Webanwendung zum Erstellen, Verwalten und Teilen von Beiträgen auf mehreren Social-Media-Plattformen.",
-    "problem_en": "Content creators needed a dashboard to draft, schedule, and publish to multiple platforms.",
-    "problem_de": "Content-Ersteller benötigten ein Dashboard, um Entwürfe zu erstellen, zu planen und auf mehreren Plattformen zu veröffentlichen.",
-    "solution_en": "Developing a full-stack web app with OAuth 2.0 integration, a robust database, and a centralized post management system.",
-    "solution_de": "Entwicklung einer Full-Stack-Web-App mit OAuth 2.0-Integration, einer robusten Datenbank und einem Beitragsverwaltungssystem.",
-    "lessonsLearned_en": "Learned full-stack development, handling OAuth, configuring PostgreSQL, and working with EJS templates.",
-    "lessonsLearned_de": "Full-Stack-Entwicklung erlernt, Umgang mit OAuth, Konfiguration von PostgreSQL und Arbeit mit EJS-Vorlagen."
-  },
-  {
-    "id": 1,
-    "title_en": "Password Manager",
-    "title_de": "Passwort-Manager",
-    "image": "assets/images/password-manager-demo.gif",
-    "images": [
-      "assets/images/password-manager-demo.gif"
+      "assets/images/n8n.mp4"
     ],
     "status": "completed",
-    "link": "https://github.com/majdAlmotaem/PasswordManager",
-    "githubLink": "https://github.com/majdAlmotaem/PasswordManager",
+    "link": "#",
+    "githubLink": "#",
     "techStack": [
       {
-        "name": "Python",
-        "iconClass": "fa-brands fa-python"
+        "name": "n8n",
+        "iconClass": "fa-solid fa-robot"
       },
       {
-        "name": "Tkinter",
-        "iconClass": "fa-solid fa-window-maximize"
+        "name": "AI",
+        "iconClass": "fa-solid fa-brain"
       },
       {
-        "name": "SQLite",
-        "iconClass": "fa-solid fa-database"
+        "name": "Automation",
+        "iconClass": "fa-solid fa-gears"
       },
       {
-        "name": "Security",
-        "iconClass": "fa-solid fa-shield-halved"
+        "name": "Productivity",
+        "iconClass": "fa-solid fa-bolt"
       }
     ],
     "newTechLearned_en": [
-      "Security",
-      "Hashing",
-      "Data Encryption"
+      "n8n",
+      "AI-Driven Automation",
+      "Productivity Workflows"
     ],
     "newTechLearned_de": [
-      "Sicherheit",
-      "Hashing",
-      "Datenverschlüsselung"
+      "n8n",
+      "KI-gestützte Automatisierung",
+      "Produktivitäts-Workflows"
     ],
-    "description_en": "A modern, secure, and user-friendly password manager built with Python and Tkinter.",
-    "description_de": "Ein moderner, sicherer und benutzerfreundlicher Passwort-Manager, entwickelt mit Python und Tkinter.",
-    "problem_en": "Managing multiple passwords securely without relying on third-party cloud services.",
-    "problem_de": "Sichere Verwaltung mehrerer Passwörter, ohne auf Cloud-Dienste von Drittanbietern angewiesen zu sein.",
-    "solution_en": "Built a local, fully encrypted desktop application with a modern UI to securely store and manage passwords using PBKDF2 hashing.",
-    "solution_de": "Entwicklung einer lokalen, vollständig verschlüsselten Desktop-Anwendung mit moderner Benutzeroberfläche zur sicheren Speicherung und Verwaltung von Passwörtern mittels PBKDF2-Hashing.",
-    "lessonsLearned_en": "Gained deep insights into security protocols, data hashing, and building desktop UIs with Python.",
-    "lessonsLearned_de": "Tiefere Einblicke in Sicherheitsprotokolle, Daten-Hashing und die Erstellung von Desktop-UIs mit Python gewonnen."
+    "description_en": "A smart automation workflow built with n8n that delivers a daily AI-summarized tech news digest to your inbox and to-do list.",
+    "description_de": "Ein intelligenter Automatisierungs-Workflow, der mit n8n erstellt wurde und täglich einen KI-zusammengefassten Tech-News-Digest in den Posteingang und die To-Do-Liste liefert.",
+    "problem_en": "Staying updated with AI and tech news is time-consuming. I needed a way to consolidate and summarize the most important information daily.",
+    "problem_de": "Es ist zeitaufwendig, über KI- und Tech-News auf dem Laufenden zu bleiben. Ich brauchte einen Weg, die wichtigsten Informationen täglich zu konsolidieren und zusammenzufassen.",
+    "solution_en": "Developed a smart automation with n8n! Now, I get a daily digest of the latest AI and tech news straight to my inbox, summarized by AI. Plus, it adds a quick reminder to my to-do list so I don't miss anything.",
+    "solution_de": "Eine intelligente Automatisierung mit n8n entwickelt! Jetzt erhalte ich eine tägliche Zusammenfassung der neuesten KI- und Tech-News direkt in meinen Posteingang, zusammengefasst von einer KI. Zudem wird eine kurze Erinnerung zu meiner To-Do-Liste hinzugefügt, damit ich nichts verpasse.",
+    "lessonsLearned_en": "It was awesome to see how easily n8n handles fetching, processing, and delivering information. It's a truly powerful tool for automating tasks and improving productivity. Highly recommend exploring n8n if you're into smart workflows!",
+    "lessonsLearned_de": "Es war großartig zu sehen, wie einfach n8n das Abrufen, Verarbeiten und Ausliefern von Informationen handhabt. Es ist ein wirklich mächtiges Tool zur Automatisierung von Aufgaben und zur Steigerung der Produktivität. Ich empfehle n8n wärmstens für smarte Workflows!"
   },
   {
     "id": 2,
@@ -280,51 +238,51 @@
     "lessonsLearned_de": "Erfahrung gesammelt in der Android-App-Entwicklung, Desktop-App-Integration und Echtzeit-Socket-Kommunikation."
   },
   {
-    "id": 3,
-    "title_en": "AI News Digest Automation",
-    "title_de": "KI-News-Digest Automatisierung",
-    "image": "assets/images/n8n.mp4",
+    "id": 1,
+    "title_en": "Password Manager",
+    "title_de": "Passwort-Manager",
+    "image": "assets/images/password-manager-demo.gif",
     "images": [
-      "assets/images/n8n.mp4"
+      "assets/images/password-manager-demo.gif"
     ],
     "status": "completed",
-    "link": "#",
-    "githubLink": "#",
+    "link": "https://github.com/majdAlmotaem/PasswordManager",
+    "githubLink": "https://github.com/majdAlmotaem/PasswordManager",
     "techStack": [
       {
-        "name": "n8n",
-        "iconClass": "fa-solid fa-robot"
+        "name": "Python",
+        "iconClass": "fa-brands fa-python"
       },
       {
-        "name": "AI",
-        "iconClass": "fa-solid fa-brain"
+        "name": "Tkinter",
+        "iconClass": "fa-solid fa-window-maximize"
       },
       {
-        "name": "Automation",
-        "iconClass": "fa-solid fa-gears"
+        "name": "SQLite",
+        "iconClass": "fa-solid fa-database"
       },
       {
-        "name": "Productivity",
-        "iconClass": "fa-solid fa-bolt"
+        "name": "Security",
+        "iconClass": "fa-solid fa-shield-halved"
       }
     ],
     "newTechLearned_en": [
-      "n8n",
-      "AI-Driven Automation",
-      "Productivity Workflows"
+      "Security",
+      "Hashing",
+      "Data Encryption"
     ],
     "newTechLearned_de": [
-      "n8n",
-      "KI-gestützte Automatisierung",
-      "Produktivitäts-Workflows"
+      "Sicherheit",
+      "Hashing",
+      "Datenverschlüsselung"
     ],
-    "description_en": "A smart automation workflow built with n8n that delivers a daily AI-summarized tech news digest to your inbox and to-do list.",
-    "description_de": "Ein intelligenter Automatisierungs-Workflow, der mit n8n erstellt wurde und täglich einen KI-zusammengefassten Tech-News-Digest in den Posteingang und die To-Do-Liste liefert.",
-    "problem_en": "Staying updated with AI and tech news is time-consuming. I needed a way to consolidate and summarize the most important information daily.",
-    "problem_de": "Es ist zeitaufwendig, über KI- und Tech-News auf dem Laufenden zu bleiben. Ich brauchte einen Weg, die wichtigsten Informationen täglich zu konsolidieren und zusammenzufassen.",
-    "solution_en": "Developed a smart automation with n8n! Now, I get a daily digest of the latest AI and tech news straight to my inbox, summarized by AI. Plus, it adds a quick reminder to my to-do list so I don't miss anything.",
-    "solution_de": "Eine intelligente Automatisierung mit n8n entwickelt! Jetzt erhalte ich eine tägliche Zusammenfassung der neuesten KI- und Tech-News direkt in meinen Posteingang, zusammengefasst von einer KI. Zudem wird eine kurze Erinnerung zu meiner To-Do-Liste hinzugefügt, damit ich nichts verpasse.",
-    "lessonsLearned_en": "It was awesome to see how easily n8n handles fetching, processing, and delivering information. It's a truly powerful tool for automating tasks and improving productivity. Highly recommend exploring n8n if you're into smart workflows!",
-    "lessonsLearned_de": "Es war großartig zu sehen, wie einfach n8n das Abrufen, Verarbeiten und Ausliefern von Informationen handhabt. Es ist ein wirklich mächtiges Tool zur Automatisierung von Aufgaben und zur Steigerung der Produktivität. Ich empfehle n8n wärmstens für smarte Workflows!"
+    "description_en": "A modern, secure, and user-friendly password manager built with Python and Tkinter.",
+    "description_de": "Ein moderner, sicherer und benutzerfreundlicher Passwort-Manager, entwickelt mit Python und Tkinter.",
+    "problem_en": "Managing multiple passwords securely without relying on third-party cloud services.",
+    "problem_de": "Sichere Verwaltung mehrerer Passwörter, ohne auf Cloud-Dienste von Drittanbietern angewiesen zu sein.",
+    "solution_en": "Built a local, fully encrypted desktop application with a modern UI to securely store and manage passwords using PBKDF2 hashing.",
+    "solution_de": "Entwicklung einer lokalen, vollständig verschlüsselten Desktop-Anwendung mit moderner Benutzeroberfläche zur sicheren Speicherung und Verwaltung von Passwörtern mittels PBKDF2-Hashing.",
+    "lessonsLearned_en": "Gained deep insights into security protocols, data hashing, and building desktop UIs with Python.",
+    "lessonsLearned_de": "Tiefere Einblicke in Sicherheitsprotokolle, Daten-Hashing und die Erstellung von Desktop-UIs mit Python gewonnen."
   }
 ]
