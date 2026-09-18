@@ -192,6 +192,8 @@ export async function loadPortfolioData() {
                 title: cert.en?.title || cert.title || "",
                 issuer: cert.en?.issuer || cert.issuer || "",
                 iconClass: cert.iconClass || "",
+                category: cert.category || ((cert.issuer && (cert.issuer.includes('IHK') || cert.issuer.includes('Amazon') || cert.issuer.includes('AWS'))) ? 'official' : 'course'),
+                badge: cert.badge || "",
                 image: resolvePreviewImage(cert.image || "")
             })),
             blogs: blogsData.map(blog => {
@@ -232,6 +234,8 @@ export async function loadPortfolioData() {
                 title: cert.de?.title || cert.title || "",
                 issuer: cert.de?.issuer || cert.issuer || "",
                 iconClass: cert.iconClass || "",
+                category: cert.category || ((cert.issuer && (cert.issuer.includes('IHK') || cert.issuer.includes('Amazon') || cert.issuer.includes('AWS'))) ? 'official' : 'course'),
+                badge: cert.badge || "",
                 image: resolvePreviewImage(cert.image || "")
             })),
             blogs: blogsData.map(blog => {

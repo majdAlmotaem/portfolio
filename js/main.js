@@ -1,5 +1,6 @@
 import { loadPortfolioData } from './cms-loader.js';
 import { initNeuralBg } from './neural-bg.js';
+import { initTerminal } from './terminal.js';
 
 const getHue = (str) => {
     let hash = 0;
@@ -194,8 +195,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         cv_modal_subtitle: { en: "Choose your preferred language version to download:", de: "Wähle deine bevorzugte Sprachversion zum Herunterladen:" },
         cv_btn_english: { en: "English (CV)", de: "Englisch (CV)" },
         cv_btn_german: { en: "German (Lebenslauf)", de: "Deutsch (Lebenslauf)" },
-        stats_projects: { en: "Projects", de: "Projekte" },
-        stats_visitors: { en: "Site Visitors", de: "Seitenbesucher" },
         projects_title: { en: "Projects", de: "Projekte" },
         projects_btn_more: { en: "Show More", de: "Mehr anzeigen" },
         projects_btn_less: { en: "Show Less", de: "Weniger anzeigen" },
@@ -237,7 +236,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         details_btn_back_blogs: { en: "Back to Blogs", de: "Zurück zum Blog" },
         details_topics: { en: "Topics:", de: "Themen:" },
         details_project_not_found: { en: "Project not found.", de: "Projekt nicht gefunden." },
-        details_blog_not_found: { en: "Blog post not found.", de: "Blogbeitrag nicht gefunden." }
+        details_blog_not_found: { en: "Blog post not found.", de: "Blogbeitrag nicht gefunden." },
+        details_not_available: { en: "Not specified", de: "Nicht angegeben" },
+        certs_official_title: { en: "Official Certifications & Degrees", de: "Offizielle Zertifizierungen & Abschlüsse" },
+        certs_official_subtitle: { en: "State-recognized credentials & industry standard certifications", de: "Staatlich anerkannte Berufsabschlüsse & anerkannte Industrie-Zertifikate" },
+        certs_courses_title: { en: "Continuous Learning & Specializations", de: "Kontinuierliche Weiterbildung & Spezialisierungen" },
+        certs_courses_subtitle: { en: "Practical courses, skill deep dives and focused technical trainings", de: "Praxisnahe Fachkurse, Vertiefungen und technologische Weiterbildungen" },
+        badge_official: { en: "Accredited", de: "Anerkannt" },
+        badge_course: { en: "Specialization", de: "Weiterbildung" }
     };
 
 
@@ -389,25 +395,70 @@ document.addEventListener('DOMContentLoaded', async () => {
     const certsContainer = document.getElementById('certificates-container');
     function renderCertificates() {
         if (!certsContainer) return;
-        let certsHTML = '';
-        portfolioData[currentLang].certificates.forEach(cert => {
+        const allCerts = portfolioData[currentLang].certificates || [];
+        const officialCerts = allCerts.filter(c => c.category === 'official');
+        const courseCerts = allCerts.filter(c => c.category !== 'official');
+
+        const renderCard = (cert, isOfficial) => {
             const hasImage = !!cert.image;
             const clickableClass = hasImage ? 'clickable-cert' : '';
+            const officialClass = isOfficial ? 'official-cert' : 'course-cert';
             const dataAttr = hasImage ? `data-cert-img="${cert.image}" data-cert-title="${cert.title}"` : '';
+            const badgeHTML = cert.badge ? `<span class="cert-badge-tag">${cert.badge}</span>` : '';
 
-            certsHTML += `
-                <div class="glass-card cert-card ${clickableClass}" ${dataAttr}>
+            return `
+                <div class="glass-card cert-card ${officialClass} ${clickableClass}" ${dataAttr}>
                     <div class="cert-icon">
                         <i class="${cert.iconClass}"></i>
                     </div>
                     <div class="cert-info">
                         <h3>${cert.title}</h3>
                         <p>${cert.issuer}</p>
+                        ${badgeHTML}
                     </div>
                     ${hasImage ? `<div class="cert-preview-badge"><i class="fa-solid fa-magnifying-glass-plus"></i></div>` : ''}
                 </div>
             `;
-        });
+        };
+
+        let certsHTML = '';
+
+        // Official Certifications & Degrees Tier
+        if (officialCerts.length > 0) {
+            certsHTML += `
+                <div class="certs-category-block">
+                    <div class="certs-category-header">
+                        <div class="certs-category-title-row">
+                            <h3 class="certs-category-title"><i class="fa-solid fa-award" style="color: #e5a93b; margin-right: 0.5rem;"></i>${translations.certs_official_title[currentLang]}</h3>
+                            <span class="certs-category-badge official">${translations.badge_official[currentLang]}</span>
+                        </div>
+                        <p class="certs-category-subtitle">${translations.certs_official_subtitle[currentLang]}</p>
+                    </div>
+                    <div class="certificates-list">
+                        ${officialCerts.map(cert => renderCard(cert, true)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Continuous Learning & Specializations Tier
+        if (courseCerts.length > 0) {
+            certsHTML += `
+                <div class="certs-category-block">
+                    <div class="certs-category-header">
+                        <div class="certs-category-title-row">
+                            <h3 class="certs-category-title"><i class="fa-solid fa-graduation-cap" style="color: var(--primary-color); margin-right: 0.5rem;"></i>${translations.certs_courses_title[currentLang]}</h3>
+                            <span class="certs-category-badge courses">${translations.badge_course[currentLang]}</span>
+                        </div>
+                        <p class="certs-category-subtitle">${translations.certs_courses_subtitle[currentLang]}</p>
+                    </div>
+                    <div class="certificates-list">
+                        ${courseCerts.map(cert => renderCard(cert, false)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
         certsContainer.innerHTML = certsHTML;
     }
 
@@ -515,15 +566,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                     
                     <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
                         <h4><i class="fa-solid fa-circle-question"></i> ${translations.details_problem[currentLang]}</h4>
-                        <p class="modal-desc">${project.problem || project.description || 'N/A'}</p>
+                        <p class="modal-desc">${project.problem || project.description || translations.details_not_available[currentLang]}</p>
                     </div>
                     <div class="modal-desc-section" style="margin-bottom: 1.5rem;">
                         <h4><i class="fa-solid fa-lightbulb"></i> ${translations.details_solution[currentLang]}</h4>
-                        <p class="modal-desc">${project.solution || 'N/A'}</p>
+                        <p class="modal-desc">${project.solution || translations.details_not_available[currentLang]}</p>
                     </div>
                     <div class="modal-desc-section" style="margin-bottom: 2rem;">
                         <h4><i class="fa-solid fa-graduation-cap"></i> ${translations.details_lessons[currentLang]}</h4>
-                        <p class="modal-desc">${project.lessonsLearned || 'N/A'}</p>
+                        <p class="modal-desc">${project.lessonsLearned || translations.details_not_available[currentLang]}</p>
                         ${newTechTags ? `
                             <div style="margin-top: 1rem;">
                                 <h5 style="margin-bottom: 0.5rem; color: var(--text-color);">${translations.details_new_tech[currentLang]}</h5>
@@ -697,6 +748,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
 
+            const recipientEmail = portfolioData.profile?.socials?.email || 'majdalmotaem1998@gmail.com';
             const subjectText = currentLang === 'en'
                 ? `Portfolio Contact from ${name}`
                 : `Portfolio-Kontakt von ${name}`;
@@ -707,7 +759,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const subject = encodeURIComponent(subjectText);
             const body = encodeURIComponent(bodyText);
-            window.location.href = `mailto:majdalmotaem1998@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
         });
     }
 
@@ -728,27 +780,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
     }
-
-    // Visual Polish: Animated counters for performance and social metrics
-    const animateCounter = (id, target) => {
-        const counter = document.getElementById(id);
-        if (!counter) return;
-
-        let count = 0;
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // ~60fps
-
-        const updateCount = () => {
-            count += increment;
-            if (count < target) {
-                counter.innerText = Math.ceil(count);
-                requestAnimationFrame(updateCount);
-            } else {
-                counter.innerText = target;
-            }
-        };
-        updateCount();
-    };
 
 
 
@@ -946,52 +977,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupLanguageSwitcher();
     setupCVModal();
     setupCertificatePreview();
-
-    // Real Visitor Counter Integration (Unique sessions - increments once per session)
-    async function updateVisitorCounter() {
-        const namespace = 'majdalmotaem-portfolio';
-        const key = 'visitors';
-        const fallbackCount = 154;
-
-        // Check if already counted in this browser session
-        const alreadyCounted = sessionStorage.getItem('counted-this-session') === 'true';
-
-        try {
-            // If already counted, just GET the current value. Otherwise, increment using /up
-            const url = alreadyCounted
-                ? `https://api.counterapi.dev/v1/${namespace}/${key}/`
-                : `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
-
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('API response not OK');
-            }
-            const data = await response.json();
-
-            // Extract count value from the API response
-            const realCount = data.value || data.count;
-            if (typeof realCount === 'number') {
-                if (!alreadyCounted) {
-                    sessionStorage.setItem('counted-this-session', 'true');
-                }
-                animateCounter('visitor-counter', realCount);
-            } else {
-                throw new Error('Invalid counter value structure');
-            }
-        } catch (error) {
-            console.warn('Real visitor counter failed, using resilient fallback:', error);
-            // Robust local storage fallback to track visits if API is offline
-            let localCount = parseInt(localStorage.getItem('portfolio-visits')) || fallbackCount;
-            if (!sessionStorage.getItem('counted-this-session')) {
-                localCount += 1;
-                localStorage.setItem('portfolio-visits', localCount);
-                sessionStorage.setItem('counted-this-session', 'true');
-            }
-            animateCounter('visitor-counter', localCount);
-        }
-    }
-
-    // Run counters once initially
-    animateCounter('project-counter', portfolioData[currentLang].projects.length);
-    updateVisitorCounter();
+    initTerminal(portfolioData, () => currentLang);
 });

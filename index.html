@@ -17,6 +17,7 @@
 
     <!-- Global Styles -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/terminal.css">
 
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -62,6 +63,11 @@
                 <span class="lang-divider">/</span>
                 <button class="lang-btn" data-lang="de">DE</button>
             </div>
+            <!-- Developer Mode CLI Toggle -->
+            <button id="dev-mode-btn" class="dev-mode-toggle-btn" title="Toggle Developer Mode (Ctrl+K)">
+                <i class="fa-solid fa-terminal"></i>
+                <span class="dev-mode-label">Dev Mode</span>
+            </button>
             <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>
@@ -103,23 +109,6 @@
         </div>
     </section>
 
-    <!-- Performance & Key Metrics -->
-    <section id="stats" style="padding: 2rem 0;">
-        <div class="container">
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <div class="stat-value"><span id="project-counter">0</span>+</div>
-                    <div class="stat-label" data-i18n="stats_projects">Projects Completed</div>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <div class="stat-value"><span id="visitor-counter">0</span></div>
-                    <div class="stat-label" data-i18n="stats_visitors">Site Visitors</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Portfolio Projects Showcase -->
     <section id="projects">
         <div class="container">
@@ -147,7 +136,7 @@
     <section id="certificates">
         <div class="container">
             <h2 data-i18n="certs_title">Certifications</h2>
-            <div id="certificates-container" class="certificates-list">
+            <div id="certificates-container">
                 <!-- Certificates injected by JS -->
             </div>
         </div>
@@ -244,6 +233,32 @@
                 <img id="preview-modal-img" src="" alt="Certificate Preview">
             </div>
             <div id="preview-modal-caption" class="preview-modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Developer Terminal Overlay -->
+    <div id="dev-terminal" class="terminal-overlay" style="display: none;">
+        <div class="terminal-window">
+            <div class="terminal-titlebar">
+                <div class="terminal-controls">
+                    <span class="terminal-dot close" id="terminal-close-dot" title="Close"></span>
+                    <span class="terminal-dot minimize" title="Minimize"></span>
+                    <span class="terminal-dot maximize" id="terminal-max-dot" title="Toggle Fullscreen"></span>
+                </div>
+                <div class="terminal-title">
+                    <i class="fa-solid fa-terminal"></i> guest@majd-portfolio: ~ (bash)
+                </div>
+                <button id="terminal-exit-btn" class="terminal-exit-btn" title="Exit Developer Mode">
+                    <i class="fa-solid fa-xmark"></i> Exit
+                </button>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <!-- Injected dynamically by terminal.js -->
+            </div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt"><span class="prompt-user">guest</span><span class="prompt-at">@</span><span class="prompt-host">majd</span>:<span class="prompt-path">~</span><span class="prompt-symbol">$</span>&nbsp;</span>
+                <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+            </div>
         </div>
     </div>
 
