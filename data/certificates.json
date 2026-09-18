@@ -37,6 +37,18 @@
       }
     },
     {
+      "iconClass": "fa-solid fa-robot",
+      "image": "assets/images/Automation Explorer.png",
+      "en": {
+        "title": "Automation Explorer",
+        "issuer": "n8n"
+      },
+      "de": {
+        "title": "Automation Explorer",
+        "issuer": "n8n"
+      }
+    },
+    {
       "iconClass": "fa-solid fa-chart-line",
       "image": "assets/images/Data Science.png",
       "en": {
