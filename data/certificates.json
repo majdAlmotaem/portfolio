@@ -107,6 +107,18 @@
         "title": "Programming for Everybody (Python)",
         "issuer": "University of Michigan / Coursera"
       }
+    },
+    {
+      "iconClass": "fa-solid fa-award",
+      "image": "assets/images/Automation Explorer.png",
+      "en": {
+        "title": "",
+        "issuer": ""
+      },
+      "de": {
+        "title": "Automation Explorer",
+        "issuer": "UiPath"
+      }
     }
   ]
 }
