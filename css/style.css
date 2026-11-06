@@ -354,12 +354,12 @@ nav.scrolled {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease;
-  filter: grayscale(100%);
+  filter: grayscale(100%) brightness(0.88) contrast(1.08);
 }
 
 .hero-image-container:hover img {
   transform: scale(1.05);
-  filter: grayscale(20%);
+  filter: grayscale(15%) brightness(0.92) contrast(1.05);
 }
 
 /* Structural Layout: General Section Patterns */

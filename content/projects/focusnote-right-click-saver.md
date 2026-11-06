@@ -14,82 +14,36 @@ link: >-
 githubLink: >-
   https://chromewebstore.google.com/detail/cejjojbnkiignlpcoenjmkgapimpakha?utm_source=item-share-cb
 techStack:
-  - name: js
+  - name: JavaScript
     iconClass: fa-brands fa-js
-  - name: html
+  - name: Chrome Extension API
+    iconClass: fa-brands fa-chrome
+  - name: HTML5 / CSS3
     iconClass: fa-brands fa-html5
-  - name: css
-    iconClass: fa-brands fa-css3-alt
-newTechLearned_en: []
-newTechLearned_de: []
+newTechLearned_en:
+  - "Chrome Extension Manifest V3 Architecture"
+  - "Side Panel API & Context Menu Integration"
+  - "Cross-Device Sync with Chrome Storage API"
+  - "Storage Quota Monitoring & Safeguards"
+newTechLearned_de:
+  - "Chrome Extension Manifest V3 Architektur"
+  - "Side Panel API & Kontextmenü-Integration"
+  - "Geräteübergreifende Synchronisation via Chrome Storage"
+  - "Speicherlimit-Überwachung & Sicherheits-Puffer"
 description_en: >-
-  Right-click. Save. Keep working. The fastest way to save text from any webpage
-  without breaking your focus.
+  Right-click. Save. Keep working. The fastest way to save text from any webpage without breaking your focus, published live on the official Chrome Web Store.
 description_de: >-
-  Right-click. Save. Keep working. The fastest way to save text from any webpage
-  without breaking your focus.
+  Rechtsklick. Speichern. Im Fokus bleiben. Der schnellste Weg, Textpassagen von Webseiten zu sichern, ohne den Arbeitsfluss zu unterbrechen. Offiziell im Chrome Web Store veröffentlicht.
 problem_en: >-
-  Ever find yourself reading an article, coding, or researching, and you stumble
-  upon a piece of text you want to remember? Opening a new tab, loading a full
-  note-taking app, and pasting it in is a massive distraction. By the time you
-  get back to what you were doing, your flow is gone.
-
-
-  FocusNote solves this.
-
-
-  Built for developers, researchers, and anyone who needs to stay in the zone,
-  FocusNote lets you save text snippets instantly without ever leaving your
-  current page.
+  Reading technical documentation, coding, or conducting research often requires noting down snippets. Opening a separate note-taking application or tab causes context switching and destroys productivity.
 problem_de: >-
-  Ever find yourself reading an article, coding, or researching, and you stumble
-  upon a piece of text you want to remember? Opening a new tab, loading a full
-  note-taking app, and pasting it in is a massive distraction. By the time you
-  get back to what you were doing, your flow is gone.
-
-
-  FocusNote solves this.
-
-
-  Built for developers, researchers, and anyone who needs to stay in the zone,
-  FocusNote lets you save text snippets instantly without ever leaving your
-  current page.
+  Beim Lesen von Dokumentationen, Programmieren oder Recherchieren muss man oft wichtige Textstellen sichern. Das ständige Wechseln in separate Notiz-Apps oder Tabs erzeugt Ablenkung und unterbricht den Flow.
 solution_en: >-
-  Key Features:
-
-
-  Zero Distractions: Simply highlight any text, right-click, and select "Save as
-  Note". No popups, no new tabs, no lost focus.
-
-
-  Elegant Side Panel: View, edit, and manage all your saved notes in a
-  beautifully designed, minimalist interface right next to your active tab.
-
-
-  Cross-Device Sync: Your notes automatically sync across any device where you
-  are logged into your Chrome profile.
-
-
-  Smart Storage Management: Built-in safeguards let you know when you are
-  nearing Chrome's storage limits so you can easily clear out old notes.
+  Engineered a minimalist Chrome extension utilizing Manifest V3: users highlight text, right-click, and hit 'Save as Note'. Notes are instantly available in a non-intrusive side panel, synced across devices via Chrome Storage, with built-in storage quota warnings.
 solution_de: >-
-  Key Features:
-
-
-  Zero Distractions: Simply highlight any text, right-click, and select "Save as
-  Note". No popups, no new tabs, no lost focus.
-
-
-  Elegant Side Panel: View, edit, and manage all your saved notes in a
-  beautifully designed, minimalist interface right next to your active tab.
-
-
-  Cross-Device Sync: Your notes automatically sync across any device where you
-  are logged into your Chrome profile.
-
-
-  Smart Storage Management: Built-in safeguards let you know when you are
-  nearing Chrome's storage limits so you can easily clear out old notes.
-lessonsLearned_en: ''
-lessonsLearned_de: ''
+  Entwicklung einer schlanken Chrome-Erweiterung auf Basis von Manifest V3: Text markieren, Rechtsklick und 'Als Notiz speichern'. Notizen stehen sofort in einem minimalistischen Side Panel bereit, synchronisieren sich geräteübergreifend und bieten integrierte Speicher-Warnungen.
+lessonsLearned_en: >-
+  Mastered Chrome Manifest V3 service workers, context menu handlers, side panel communication, and end-to-end publishing lifecycle to the Google Chrome Web Store.
+lessonsLearned_de: >-
+  Vertiefte Kenntnisse in Chrome Manifest V3 Service Workern, Kontextmenü-Handlern, Side-Panel-Kommunikation und dem gesamten Veröffentlichungs- und Review-Prozess im Chrome Web Store.
 ---

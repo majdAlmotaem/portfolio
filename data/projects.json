@@ -1,5 +1,121 @@
 [
   {
+    "id": 8,
+    "title_en": "SyncSheet: AI Job Application Tracker",
+    "title_de": "SyncSheet: KI-Bewerbungs-Tracker",
+    "image": "assets/images/Dashboard.png",
+    "images": [
+      "assets/images/home.png",
+      "assets/images/Dashboard.png",
+      "assets/images/Bewerbungs-tracker.png",
+      "assets/images/job-suche1.png",
+      "assets/images/cv-maker.png"
+    ],
+    "status": "completed",
+    "link": "https://github.com/majdAlmotaem/Job_Application_Tracker",
+    "githubLink": "https://github.com/majdAlmotaem/Job_Application_Tracker",
+    "techStack": [
+      {
+        "name": "Python",
+        "iconClass": "fa-brands fa-python"
+      },
+      {
+        "name": "FastAPI",
+        "iconClass": "fa-solid fa-bolt"
+      },
+      {
+        "name": "Gemini AI",
+        "iconClass": "fa-solid fa-brain"
+      },
+      {
+        "name": "React",
+        "iconClass": "fa-brands fa-react"
+      },
+      {
+        "name": "TypeScript",
+        "iconClass": "fa-solid fa-code"
+      },
+      {
+        "name": "SQLite",
+        "iconClass": "fa-solid fa-database"
+      }
+    ],
+    "newTechLearned_en": [
+      "Automated Gmail Data Extraction (~90% time saved)",
+      "LLM Grounding & Live Job Search Integration",
+      "FastAPI REST Architecture with Async Handlers",
+      "Smart DB Reconciliation for AI Stream Results"
+    ],
+    "newTechLearned_de": [
+      "Automatisierte Gmail-Datenextraktion (~90% Zeitersparnis)",
+      "LLM Grounding & Live-Jobsuche-Integration",
+      "FastAPI REST-Architektur mit Async-Handlern",
+      "Intelligente DB-Reconciliation für KI-Ergebnisse"
+    ],
+    "description_en": "An AI-powered full-stack career platform automating job searches, extracting application statuses from unstructured Gmail messages, and cutting manual tracking effort by ~90%. Built with Python, FastAPI, React, TypeScript, and Gemini API.",
+    "description_de": "Eine KI-gestützte Full-Stack Plattform zur Automatisierung der Jobsuche und Extraktion von Bewerbungsdaten aus unstrukturierten Gmail-E-Mails, die den manuellen Tracking-Aufwand um ~90% reduziert. Entwickelt mit Python, FastAPI, React, TypeScript und der Gemini API.",
+    "problem_en": "Managing job applications across dozens of portals and confirmation emails is chaotic. Job seekers waste hours manually tracking statuses in spreadsheets, copying fragmented email updates, and wrestling with formatting for tailored CVs.",
+    "problem_de": "Die Verwaltung von Bewerbungen über Dutzende Portale und Bestätigungs-Mails ist chaotisch. Bewerber verschwenden Stunden damit, Stati in Tabellen zu pflegen, unstrukturierte E-Mails abzutippen und Lebensläufe mühsam zu formatieren.",
+    "solution_en": "Engineered a centralized system featuring an AI pipeline that extracts unstructured email confirmations directly via Gmail API into database records (saving ~90% manual entry). Includes real-time job board search with AI match evaluation, dynamic Kanban tracking, and a split-screen CV builder with live PDF generation.",
+    "solution_de": "Entwicklung eines zentralen Systems mit einer KI-Pipeline, die unstrukturierte E-Mail-Bestätigungen via Gmail API vollautomatisch in relationale Datensätze überführt (~90% weniger manueller Aufwand). Ergänzt durch KI-gestützte Jobsuche mit Match-Score, Kanban-Board und Split-Screen CV-Maker mit Live-PDF-Export.",
+    "lessonsLearned_en": "Mastered production LLM integration (Gemini API grounding with search), engineered resilient data reconciliation to merge live AI streaming data with local SQLite records, and built modular async FastAPI services paired with typed React components.",
+    "lessonsLearned_de": "Vertiefte Einblicke in produktive LLM-Integration (Gemini API Grounding mit Suche), Entwicklung robuster Daten-Reconciliation zur Verschmelzung von KI-Streams mit SQLite-Daten sowie modulare async FastAPI-Services im Zusammenspiel mit getypten React-Komponenten."
+  },
+  {
+    "id": 11,
+    "title_en": "AI Invoice Automation Pipeline",
+    "title_de": "KI-Rechnungsautomatisierungs-Pipeline",
+    "image": "assets/images/n8n-rechnung-workflow.jpeg",
+    "images": [
+      "assets/images/n8n-rechnung-workflow.jpeg"
+    ],
+    "status": "completed",
+    "link": "blog-details.html?id=18",
+    "githubLink": "https://github.com/majdAlmotaem",
+    "techStack": [
+      {
+        "name": "n8n",
+        "iconClass": "fa-solid fa-robot"
+      },
+      {
+        "name": "Ollama (Local LLM)",
+        "iconClass": "fa-solid fa-brain"
+      },
+      {
+        "name": "Python",
+        "iconClass": "fa-brands fa-python"
+      },
+      {
+        "name": "Data Privacy & GDPR",
+        "iconClass": "fa-solid fa-shield-halved"
+      },
+      {
+        "name": "Human-in-the-Loop",
+        "iconClass": "fa-solid fa-user-check"
+      }
+    ],
+    "newTechLearned_en": [
+      "Local LLM Orchestration (Ollama)",
+      "Human-in-the-Loop Validation Gates",
+      "Privacy-by-Design Financial Ingestion",
+      "Automated Exception & Escalation Routing"
+    ],
+    "newTechLearned_de": [
+      "Lokale LLM-Orchestrierung (Ollama)",
+      "Human-in-the-Loop Freigabe-Gates",
+      "DSGVO-konforme Rechnungs-Extraktion",
+      "Automatisches Exception- & Eskalations-Routing"
+    ],
+    "description_en": "A privacy-first, on-premise automated invoice pipeline combining n8n and local Ollama LLMs with a Human-in-the-Loop approval gate to extract and reconcile financial data securely.",
+    "description_de": "Eine datenschutzorientierte On-Premise Automatisierungs-Pipeline für Eingangsrechnungen mit n8n, lokalem Ollama LLM und Human-in-the-Loop Freigabe zur sicheren Extraktion und Verbuchung.",
+    "problem_en": "Manual invoice entry is time-consuming and error-prone, but sending sensitive corporate financial records to external third-party cloud AI APIs poses severe GDPR and confidentiality risks.",
+    "problem_de": "Manuelle Rechnungserfassung bindet wertvolle Arbeitszeit und birgt Übertragungsfehler. Das Weiterleiten vertraulicher Firmendaten an externe Cloud-KI-Dienste erzeugt jedoch erhebliche DSGVO- und Sicherheitsrisiken.",
+    "solution_en": "Engineered a 100% on-premise automated pipeline: n8n ingests incoming emails, triggers a local Ollama model to extract structured invoice line items without external data leakage, pauses for a 1-click human verification checkpoint, and automatically records validated data to internal databases while sending confirmations.",
+    "solution_de": "Entwicklung einer 100% On-Premise Pipeline: n8n überwacht Eingangs-Mails, extrahiert über ein lokales Ollama-Modell strukturierte Rechnungsdaten ohne Datenabfluss nach außen, pausiert für ein 1-Klick-Freigabegate durch Mitarbeiter und verbucht die Daten anschließend automatisiert in internen Tabellen.",
+    "lessonsLearned_en": "Demonstrated how modern enterprise workflow automation can marry state-of-the-art AI intelligence with strict GDPR compliance and zero external API dependencies through edge/local models.",
+    "lessonsLearned_de": "Praktischer Nachweis, wie moderne Unternehmens-Automatisierung modernste KI-Funktionalität mit strikter DSGVO-Compliance und null externen API-Abhängigkeiten durch lokale Open-Source-Modelle verbindet."
+  },
+  {
     "id": 10,
     "title_en": "GymSec IAM",
     "title_de": "GymSec IAM",
@@ -72,76 +188,38 @@
     "githubLink": "https://chromewebstore.google.com/detail/cejjojbnkiignlpcoenjmkgapimpakha?utm_source=item-share-cb",
     "techStack": [
       {
-        "name": "js",
+        "name": "JavaScript",
         "iconClass": "fa-brands fa-js"
       },
       {
-        "name": "html",
+        "name": "Chrome Extension API",
+        "iconClass": "fa-brands fa-chrome"
+      },
+      {
+        "name": "HTML5 / CSS3",
         "iconClass": "fa-brands fa-html5"
-      },
-      {
-        "name": "css",
-        "iconClass": "fa-brands fa-css3-alt"
       }
     ],
-    "newTechLearned_en": [],
-    "newTechLearned_de": [],
-    "description_en": "Right-click. Save. Keep working. The fastest way to save text from any webpage without breaking your focus.",
-    "description_de": "Right-click. Save. Keep working. The fastest way to save text from any webpage without breaking your focus.",
-    "problem_en": "Ever find yourself reading an article, coding, or researching, and you stumble upon a piece of text you want to remember? Opening a new tab, loading a full note-taking app, and pasting it in is a massive distraction. By the time you get back to what you were doing, your flow is gone.\n\nFocusNote solves this.\n\nBuilt for developers, researchers, and anyone who needs to stay in the zone, FocusNote lets you save text snippets instantly without ever leaving your current page.",
-    "problem_de": "Ever find yourself reading an article, coding, or researching, and you stumble upon a piece of text you want to remember? Opening a new tab, loading a full note-taking app, and pasting it in is a massive distraction. By the time you get back to what you were doing, your flow is gone.\n\nFocusNote solves this.\n\nBuilt for developers, researchers, and anyone who needs to stay in the zone, FocusNote lets you save text snippets instantly without ever leaving your current page.",
-    "solution_en": "Key Features:\n\nZero Distractions: Simply highlight any text, right-click, and select \"Save as Note\". No popups, no new tabs, no lost focus.\n\nElegant Side Panel: View, edit, and manage all your saved notes in a beautifully designed, minimalist interface right next to your active tab.\n\nCross-Device Sync: Your notes automatically sync across any device where you are logged into your Chrome profile.\n\nSmart Storage Management: Built-in safeguards let you know when you are nearing Chrome's storage limits so you can easily clear out old notes.",
-    "solution_de": "Key Features:\n\nZero Distractions: Simply highlight any text, right-click, and select \"Save as Note\". No popups, no new tabs, no lost focus.\n\nElegant Side Panel: View, edit, and manage all your saved notes in a beautifully designed, minimalist interface right next to your active tab.\n\nCross-Device Sync: Your notes automatically sync across any device where you are logged into your Chrome profile.\n\nSmart Storage Management: Built-in safeguards let you know when you are nearing Chrome's storage limits so you can easily clear out old notes.",
-    "lessonsLearned_en": "",
-    "lessonsLearned_de": ""
-  },
-  {
-    "id": 8,
-    "title_en": "Job Application Tracker",
-    "title_de": "Job Application Tracker",
-    "image": "assets/images/Dashboard.png",
-    "images": [
-      "assets/images/home.png",
-      "assets/images/Dashboard.png",
-      "assets/images/Bewerbungs-tracker.png",
-      "assets/images/job-suche1.png",
-      "assets/images/cv-maker.png"
+    "newTechLearned_en": [
+      "Chrome Extension Manifest V3 Architecture",
+      "Side Panel API & Context Menu Integration",
+      "Cross-Device Sync with Chrome Storage API",
+      "Storage Quota Monitoring & Safeguards"
     ],
-    "status": "completed",
-    "link": "https://github.com/majdAlmotaem/Job_Application_Tracker",
-    "githubLink": "https://github.com/majdAlmotaem/Job_Application_Tracker",
-    "techStack": [
-      {
-        "name": "python",
-        "iconClass": "fa-brands fa-python"
-      },
-      {
-        "name": "react",
-        "iconClass": "fa-brands fa-react"
-      },
-      {
-        "name": "SQLite ",
-        "iconClass": "fa-solid fa-database"
-      },
-      {
-        "name": "FastAPI",
-        "iconClass": "fa-solid fa-code"
-      },
-      {
-        "name": "Gemini AI",
-        "iconClass": "fa-solid fa-code"
-      }
+    "newTechLearned_de": [
+      "Chrome Extension Manifest V3 Architektur",
+      "Side Panel API & Kontextmenü-Integration",
+      "Geräteübergreifende Synchronisation via Chrome Storage",
+      "Speicherlimit-Überwachung & Sicherheits-Puffer"
     ],
-    "newTechLearned_en": [],
-    "newTechLearned_de": [],
-    "description_en": "An AI-powered career platform to automate job searches, track application statuses, and generate professional CVs with a live preview. Built with React, Python, and the Gemini API.",
-    "description_de": "Eine KI-gestützte Plattform zur Automatisierung der Jobsuche, Verwaltung von Bewerbungen und Erstellung professioneller Lebensläufe mit Live-Vorschau. Entwickelt mit React, Python und der Gemini API.",
-    "problem_en": "Managing job applications across multiple platforms is chaotic. Job seekers waste hours manually searching for suitable roles, tracking statuses in messy spreadsheets, and struggling with complex formatting when tailoring their CVs.",
-    "problem_de": "Die Verwaltung von Bewerbungen über verschiedene Portale hinweg ist oft unübersichtlich. Bewerber verschwenden Stunden damit, manuell nach Stellen zu suchen, den Status in Tabellen zu tracken und ihre Lebensläufe mühsam zu formatieren.",
-    "solution_en": "Developed a centralized full-stack application featuring an AI agent that actively searches premium job boards and evaluates matches in real-time. It includes a smart application tracker and a split-screen CV builder with direct PDF export.",
-    "solution_de": "Entwicklung einer Fullstack-Anwendung mit einem integrierten KI-Agenten, der Premium-Jobbörsen in Echtzeit durchsucht und die Passgenauigkeit bewertet. Die App bietet zudem einen Bewerbungs-Tracker und einen Split-Screen CV-Maker mit PDF-Export.",
-    "lessonsLearned_en": "Mastered AI API integration (LLM grounding with live search), built complex React state management for dynamic UI updates, and engineered smart data reconciliation to seamlessly merge live AI results with persistent database records.",
-    "lessonsLearned_de": "Tiefe Einblicke in die KI-API-Integration (LLM Grounding mit Live-Suche), Aufbau von komplexem React-State-Management und Entwicklung intelligenter Daten-Reconciliation, um Live-KI-Ergebnisse nahtlos mit der lokalen Datenbank zu verschmelzen."
+    "description_en": "Right-click. Save. Keep working. The fastest way to save text from any webpage without breaking your focus, published live on the official Chrome Web Store.",
+    "description_de": "Rechtsklick. Speichern. Im Fokus bleiben. Der schnellste Weg, Textpassagen von Webseiten zu sichern, ohne den Arbeitsfluss zu unterbrechen. Offiziell im Chrome Web Store veröffentlicht.",
+    "problem_en": "Reading technical documentation, coding, or conducting research often requires noting down snippets. Opening a separate note-taking application or tab causes context switching and destroys productivity.",
+    "problem_de": "Beim Lesen von Dokumentationen, Programmieren oder Recherchieren muss man oft wichtige Textstellen sichern. Das ständige Wechseln in separate Notiz-Apps oder Tabs erzeugt Ablenkung und unterbricht den Flow.",
+    "solution_en": "Engineered a minimalist Chrome extension utilizing Manifest V3: users highlight text, right-click, and hit 'Save as Note'. Notes are instantly available in a non-intrusive side panel, synced across devices via Chrome Storage, with built-in storage quota warnings.",
+    "solution_de": "Entwicklung einer schlanken Chrome-Erweiterung auf Basis von Manifest V3: Text markieren, Rechtsklick und 'Als Notiz speichern'. Notizen stehen sofort in einem minimalistischen Side Panel bereit, synchronisieren sich geräteübergreifend und bieten integrierte Speicher-Warnungen.",
+    "lessonsLearned_en": "Mastered Chrome Manifest V3 service workers, context menu handlers, side panel communication, and end-to-end publishing lifecycle to the Google Chrome Web Store.",
+    "lessonsLearned_de": "Vertiefte Kenntnisse in Chrome Manifest V3 Service Workern, Kontextmenü-Handlern, Side-Panel-Kommunikation und dem gesamten Veröffentlichungs- und Review-Prozess im Chrome Web Store."
   },
   {
     "id": 3,

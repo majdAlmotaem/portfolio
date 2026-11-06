@@ -156,7 +156,7 @@ export function initTerminal(portfolioData, getLang) {
                 const lang = getLang();
                 const profile = portfolioData.profile || {};
                 const name = profile.name || 'Majd Almotaem';
-                const title = profile[lang]?.title || 'Fullstack Developer';
+                const title = profile[lang]?.title || (lang === 'de' ? 'Softwareentwickler' : 'Software Developer');
                 const motto = profile[lang]?.motto || '';
 
                 return `

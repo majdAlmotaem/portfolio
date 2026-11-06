@@ -184,10 +184,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             en: 'Majd <span class="highlight">Almotaem</span>',
             de: 'Majd <span class="highlight">Almotaem</span>'
         },
-        hero_title: { en: "Fullstack Developer", de: "Fullstack-Entwickler" },
+        hero_title: { en: "", de: "" },
         hero_motto: {
-            en: "I build backend solutions and Python-based automations using SQL, JavaScript, cloud technologies and modern AI tools. I focus on clean code, structured problem-solving and continuous learning.",
-            de: "Ich entwickle Backend-Lösungen und Python-basierte Automatisierungen mit SQL, JavaScript, Cloud-Technologien und modernen KI-Tools. Mein Fokus liegt auf sauberem Code, strukturiertem Problemlösen und kontinuierlicher Weiterentwicklung."
+            en: "Software Developer specializing in Python backends, AI-driven workflow automation, and intelligent agents. I combine clean software architecture (FastAPI, SQL, AWS) with LLMs and RPA (n8n, UiPath, Ollama) to build privacy-first systems that eliminate manual work.",
+            de: "Softwareentwickler mit Fokus auf Python-Backends, KI-gestützte Prozessautomatisierung und intelligente Agenten. Ich verbinde saubere Softwarearchitektur (FastAPI, SQL, AWS) mit LLMs und RPA (n8n, UiPath, Ollama), um datenschutzkonforme Systeme zu bauen, die manuelle Prozesse messbar reduzieren."
         },
         hero_btn_explore: { en: "Explore My Work", de: "Projekte ansehen" },
         hero_btn_resume: { en: "Download Resume", de: "Lebenslauf" },

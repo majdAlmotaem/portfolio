@@ -561,7 +561,7 @@ function renderForm(idx, projects, container, showToast) {
                 updatedProjects.push(newProjectObj);
             }
 
-            const projectOrder = [7, 1, 2, 3];
+            const projectOrder = [8, 11, 10, 9, 3, 2, 1];
             const compiledData = updatedProjects.map(p => p.data);
             compiledData.sort((a, b) => {
                 const idxA = projectOrder.indexOf(a.id);

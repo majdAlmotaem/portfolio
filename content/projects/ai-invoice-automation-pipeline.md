@@ -1,0 +1,40 @@
+---
+id: 11
+title_en: "AI Invoice Automation Pipeline"
+title_de: "KI-Rechnungsautomatisierungs-Pipeline"
+image: "assets/images/n8n-rechnung-workflow.jpeg"
+images:
+  - "assets/images/n8n-rechnung-workflow.jpeg"
+status: "completed"
+link: "blog-details.html?id=18"
+githubLink: "https://github.com/majdAlmotaem"
+techStack:
+  - name: "n8n"
+    iconClass: "fa-solid fa-robot"
+  - name: "Ollama (Local LLM)"
+    iconClass: "fa-solid fa-brain"
+  - name: "Python"
+    iconClass: "fa-brands fa-python"
+  - name: "Data Privacy & GDPR"
+    iconClass: "fa-solid fa-shield-halved"
+  - name: "Human-in-the-Loop"
+    iconClass: "fa-solid fa-user-check"
+newTechLearned_en:
+  - "Local LLM Orchestration (Ollama)"
+  - "Human-in-the-Loop Validation Gates"
+  - "Privacy-by-Design Financial Ingestion"
+  - "Automated Exception & Escalation Routing"
+newTechLearned_de:
+  - "Lokale LLM-Orchestrierung (Ollama)"
+  - "Human-in-the-Loop Freigabe-Gates"
+  - "DSGVO-konforme Rechnungs-Extraktion"
+  - "Automatisches Exception- & Eskalations-Routing"
+description_en: "A privacy-first, on-premise automated invoice pipeline combining n8n and local Ollama LLMs with a Human-in-the-Loop approval gate to extract and reconcile financial data securely."
+description_de: "Eine datenschutzorientierte On-Premise Automatisierungs-Pipeline für Eingangsrechnungen mit n8n, lokalem Ollama LLM und Human-in-the-Loop Freigabe zur sicheren Extraktion und Verbuchung."
+problem_en: "Manual invoice entry is time-consuming and error-prone, but sending sensitive corporate financial records to external third-party cloud AI APIs poses severe GDPR and confidentiality risks."
+problem_de: "Manuelle Rechnungserfassung bindet wertvolle Arbeitszeit und birgt Übertragungsfehler. Das Weiterleiten vertraulicher Firmendaten an externe Cloud-KI-Dienste erzeugt jedoch erhebliche DSGVO- und Sicherheitsrisiken."
+solution_en: "Engineered a 100% on-premise automated pipeline: n8n ingests incoming emails, triggers a local Ollama model to extract structured invoice line items without external data leakage, pauses for a 1-click human verification checkpoint, and automatically records validated data to internal databases while sending confirmations."
+solution_de: "Entwicklung einer 100% On-Premise Pipeline: n8n überwacht Eingangs-Mails, extrahiert über ein lokales Ollama-Modell strukturierte Rechnungsdaten ohne Datenabfluss nach außen, pausiert für ein 1-Klick-Freigabegate durch Mitarbeiter und verbucht die Daten anschließend automatisiert in internen Tabellen."
+lessonsLearned_en: "Demonstrated how modern enterprise workflow automation can marry state-of-the-art AI intelligence with strict GDPR compliance and zero external API dependencies through edge/local models."
+lessonsLearned_de: "Praktischer Nachweis, wie moderne Unternehmens-Automatisierung modernste KI-Funktionalität mit strikter DSGVO-Compliance und null externen API-Abhängigkeiten durch lokale Open-Source-Modelle verbindet."
+---
