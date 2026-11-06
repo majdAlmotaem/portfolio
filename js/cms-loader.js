@@ -22,6 +22,7 @@ const FALLBACK_PROJECT_FILES = [
 ];
 
 const FALLBACK_BLOG_FILES = [
+    'ki-startup-festival-2026-duisburg.md',
     'n8n-ollama-invoice-automation.md',
     'focusnote-chrome-extension.md',
     'privacy-by-default-data-protection.md',

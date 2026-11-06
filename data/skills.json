@@ -8,6 +8,10 @@
           "iconClass": "fa-brands fa-python"
         },
         {
+          "name": "TypeScript",
+          "iconClass": "fa-solid fa-code"
+        },
+        {
           "name": "JavaScript",
           "iconClass": "fa-brands fa-js"
         },
@@ -16,45 +20,95 @@
           "iconClass": "fa-solid fa-database"
         },
         {
-          "name": "HTML/CSS",
+          "name": "HTML5 / CSS3",
           "iconClass": "fa-brands fa-html5"
+        },
+        {
+          "name": "Bash / Shell",
+          "iconClass": "fa-solid fa-terminal"
         }
       ]
     },
     {
-      "category": "Web & Frameworks",
+      "category": "Backend & Web Frameworks",
       "items": [
         {
-          "name": "Vue.js",
-          "iconClass": "fa-brands fa-vuejs"
+          "name": "FastAPI",
+          "iconClass": "fa-solid fa-bolt"
+        },
+        {
+          "name": "REST APIs",
+          "iconClass": "fa-solid fa-network-wired"
         },
         {
           "name": "React",
           "iconClass": "fa-brands fa-react"
         },
         {
-          "name": "WordPress",
-          "iconClass": "fa-brands fa-wordpress"
+          "name": "Vue.js",
+          "iconClass": "fa-brands fa-vuejs"
         },
         {
-          "name": "MVC",
-          "iconClass": "fa-solid fa-layer-group"
+          "name": "Node.js",
+          "iconClass": "fa-brands fa-node-js"
         },
         {
-          "name": "Design Pattern",
+          "name": "Design Patterns",
           "iconClass": "fa-solid fa-diagram-project"
-        },
-        {
-          "name": "REST APIs",
-          "iconClass": "fa-solid fa-network-wired"
         }
       ]
     },
     {
-      "category": "Cloud & Infrastructure",
+      "category": "Databases & Data Pipelines",
       "items": [
         {
-          "name": "AWS-SAA",
+          "name": "PostgreSQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "SQLite",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "MySQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "Schema & Query Optimization",
+          "iconClass": "fa-solid fa-chart-line"
+        }
+      ]
+    },
+    {
+      "category": "AI & Intelligent Automation",
+      "items": [
+        {
+          "name": "LLM APIs & Gemini API",
+          "iconClass": "fa-solid fa-brain"
+        },
+        {
+          "name": "Multi-Agent Workflows",
+          "iconClass": "fa-solid fa-diagram-project"
+        },
+        {
+          "name": "n8n Workflow Automation",
+          "iconClass": "fa-solid fa-robot"
+        },
+        {
+          "name": "UiPath (RPA)",
+          "iconClass": "fa-solid fa-robot"
+        },
+        {
+          "name": "Prompt Engineering",
+          "iconClass": "fa-solid fa-comment-dots"
+        }
+      ]
+    },
+    {
+      "category": "Cloud, DevOps & Systems",
+      "items": [
+        {
+          "name": "AWS (Solutions Architect Assoc.)",
           "iconClass": "fa-brands fa-aws"
         },
         {
@@ -62,49 +116,52 @@
           "iconClass": "fa-brands fa-docker"
         },
         {
-          "name": "Linux",
+          "name": "Linux (Daily Driver)",
           "iconClass": "fa-brands fa-linux"
+        },
+        {
+          "name": "Git & GitHub Actions",
+          "iconClass": "fa-brands fa-github"
+        },
+        {
+          "name": "pytest & Automated Testing",
+          "iconClass": "fa-solid fa-vial"
         }
       ]
     },
     {
-      "category": "AI & Automation",
+      "category": "Methodologies & Collaboration",
       "items": [
         {
-          "name": "Prompt Engineering",
-          "iconClass": "fa-solid fa-brain"
-        },
-        {
-          "name": "Claude",
-          "iconClass": "fa-solid fa-comment-dots"
-        },
-        {
-          "name": "n8n",
-          "iconClass": "fa-solid fa-robot"
-        }
-      ]
-    },
-    {
-      "category": "Project Management & Tools",
-      "items": [
-        {
-          "name": "Scrum / Agile",
+          "name": "Scrum & Agile Sprints",
           "iconClass": "fa-solid fa-users"
         },
         {
-          "name": "Git & GitHub",
-          "iconClass": "fa-brands fa-github"
+          "name": "Code Reviews",
+          "iconClass": "fa-solid fa-code-pull-request"
+        },
+        {
+          "name": "Clean Code & Refactoring",
+          "iconClass": "fa-solid fa-broom"
+        },
+        {
+          "name": "Technical Mentoring & IT Tutoring",
+          "iconClass": "fa-solid fa-chalkboard-user"
         }
       ]
     }
   ],
   "de": [
     {
-      "category": "Programming Languages",
+      "category": "Programmiersprachen",
       "items": [
         {
           "name": "Python",
           "iconClass": "fa-brands fa-python"
+        },
+        {
+          "name": "TypeScript",
+          "iconClass": "fa-solid fa-code"
         },
         {
           "name": "JavaScript",
@@ -115,45 +172,95 @@
           "iconClass": "fa-solid fa-database"
         },
         {
-          "name": "HTML/CSS",
+          "name": "HTML5 / CSS3",
           "iconClass": "fa-brands fa-html5"
+        },
+        {
+          "name": "Bash / Shell",
+          "iconClass": "fa-solid fa-terminal"
         }
       ]
     },
     {
-      "category": "Web & Frameworks",
+      "category": "Backend & Web-Frameworks",
       "items": [
         {
-          "name": "Vue.js",
-          "iconClass": "fa-brands fa-vuejs"
+          "name": "FastAPI",
+          "iconClass": "fa-solid fa-bolt"
+        },
+        {
+          "name": "REST APIs",
+          "iconClass": "fa-solid fa-network-wired"
         },
         {
           "name": "React",
           "iconClass": "fa-brands fa-react"
         },
         {
-          "name": "WordPress",
-          "iconClass": "fa-brands fa-wordpress"
+          "name": "Vue.js",
+          "iconClass": "fa-brands fa-vuejs"
         },
         {
-          "name": "MVC",
-          "iconClass": "fa-solid fa-layer-group"
+          "name": "Node.js",
+          "iconClass": "fa-brands fa-node-js"
         },
         {
-          "name": "Design Pattern",
+          "name": "Design Patterns",
           "iconClass": "fa-solid fa-diagram-project"
-        },
-        {
-          "name": "REST APIs",
-          "iconClass": "fa-solid fa-network-wired"
         }
       ]
     },
     {
-      "category": "Cloud & Infrastructure",
+      "category": "Datenbanken & Daten-Pipelines",
       "items": [
         {
-          "name": "AWS-SAA",
+          "name": "PostgreSQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "SQLite",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "MySQL",
+          "iconClass": "fa-solid fa-database"
+        },
+        {
+          "name": "Schema & Query-Optimierung",
+          "iconClass": "fa-solid fa-chart-line"
+        }
+      ]
+    },
+    {
+      "category": "KI & Intelligente Automatisierung",
+      "items": [
+        {
+          "name": "LLM APIs & Gemini API",
+          "iconClass": "fa-solid fa-brain"
+        },
+        {
+          "name": "Multi-Agenten-Workflows",
+          "iconClass": "fa-solid fa-diagram-project"
+        },
+        {
+          "name": "n8n Workflow-Automatisierung",
+          "iconClass": "fa-solid fa-robot"
+        },
+        {
+          "name": "UiPath (RPA)",
+          "iconClass": "fa-solid fa-robot"
+        },
+        {
+          "name": "Prompt Engineering",
+          "iconClass": "fa-solid fa-comment-dots"
+        }
+      ]
+    },
+    {
+      "category": "Cloud, DevOps & Systeme",
+      "items": [
+        {
+          "name": "AWS (Solutions Architect Assoc.)",
           "iconClass": "fa-brands fa-aws"
         },
         {
@@ -161,38 +268,37 @@
           "iconClass": "fa-brands fa-docker"
         },
         {
-          "name": "Linux",
+          "name": "Linux (Hauptsystem)",
           "iconClass": "fa-brands fa-linux"
+        },
+        {
+          "name": "Git & GitHub Actions",
+          "iconClass": "fa-brands fa-github"
+        },
+        {
+          "name": "pytest & Automatisierte Tests",
+          "iconClass": "fa-solid fa-vial"
         }
       ]
     },
     {
-      "category": "AI & Automation",
+      "category": "Methoden & Zusammenarbeit",
       "items": [
         {
-          "name": "Prompt Engineering",
-          "iconClass": "fa-solid fa-brain"
-        },
-        {
-          "name": "Claude",
-          "iconClass": "fa-solid fa-comment-dots"
-        },
-        {
-          "name": "n8n",
-          "iconClass": "fa-solid fa-robot"
-        }
-      ]
-    },
-    {
-      "category": "Project Management & Tools",
-      "items": [
-        {
-          "name": "Scrum / Agile",
+          "name": "Scrum & Agile Sprints",
           "iconClass": "fa-solid fa-users"
         },
         {
-          "name": "Git & GitHub",
-          "iconClass": "fa-brands fa-github"
+          "name": "Code Reviews",
+          "iconClass": "fa-solid fa-code-pull-request"
+        },
+        {
+          "name": "Clean Code & Refactoring",
+          "iconClass": "fa-solid fa-broom"
+        },
+        {
+          "name": "Technisches Mentoring & IT-Nachhilfe",
+          "iconClass": "fa-solid fa-chalkboard-user"
         }
       ]
     }
