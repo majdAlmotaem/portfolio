@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const translations = {
         nav_home: { en: "Home", de: "Startseite" },
         nav_projects: { en: "Projects", de: "Projekte" },
+        nav_experience: { en: "Experience", de: "Erfahrung" },
         nav_skills: { en: "Skills", de: "Skills" },
         nav_certs: { en: "Certificates", de: "Zertifikate" },
         nav_blog: { en: "Blog", de: "Blog" },
@@ -203,6 +204,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             en: "Stay tuned for more exciting projects and experiments!",
             de: "Bleib gespannt auf weitere spannende Projekte und Experimente!"
         },
+        experience_title: { en: "Work Experience", de: "Berufserfahrung" },
+        timeline_filter_all: { en: "All Stations", de: "Alle Stationen" },
+        timeline_filter_work: { en: "Work Experience", de: "Berufserfahrung" },
+        timeline_filter_edu: { en: "Education", de: "Ausbildung" },
         skills_title: { en: "Tech Stack & Skills", de: "Tech Stack & Fähigkeiten" },
         skills_footer: {
             en: '<i class="fa-solid fa-infinity" style="color: var(--primary-color); margin-right: 0.5rem;"></i> I\'m always ready to learn more and more....',
@@ -355,6 +360,77 @@ document.addEventListener('DOMContentLoaded', async () => {
             projectsExpanded = !projectsExpanded;
             renderProjects();
         });
+    }
+
+    // Work Experience Timeline Visualization
+    const experienceContainer = document.getElementById('experience-container');
+
+    function renderExperience() {
+        if (!experienceContainer) return;
+        const experienceList = portfolioData[currentLang].experience || [];
+
+        if (experienceList.length === 0) {
+            experienceContainer.innerHTML = `
+                <div class="glass-card" style="padding: 2.5rem; text-align: center; color: var(--text-muted);">
+                    <i class="fa-solid fa-briefcase" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p>No experience entries found.</p>
+                </div>
+            `;
+            return;
+        }
+
+        let timelineHTML = '';
+        experienceList.forEach((item, index) => {
+            const isCurrent = item.current;
+            const techBadges = (item.tech || []).map(tech => 
+                `<span class="tech-badge" style="--badge-hue: ${getHue(tech)};">${tech}</span>`
+            ).join('');
+
+            const highlightsHTML = (item.highlights && item.highlights.length > 0)
+                ? `<ul class="timeline-highlights">
+                    ${item.highlights.map(h => `<li><i class="fa-solid fa-angle-right"></i><span>${h}</span></li>`).join('')}
+                   </ul>`
+                : '';
+
+            timelineHTML += `
+                <div class="timeline-item ${isCurrent ? 'is-current' : ''}" style="--item-index: ${index};">
+                    <div class="timeline-date-col">
+                        <div class="timeline-date-badge">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span class="timeline-date-text">${item.period}</span>
+                        </div>
+                        ${isCurrent ? `<span class="timeline-current-pill"><span class="pulse-dot"></span>${item.badge || (currentLang === 'de' ? 'Aktuell' : 'Current')}</span>` : ''}
+                    </div>
+                    <div class="timeline-marker">
+                        <div class="timeline-node">
+                            <i class="${item.iconClass || 'fa-solid fa-briefcase'}"></i>
+                        </div>
+                        ${isCurrent ? '<span class="pulse-ring"></span>' : ''}
+                    </div>
+                    <div class="timeline-card glass-card">
+                        <div class="timeline-card-header">
+                            <div class="timeline-title-wrap">
+                                <h3 class="timeline-role">${item.role}</h3>
+                                <div class="timeline-company-row">
+                                    <span class="timeline-company"><i class="fa-solid fa-building"></i> ${item.company}</span>
+                                    <span class="timeline-dot">•</span>
+                                    <span class="timeline-location"><i class="fa-solid fa-location-dot"></i> ${item.location}</span>
+                                    ${item.type ? `<span class="timeline-dot">•</span><span class="timeline-type">${item.type}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="timeline-badges-wrap">
+                                ${(!isCurrent && item.badge) ? `<span class="timeline-status-badge">${item.badge}</span>` : ''}
+                            </div>
+                        </div>
+                        <p class="timeline-desc">${item.description}</p>
+                        ${highlightsHTML}
+                        ${techBadges ? `<div class="timeline-tech">${techBadges}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+
+        experienceContainer.innerHTML = timelineHTML;
     }
 
     // Skills Visualization: Dynamic rendering of technical expertise categories
@@ -813,6 +889,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Re-render dynamic elements
                 renderProjects();
+                renderExperience();
                 renderSkills();
                 renderCertificates();
                 renderBlogs();
@@ -969,6 +1046,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     translateStaticUI();
     renderProjects();
+    renderExperience();
     renderSkills();
     renderCertificates();
     renderBlogs();

@@ -1,0 +1,154 @@
+[
+  {
+    "id": "cerevisor",
+    "category": "work",
+    "current": true,
+    "iconClass": "fa-solid fa-microchip",
+    "company": "Cerevisor",
+    "period_en": "Sep 2026 – Present",
+    "period_de": "Sep. 2026 – Heute",
+    "role_en": "Forward Deployed AI Engineer (Contract)",
+    "role_de": "Forward Deployed AI Engineer (Projektbasiert)",
+    "location_en": "Remote",
+    "location_de": "Remote",
+    "type_en": "Contract / Project-based",
+    "type_de": "Auftragsbasis / Projektbasiert",
+    "badge_en": "Current Role",
+    "badge_de": "Aktuelle Position",
+    "description_en": "Working on Cerevisor, a local-first AI orchestration platform that enables users to coordinate multiple AI agents, models, and tools within complex workflows.",
+    "description_de": "Mitarbeit an Cerevisor, einer lokalen KI-Orchestrierungsplattform, die es Nutzern ermöglicht, mehrere KI-Agenten, Modelle und Tools in komplexen Workflows zu koordinieren.",
+    "highlights_en": [
+      "Developing, testing, and optimizing multi-agent AI workflows, tool integrations, and orchestration capabilities.",
+      "Investigating agent execution failures, debugging API integrations, and improving workflow reliability.",
+      "Evaluating real-world use cases to identify technical limitations, usability challenges, and opportunities for improvement.",
+      "Collaborating directly with the founder to refine the platform's capabilities, user experience, and technical architecture."
+    ],
+    "highlights_de": [
+      "Entwicklung, Testen und Optimierung von Multi-Agenten-KI-Workflows, Tool-Integrationen und Orchestrierungsfunktionen.",
+      "Untersuchung von Agenten-Ausführungsfehlern, Debugging von API-Integrationen und Verbesserung der Workflow-Zuverlässigkeit.",
+      "Evaluierung realer Anwendungsfälle zur Identifizierung technischer Grenzen, Usability-Herausforderungen und Verbesserungspotenzialen.",
+      "Direkte Zusammenarbeit mit dem Gründer zur Weiterentwicklung der Plattformfunktionen, der User Experience und der technischen Architektur."
+    ],
+    "tech": ["Python", "AI Agents", "Gemini API", "Claude Code", "Multi-Agent Orchestration", "Tool Integrations", "API Debugging"]
+  },
+  {
+    "id": "backhaus-it",
+    "category": "work",
+    "current": false,
+    "iconClass": "fa-solid fa-server",
+    "company": "Christoph Backhaus IT",
+    "period_en": "Aug 2024 – Mar 2025",
+    "period_de": "Aug. 2024 – Mär. 2025",
+    "role_en": "Backend Developer Intern",
+    "role_de": "Praktikum Backend-Entwicklung",
+    "location_en": "Duisburg, Germany",
+    "location_de": "Duisburg",
+    "type_en": "Internship",
+    "type_de": "Praktikum",
+    "badge_en": "Internship",
+    "badge_de": "Praktikum",
+    "description_en": "Engineered the internal Python/SQL automation tool EasyDailyReport with automated error logging for report generation (~30% time savings). Implemented unit and integration test suites with pytest in agile Scrum sprints.",
+    "description_de": "Entwicklung des internen Python/SQL-Tools EasyDailyReport mit automatisierter Fehlerprotokollierung zur Berichterstellung (~30 % Zeitersparnis). Erstellung von Unit- und Integrationstests mit pytest im agilen Scrum-Team.",
+    "highlights_en": [
+      "Developed Python/SQL automation tool cutting manual reporting effort by ~30%",
+      "Wrote comprehensive unit and integration tests with pytest to secure production pipelines",
+      "Maintained API documentation and participated in agile sprints with regular code reviews"
+    ],
+    "highlights_de": [
+      "Entwicklung des internen Python/SQL-Tools mit ca. 30 % Zeitersparnis bei der Berichterstellung",
+      "Erstellung strukturierter Unit- und Integrationstests mit pytest zur Schnittstellenabsicherung",
+      "Pflege technischer API-Dokumentation und aktive Mitarbeit in agilen Scrum-Sprints samt Code Reviews"
+    ],
+    "tech": ["Python", "SQL", "PostgreSQL", "pytest", "Scrum / Agile", "Git"]
+  },
+  {
+    "id": "ibb-ausbildung",
+    "category": "education",
+    "current": false,
+    "iconClass": "fa-solid fa-graduation-cap",
+    "company": "Institut für Berufliche Bildung AG (IBB)",
+    "period_en": "Aug 2023 – Jan 2026",
+    "period_de": "Aug. 2023 – Jan. 2026",
+    "role_en": "IT Specialist in Application Development (IHK)",
+    "role_de": "Fachinformatiker für Anwendungsentwicklung (IHK)",
+    "location_en": "Duisburg, Germany",
+    "location_de": "Duisburg",
+    "type_en": "Vocational Degree (IHK)",
+    "type_de": "Berufsausbildung (IHK)",
+    "badge_en": "IHK Certified (Jan 2026)",
+    "badge_de": "IHK-Abschluss (Jan. 2026)",
+    "description_en": "Completed intensive vocational training covering modern software engineering, backend architecture, relational database modeling, and agile methodologies. Successfully passed the IHK examination in January 2026.",
+    "description_de": "Fundierte Berufsausbildung mit Schwerpunkten auf moderner Softwareentwicklung, Backend-Architektur, relationalen Datenbanken und agilen Entwicklungsmethoden. Erfolgreich abgeschlossen im Januar 2026.",
+    "highlights_en": [
+      "Official IHK credential as certified Fachinformatiker für Anwendungsentwicklung",
+      "Deep grounding in OOP principles, relational database design, clean code, and API architectures",
+      "Conceived and deployed practical full-stack applications and test-driven backend solutions"
+    ],
+    "highlights_de": [
+      "Staatlich anerkannter IHK-Berufsabschluss als Fachinformatiker für Anwendungsentwicklung",
+      "Vertiefung in OOP, relationales Datenbankdesign (SQL), Clean Code und API-Architekturen",
+      "Konzeption und Implementierung praxisnaher Software- und Automatisierungslösungen"
+    ],
+    "tech": ["Python", "SQL", "JavaScript", "Software Architecture", "REST APIs", "Git"]
+  },
+  {
+    "id": "heim-haus",
+    "category": "work",
+    "current": false,
+    "iconClass": "fa-solid fa-code",
+    "company": "Heim & Haus Produktion u. Vertrieb GmbH",
+    "period_en": "Mar 2023 – Jul 2023",
+    "period_de": "Mär. 2023 – Jul. 2023",
+    "role_en": "Web Developer Intern",
+    "role_de": "Praktikum als Webentwickler",
+    "location_en": "Duisburg, Germany",
+    "location_de": "Duisburg",
+    "type_en": "Internship",
+    "type_de": "Praktikum",
+    "badge_en": "Internship",
+    "badge_de": "Praktikum",
+    "description_en": "Developed responsive web applications using Vue.js, Vuetify, HTML/CSS, and PHP. Overhauled frontend components, introduced structured Git workflows to the team, and resolved UI and SQL issues via browser DevTools.",
+    "description_de": "Entwicklung responsiver Webanwendungen mit Vue.js, Vuetify, HTML/CSS und PHP. Überarbeitung von UI-Komponenten, Etablierung strukturierter Git-Workflows und Behebung von Frontend- sowie SQL-Fehlern über die Browser-DevTools.",
+    "highlights_en": [
+      "Engineered dynamic UI components using Vue.js, Vuetify, and modern CSS3",
+      "Introduced modern Git branching practices to standardize the frontend workflow",
+      "Investigated and resolved frontend rendering bottlenecks and SQL database queries"
+    ],
+    "highlights_de": [
+      "Entwicklung modularer UI-Komponenten mit Vue.js, Vuetify und CSS3",
+      "Einführung von Git-Workflows zur Strukturierung der Teamarbeit im Frontend",
+      "Fehleranalyse und Behebung von Darstellungsproblemen und SQL-Abfragen"
+    ],
+    "tech": ["Vue.js", "Vuetify", "JavaScript", "PHP", "SQL", "Git", "HTML5 / CSS3"]
+  },
+  {
+    "id": "as-kunststoffprofile",
+    "category": "work",
+    "current": false,
+    "iconClass": "fa-solid fa-industry",
+    "company": "AS Kunststoffprofile GmbH",
+    "period_en": "Jan 2021 – Dec 2022",
+    "period_de": "Jan. 2021 – Dez. 2022",
+    "role_en": "Machine and Plant Operator",
+    "role_de": "Maschinen- und Anlagenführer",
+    "location_en": "Oberhausen, Germany",
+    "location_de": "Oberhausen",
+    "type_en": "Full-time",
+    "type_de": "Vollzeit",
+    "badge_en": "Industry Experience",
+    "badge_de": "Industrieerfahrung",
+    "description_en": "Operated, monitored, and optimized industrial manufacturing machinery. Developed practical discipline in procedural workflows, systematic failure isolation, and strict quality control before pivoting into software engineering.",
+    "description_de": "Bedienung, Überwachung und Optimierung industrieller Fertigungsanlagen. Praktische Erfahrung mit getakteten Prozessabläufen, systematischer Fehleranalyse und Qualitätskontrolle vor dem Wechsel in die Softwareentwicklung.",
+    "highlights_en": [
+      "Supervised industrial automated production lines with high quality and safety standards",
+      "Performed systematic troubleshooting under time-critical manufacturing conditions",
+      "Gained hands-on process foundation that directly translates to software workflow automation"
+    ],
+    "highlights_de": [
+      "Überwachung industrieller Fertigungslinien unter strengen Qualitäts- und Sicherheitsstandards",
+      "Systematische Störungsanalyse in zeitkritischen Produktionsumgebungen",
+      "Fundiertes Prozessverständnis aus der Industrie als wertvolle Basis für heutige IT-Automatisierung"
+    ],
+    "tech": ["Process Optimization", "Quality Assurance", "Industrial Systems", "System Troubleshooting"]
+  }
+]

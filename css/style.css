@@ -497,6 +497,369 @@ section {
   text-align: center;
 }
 
+/* ─── Work Experience & Career Timeline Styles ─── */
+.timeline-container {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0.5rem 0 1rem 0;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Date Column on Left Side */
+.timeline-date-col {
+  width: 190px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-top: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.45rem;
+}
+
+.timeline-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #e5e5e5;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.timeline-date-badge i {
+  color: var(--accent-color);
+  font-size: 0.82rem;
+}
+
+.timeline-item.is-current .timeline-date-badge {
+  background: rgba(229, 169, 59, 0.1);
+  border-color: rgba(229, 169, 59, 0.3);
+  color: #f59e0b;
+}
+
+.timeline-item.is-current .timeline-date-badge i {
+  color: #f59e0b;
+}
+
+.timeline-current-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background: rgba(229, 169, 59, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(229, 169, 59, 0.35);
+  white-space: nowrap;
+}
+
+.timeline-current-pill .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
+}
+
+/* Timeline Rail & Marker Node */
+.timeline-marker {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 2;
+  align-self: stretch;
+}
+
+.timeline-marker::after {
+  content: '';
+  position: absolute;
+  top: 48px;
+  bottom: -2.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, rgba(229, 169, 59, 0.5) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.05) 100%);
+  z-index: 1;
+}
+
+.timeline-item:last-child .timeline-marker::after {
+  display: none;
+}
+
+.timeline-node {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0d0d0f;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cccccc;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.timeline-item.is-current .timeline-node {
+  border-color: #e5a93b;
+  color: #e5a93b;
+  box-shadow: 0 0 18px rgba(229, 169, 59, 0.4);
+}
+
+.timeline-marker .pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #e5a93b;
+  animation: timeline-pulse 2.2s cubic-bezier(0.25, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes timeline-pulse {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  60% { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+.timeline-card {
+  flex-grow: 1;
+  background: #0c0c0c;
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  padding: 1.6rem 1.85rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.timeline-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-item:hover .timeline-node {
+  transform: scale(1.08);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.timeline-item.is-current:hover .timeline-node {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.timeline-role {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.timeline-company-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.timeline-company {
+  color: #e5e5e5;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.timeline-company i {
+  color: #e5a93b;
+  font-size: 0.82rem;
+}
+
+.timeline-dot {
+  opacity: 0.4;
+  font-size: 0.75rem;
+}
+
+.timeline-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.timeline-type {
+  opacity: 0.85;
+}
+
+.timeline-badges-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.timeline-status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timeline-desc {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.timeline-highlights {
+  list-style: none;
+  margin: 0 0 1.25rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timeline-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: #d1d5db;
+  line-height: 1.5;
+}
+
+.timeline-highlights li i {
+  color: #e5a93b;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.timeline-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .timeline-item {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-left: 48px;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    align-self: auto;
+    height: 100%;
+  }
+
+  .timeline-node {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .timeline-marker .pulse-ring {
+    width: 36px;
+    height: 36px;
+  }
+
+  .timeline-marker::after {
+    top: 36px;
+    bottom: -2rem;
+  }
+
+  .timeline-date-col {
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    padding-top: 0.2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .timeline-card {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  .timeline-card-header {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .timeline-badges-wrap {
+    align-items: flex-start;
+  }
+}
+
 /* Technical Expertise: Skills Matrix Styles */
 .skills-table {
   display: flex;

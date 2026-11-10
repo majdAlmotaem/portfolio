@@ -245,6 +245,38 @@ export function initTerminal(portfolioData, getLang) {
             }
         },
 
+        experience: {
+            desc: {
+                en: "Show professional work experience and career timeline",
+                de: "Zeigt den beruflichen Werdegang und Meilensteine"
+            },
+            exec: () => {
+                const lang = getLang();
+                const experience = portfolioData[lang]?.experience || [];
+
+                if (experience.length === 0) {
+                    return '<div class="terminal-warning">No experience entries found.</div>';
+                }
+
+                let html = '<div style="margin-top: 0.5rem;">';
+                experience.forEach(exp => {
+                    const tech = (exp.tech || []).map(t => `<span class="cmd-pill" style="font-size: 0.75rem;">${t}</span>`).join(' ');
+                    html += `
+                        <div class="terminal-card" style="margin-bottom: 0.75rem;">
+                            <div class="terminal-card-title">
+                                <span><i class="${exp.iconClass || 'fa-solid fa-briefcase'}"></i> ${exp.role} <span style="font-weight: normal; opacity: 0.85;">@ ${exp.company}</span></span>
+                                <span class="terminal-badge">${exp.period}</span>
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.88rem; margin: 0.4rem 0;">${exp.description}</div>
+                            ${tech ? `<div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem;">${tech}</div>` : ''}
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                return html;
+            }
+        },
+
         certs: {
             desc: {
                 en: "List official qualifications and certifications",

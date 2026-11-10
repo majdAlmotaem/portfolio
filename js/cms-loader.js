@@ -138,15 +138,20 @@ export async function loadPortfolioData() {
         ? Promise.resolve(JSON.parse(changes['data/blogs.json'].content))
         : fetch(`${base}data/blogs.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading blogs.json: ", err); return []; });
 
+    const experiencePromise = (isPreview && changes['data/experience.json'] && !changes['data/experience.json'].deleted)
+        ? Promise.resolve(JSON.parse(changes['data/experience.json'].content))
+        : fetch(`${base}data/experience.json?t=${Date.now()}`).then(r => r.json()).catch(err => { console.error("Error loading experience.json: ", err); return []; });
+
     // Wait for all CDN loading and static file fetches to resolve concurrently
-    const [marked, configData, profileData, skillsData, certificatesData, projectsData, blogsData] = await Promise.all([
+    const [marked, configData, profileData, skillsData, certificatesData, projectsData, blogsData, experienceData] = await Promise.all([
         markedPromise,
         configPromise,
         profilePromise,
         skillsPromise,
         certsPromise,
         projectsPromise,
-        blogsPromise
+        blogsPromise,
+        experiencePromise
     ]);
 
     // Ensure blogs are sorted descending by ID (newest first)
@@ -212,7 +217,22 @@ export async function loadPortfolioData() {
                     images: (blog.images && blog.images.length > 0 ? blog.images : (blog.image ? [blog.image] : [])).map(img => resolvePreviewImage(img || "")),
                     tags: blog.tags_en || blog.tags || []
                 };
-            })
+            }),
+            experience: (Array.isArray(experienceData) ? experienceData : []).map(item => ({
+                id: item.id,
+                category: item.category || 'work',
+                current: !!item.current,
+                period: item.period_en || item.period || "",
+                role: item.role_en || item.role || "",
+                company: item.company || "",
+                location: item.location_en || item.location || "",
+                type: item.type_en || item.type || "",
+                badge: item.badge_en || item.badge || "",
+                iconClass: item.iconClass || "fa-solid fa-briefcase",
+                description: item.description_en || "",
+                highlights: item.highlights_en || [],
+                tech: item.tech || []
+            }))
         },
         de: {
             projects: projectsData.map(proj => ({
@@ -254,7 +274,22 @@ export async function loadPortfolioData() {
                     images: (blog.images && blog.images.length > 0 ? blog.images : (blog.image ? [blog.image] : [])).map(img => resolvePreviewImage(img || "")),
                     tags: blog.tags_de || blog.tags || []
                 };
-            })
+            }),
+            experience: (Array.isArray(experienceData) ? experienceData : []).map(item => ({
+                id: item.id,
+                category: item.category || 'work',
+                current: !!item.current,
+                period: item.period_de || item.period || "",
+                role: item.role_de || item.role || "",
+                company: item.company || "",
+                location: item.location_de || item.location || "",
+                type: item.type_de || item.type || "",
+                badge: item.badge_de || item.badge || "",
+                iconClass: item.iconClass || "fa-solid fa-briefcase",
+                description: item.description_de || "",
+                highlights: item.highlights_de || [],
+                tech: item.tech || []
+            }))
         }
     };
 
